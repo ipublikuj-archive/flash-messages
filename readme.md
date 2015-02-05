@@ -29,5 +29,5 @@ After that you have to register extension in config.neon.
 
 ```neon
 extensions:
-	visualPaginator: IPub\FlashMessages\DI\FlashMessagesExtension
+	flashMessages: IPub\FlashMessages\DI\FlashMessagesExtension
 ```
