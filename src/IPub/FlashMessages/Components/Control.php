@@ -39,9 +39,24 @@ class Control extends Application\UI\Control
 	protected $templatePath;
 
 	/**
+	 * @var FlashMessages\SessionStorage
+	 */
+	protected $sessionStorage;
+
+	/**
 	 * @var Localization\ITranslator
 	 */
 	protected $translator;
+
+	/**
+	 * @var bool
+	 */
+	protected $useTitle = FALSE;
+
+	/**
+	 * @var bool
+	 */
+	protected $useOverlay = FALSE;
 
 	/**
 	 * @param Localization\ITranslator $translator
@@ -52,14 +67,77 @@ class Control extends Application\UI\Control
 	}
 
 	/**
+	 * @param \Nette\ComponentModel\IComponent
+	 */
+	public function attached($presenter)
+	{
+		parent::attached($presenter);
+
+		$this->redrawControl();
+	}
+
+	/**
+	 * @param FlashMessages\SessionStorage $sessionStorage
+	 */
+	public function __construct(FlashMessages\SessionStorage $sessionStorage)
+	{
+		$this->sessionStorage = $sessionStorage;
+	}
+
+	/**
+	 * @return $this
+	 */
+	public function enableTitle()
+	{
+		$this->useTitle = TRUE;
+
+		return $this;
+	}
+
+	/**
+	 * @return $this
+	 */
+	public function disableTitle()
+	{
+		$this->useTitle = FALSE;
+
+		return $this;
+	}
+
+	/**
+	 * @return $this
+	 */
+	public function enableOverlay()
+	{
+		$this->useOverlay = TRUE;
+
+		return $this;
+	}
+
+	/**
+	 * @return $this
+	 */
+	public function disableOverlay()
+	{
+		$this->useOverlay = FALSE;
+
+		return $this;
+	}
+
+	/**
 	 * Render control
 	 */
 	public function render()
 	{
 		// Check if control has template
 		if ($this->template instanceof Nette\Bridges\ApplicationLatte\Template) {
-			// Assign snippets to template
-			$this->template->flashes = $this->parent->getTemplate()->flashes;
+			// Load messages from session
+			$messages = $this->sessionStorage->get(FlashMessages\SessionStorage::KEY_MESSAGES);
+
+			// Assign vars to template
+			$this->template->flashes	= $messages ? $messages : [];
+			$this->template->useTitle	= $this->useTitle;
+			$this->template->useOverlay	= $this->useOverlay;
 
 			// Check if translator is available
 			if ($this->getTranslator() instanceof Localization\ITranslator) {
@@ -69,7 +147,7 @@ class Control extends Application\UI\Control
 			// If template was not defined before...
 			if ($this->template->getFile() === NULL) {
 				// ...try to get base component template file
-				$templatePath = !empty($this->templatePath) ? $this->templatePath : __DIR__ . DIRECTORY_SEPARATOR .'template'. DIRECTORY_SEPARATOR .'default.latte';
+				$templatePath = !empty($this->templatePath) ? $this->templatePath : __DIR__ . DIRECTORY_SEPARATOR .'template'. DIRECTORY_SEPARATOR .'default'. DIRECTORY_SEPARATOR .'default.latte';
 				$this->template->setFile($templatePath);
 			}
 
@@ -94,9 +172,12 @@ class Control extends Application\UI\Control
 	{
 		// Check if template file exists...
 		if (!is_file($templatePath)) {
+			// Remove extension
+			$template = basename($templatePath, '.latte');
+
 			// ...check if extension template is used
-			if (is_file(__DIR__ . DIRECTORY_SEPARATOR .'template'. DIRECTORY_SEPARATOR . $templatePath)) {
-				$templatePath = __DIR__ . DIRECTORY_SEPARATOR .'template'. DIRECTORY_SEPARATOR . $templatePath;
+			if (is_file(__DIR__ . DIRECTORY_SEPARATOR .'template'. DIRECTORY_SEPARATOR . $template . DIRECTORY_SEPARATOR .'default.latte')) {
+				$templatePath = __DIR__ . DIRECTORY_SEPARATOR .'template'. DIRECTORY_SEPARATOR . $template . DIRECTORY_SEPARATOR .'default.latte';
 
 			} else {
 				// ...if not throw exception

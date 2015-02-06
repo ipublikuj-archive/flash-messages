@@ -20,6 +20,12 @@ use Nette\Http;
 class SessionStorage extends Nette\Object
 {
 	/**
+	 * Define session keys
+	 */
+	const KEY_MESSAGES	= 'messages';
+	const KEY_IMPORTANT	= 'important';
+
+	/**
 	 * @var Http\SessionSection
 	 */
 	protected $session;

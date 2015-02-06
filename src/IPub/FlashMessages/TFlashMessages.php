@@ -1,11 +1,11 @@
 <?php
 /**
- * TVisualPaginator.php
+ * TFlashMessages.php
  *
  * @copyright	More in license.md
  * @license		http://www.ipublikuj.eu
  * @author		Adam Kadlec http://www.ipublikuj.eu
- * @package		iPublikuj:VisualPaginator!
+ * @package		iPublikuj:FlashMessages!
  * @subpackage	common
  * @since		5.0
  *
@@ -15,7 +15,6 @@
 namespace IPub\FlashMessages;
 
 use Nette;
-use Nette\Application;
 
 use IPub;
 use IPub\FlashMessages\Components;
@@ -28,9 +27,34 @@ trait TFlashMessages
 	protected $flashMessagesFactory;
 
 	/**
-	 * @param Components\IControl $flashMessagesFactory
+	 * @var FlashNotifier
 	 */
-	public function injectFlashMessages(Components\IControl $flashMessagesFactory) {
+	protected $flashNotifier;
+
+	/**
+	 * @param Components\IControl $flashMessagesFactory
+	 * @param FlashNotifier $flashNotifier
+	 */
+	public function injectFlashMessages(Components\IControl $flashMessagesFactory, FlashNotifier $flashNotifier)
+	{
 		$this->flashMessagesFactory = $flashMessagesFactory;
+		$this->flashNotifier = $flashNotifier;
+	}
+
+	/**
+	 * Store flash message
+	 *
+	 * @param string $message
+	 * @param string $level
+	 * @param string|null $title
+	 * @param bool $overlay
+	 * @param int|null $count
+	 * @param array|null $parameters
+	 *
+	 * @return string
+	 */
+	public function flashMessage($message, $level = 'info', $title = NULL, $overlay = FALSE, $count = NULL, $parameters = [])
+	{
+		return $this->flashNotifier->message($message, $level, $title, $overlay, $count, $parameters);
 	}
 }

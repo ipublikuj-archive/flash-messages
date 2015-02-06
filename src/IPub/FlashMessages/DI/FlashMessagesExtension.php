@@ -24,15 +24,26 @@ class FlashMessagesExtension extends DI\CompilerExtension
 	{
 		$builder = $this->getContainerBuilder();
 
+		// Notifier
+		$builder->addDefinition($this->prefix('notifier'))
+			->setClass('IPub\FlashMessages\FlashNotifier');
+
 		// Session storage
 		$builder->addDefinition($this->prefix('session'))
 			->setClass('IPub\FlashMessages\SessionStorage');
 
-		// Define components
+		// Display omponents
 		$builder->addDefinition($this->prefix('messages'))
 			->setClass('IPub\FlashMessages\Components\Control')
 			->setImplement('IPub\FlashMessages\Components\IControl')
 			->addTag('cms.components');
+
+		// Extension events
+		$builder->addDefinition($this->prefix('onResponseHandler'))
+			->setClass('IPub\FlashMessages\Events\OnResponseHandler');
+
+		$application = $builder->getDefinition('application');
+		$application->addSetup('$service->onResponse[] = ?', array('@' . $this->prefix('onResponseHandler')));
 	}
 
 	/**
