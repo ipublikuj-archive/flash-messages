@@ -20,8 +20,7 @@ before_script:
   - composer install --no-interaction --prefer-source --dev
 
 script:
-  - ./vendor/bin/tester tests
-  - ./vendor/bin/tester --coverage coverage.src
+  - ./vendor/bin/tester -s -p php -c tests/IPubTests/php.ini tests --coverage coverage.src src
 
 after_script:
   # move code coverage
