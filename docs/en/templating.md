@@ -27,7 +27,7 @@ class SomePresenter
 	 */
 	protected function createComponentFlashMessages()
 	{
-		// Init action confirm
+		// Create control
 		$control = $this->flashMessagesFactory->create();
 
 		// Define template
@@ -63,7 +63,7 @@ class SomePresenter
 	 */
 	protected function createComponentFlashMessages()
 	{
-		// Init action confirm
+		// Create control
 		$control = $this->flashMessagesFactory->create();
 
 		$control->setTemplateFile('path/to/your/template.latte');
@@ -72,3 +72,49 @@ class SomePresenter
 	}
 }
 ```
+
+## Define template with factory
+
+Factory which is creating component can pass info about what template should be used. So if you know which template use when you are creating flash messages component, you can pass it:
+
+```php
+namespace Your\Coool\Namespace\Presenter;
+
+use IPub\FlashMessages;
+
+class SomePresenter
+{
+	/**
+	 * Insert extension trait (only for PHP 5.4+)
+	 */
+	use FlashMessages\TFlashMessages;
+
+	/**
+	 * Component for displaying messages
+	 *
+	 * @return FlashMessages\Control
+	 */
+	protected function createComponentFlashMessages()
+	{
+		// Create control
+		$control = $this->flashMessagesFactory->create('bootstrap.latte');
+
+		// or
+
+		$control = $this->flashMessagesFactory->create('path/to/your/template.latte');
+
+		....
+	}
+}
+```
+
+## Define template in the configuration
+
+Another way how to configure template is in extension configuration.
+
+```neon
+	flashMessages:
+		templateFile	: bootstrap.latte // uikit.latte // default.latte // or/path/to/your/template.latte
+```
+
+System will automatically asset this template into component 
