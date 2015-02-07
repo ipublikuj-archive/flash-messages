@@ -100,7 +100,7 @@ Now put this new component into your template:
 </body>
 ```
 
-## Create flash message
+### Create flash message
 
 And if you want to display some message you can use Nette default method to store flash messages. This default method is overwritten in trait.
 
@@ -118,7 +118,7 @@ class BasePresenter extends Nette\Application\UI\Presenter
 
 Component will display classic warning message with default template.
 
-## Special messages
+### Special messages
 
 This extension has its own methods to create flash messages, which support more parameters. You can replace default **flashMessage** method wit this special:
 
@@ -147,6 +147,6 @@ Available methods to store message:
 
 Message title is optional parameter.
 
-## Important modal messages
+### Important modal messages
 
-If you want to create important message and display it in modal window, you can use special option for it: *overlay* 
+If you want to create important message and display it in modal window, you can use special option for it: *overlay*
