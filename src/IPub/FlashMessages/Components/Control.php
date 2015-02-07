@@ -77,10 +77,17 @@ class Control extends Application\UI\Control
 	}
 
 	/**
+	 * @param NULL|string $templateFile
 	 * @param FlashMessages\SessionStorage $sessionStorage
+	 *
+	 * @throws Exceptions\FileNotFoundException
 	 */
-	public function __construct(FlashMessages\SessionStorage $sessionStorage)
+	public function __construct($templateFile = NULL, FlashMessages\SessionStorage $sessionStorage)
 	{
+		if ($templateFile) {
+			$this->setTemplateFile($templateFile);
+		}
+
 		$this->sessionStorage = $sessionStorage;
 	}
 

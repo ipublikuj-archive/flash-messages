@@ -49,6 +49,7 @@ class FlashMessagesExtension extends DI\CompilerExtension
 		$control = $builder->addDefinition($this->prefix('messages'))
 			->setClass('IPub\FlashMessages\Components\Control')
 			->setImplement('IPub\FlashMessages\Components\IControl')
+			->setArguments([new Nette\PhpGenerator\PhpLiteral('$templateFile')])
 			->addTag('cms.components');
 
 		if ($config['useTitle'] === TRUE) {
