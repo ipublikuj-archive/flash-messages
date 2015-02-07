@@ -124,7 +124,7 @@ class Message extends Nette\Object implements IMessage
 	 */
 	public function info()
 	{
-		$this->setType(self::LEVEL_INFO);
+		$this->setLevel(self::LEVEL_INFO);
 
 		return $this;
 	}
@@ -134,7 +134,7 @@ class Message extends Nette\Object implements IMessage
 	 */
 	public function success()
 	{
-		$this->setType(self::LEVEL_SUCCESS);
+		$this->setLevel(self::LEVEL_SUCCESS);
 
 		return $this;
 	}
@@ -144,7 +144,7 @@ class Message extends Nette\Object implements IMessage
 	 */
 	public function warning()
 	{
-		$this->setType(self::LEVEL_WARNING);
+		$this->setLevel(self::LEVEL_WARNING);
 
 		return $this;
 	}
@@ -154,7 +154,7 @@ class Message extends Nette\Object implements IMessage
 	 */
 	public function error()
 	{
-		$this->setType(self::LEVEL_ERROR);
+		$this->setLevel(self::LEVEL_ERROR);
 
 		return $this;
 	}

@@ -39,7 +39,7 @@ class DefaultPhraseAdapter extends Nette\Object implements IPhraseAdapter
 	 * @param int $count
 	 * @param array $parameters
 	 */
-	function __construct($message, $count, $parameters)
+	function __construct($message, $count, $parameters = [])
 	{
 		$this->parameters	= $parameters;
 		$this->count		= $count;

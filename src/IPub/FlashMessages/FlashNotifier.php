@@ -141,7 +141,7 @@ class FlashNotifier extends Nette\Object
 	 * @param string $title
 	 * @param boolean $overlay
 	 * @param int|null $count
-	 * @param array|null $parameters
+	 * @param array $parameters
 	 *
 	 * @return Entities\IMessage
 	 */
