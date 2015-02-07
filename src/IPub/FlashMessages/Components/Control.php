@@ -61,7 +61,7 @@ class Control extends Application\UI\Control
 	/**
 	 * @param Localization\ITranslator $translator
 	 */
-	public function injectTranslator(Localization\ITranslator $translator)
+	public function injectTranslator(Localization\ITranslator $translator = NULL)
 	{
 		$this->translator = $translator;
 	}
@@ -79,11 +79,19 @@ class Control extends Application\UI\Control
 	/**
 	 * @param NULL|string $templateFile
 	 * @param FlashMessages\SessionStorage $sessionStorage
+	 * @param Nette\ComponentModel\IContainer $parent
+	 * @param null $name
 	 *
 	 * @throws Exceptions\FileNotFoundException
 	 */
-	public function __construct($templateFile = NULL, FlashMessages\SessionStorage $sessionStorage)
-	{
+	public function __construct(
+		$templateFile = NULL,
+		FlashMessages\SessionStorage $sessionStorage,
+		Nette\ComponentModel\IContainer $parent = NULL, $name = NULL
+	) {
+		// TODO: remove, only for tests
+		parent::__construct(NULL, NULL);
+
 		if ($templateFile) {
 			$this->setTemplateFile($templateFile);
 		}
