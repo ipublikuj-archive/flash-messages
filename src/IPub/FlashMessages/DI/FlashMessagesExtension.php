@@ -16,13 +16,26 @@ namespace IPub\FlashMessages\DI;
 
 use Nette;
 use Nette\DI;
+use Nette\Utils;
 use Nette\PhpGenerator as Code;
 
 class FlashMessagesExtension extends DI\CompilerExtension
 {
+	/**
+	 * @var array
+	 */
+	protected $defaults = [
+		'useTitle'		=> TRUE,
+		'useOverlay'	=> FALSE,
+	];
+
 	public function loadConfiguration()
 	{
+		$config = $this->getConfig($this->defaults);
 		$builder = $this->getContainerBuilder();
+
+		Utils\Validators::assertField($config, 'useTitle', 'bool');
+		Utils\Validators::assertField($config, 'useOverlay', 'bool');
 
 		// Notifier
 		$builder->addDefinition($this->prefix('notifier'))
@@ -32,11 +45,23 @@ class FlashMessagesExtension extends DI\CompilerExtension
 		$builder->addDefinition($this->prefix('session'))
 			->setClass('IPub\FlashMessages\SessionStorage');
 
-		// Display omponents
-		$builder->addDefinition($this->prefix('messages'))
+		// Display components
+		$control = $builder->addDefinition($this->prefix('messages'))
 			->setClass('IPub\FlashMessages\Components\Control')
 			->setImplement('IPub\FlashMessages\Components\IControl')
 			->addTag('cms.components');
+
+		if ($config['useTitle'] === TRUE) {
+			$control->addSetup('$service->enableTitle(?)', [$config['useTitle']]);
+		} else {
+			$control->addSetup('$service->disableTitle(?)', [$config['useTitle']]);
+		}
+
+		if ($config['useOverlay'] === TRUE) {
+			$control->addSetup('$service->enableOverlay(?)', [$config['useOverlay']]);
+		} else {
+			$control->addSetup('$service->disableOverlay(?)', [$config['useOverlay']]);
+		}
 
 		// Extension events
 		$builder->addDefinition($this->prefix('onResponseHandler'))
