@@ -1,11 +1,12 @@
-<div n:class="uk-modal, modal, display, $modalClass">
-	<div class="uk-modal-dialog">
-		<div n:if="$title" class="uk-modal-header">{$title}</div>
-		<p>
-			{$body}
-		</p>
-		<div class="uk-modal-footer">
-			<button class="uk-button uk-modal-close" type="button">Close</button>
-		</div>
+<div class="overlay"></div>
+<div n:class="modal, display, $modalClass">
+	<div n:if="$title" class="modal-header">
+		<h3 class="modal-title">{$title}</h3>
+	</div>
+	<div class="modal-body">
+		<p>{$body}</p>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-default close" type="button">Close</button>
 	</div>
 </div>

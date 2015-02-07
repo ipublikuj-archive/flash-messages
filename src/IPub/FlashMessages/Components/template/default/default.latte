@@ -1,4 +1,4 @@
-<div n:snippet="messages" class="ipub-flash-messages uk-text-left">
+<div n:snippet="messages" class="ipub-flash-messages">
 {foreach $flashes as $flash}
 	{if !$flash->displayed}
 		{if $flash->overlay && $useOverlay}
@@ -8,7 +8,7 @@
 				'body' => $flash->message
 			}
 		{else}
-		<div class="uk-alert uk-alert-{$flash->level == 'error' ? 'danger' : $flash->level}" data-status="{$flash->level == 'error' ? 'danger' : $flash->level}">
+		<div class="alert alert-{$flash->level}" data-status="{$flash->level}">
 			<h2 n:if="$flash->title && $useTitle">{!$flash->title}</h2>
 
 			<p>{!$flash->message}</p>

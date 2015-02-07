@@ -1,6 +1,19 @@
-<div n:snippet="flashMessages">
-	<div n:foreach="$flashes as $flash" class="alert alert-{$flash->type}">
-		<a class="close" data-dismiss="alert" href="#">×</a>
-		<strong>{$flash->type}</strong> {!$flash->message}
-	</div>
+<div n:snippet="messages" class="ipub-flash-messages uk-text-left">
+{foreach $flashes as $flash}
+	{if !$flash->displayed}
+		{if $flash->overlay && $useOverlay}
+			{include 'modal.latte',
+				'modalClass' => 'flash-modal',
+				'title' => $flash->title,
+				'body' => $flash->message
+			}
+		{else}
+		<div class="alert alert-{$flash->level}">
+			<a class="close" data-dismiss="alert" href="#">×</a>
+			<strong n:if="$flash->title">{!$flash->title}</strong> {!$flash->message}
+		</div>
+		{/if}
+		{?$flash->displayed = TRUE}
+	{/if}
+{/foreach}
 </div>
