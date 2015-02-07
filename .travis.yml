@@ -19,8 +19,11 @@ before_script:
   - composer self-update
   - composer install --no-interaction --prefer-source --dev
 
-script: ./vendor/bin/tester tests
+script:
+  - ./vendor/bin/tester tests
+  - ./vendor/bin/tester --coverage-clover=coverage.clover
 
 after_script:
   # move code coverage
   - wget https://scrutinizer-ci.com/ocular.phar
+  - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
