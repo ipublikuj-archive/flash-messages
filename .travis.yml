@@ -15,8 +15,7 @@ matrix:
     - php: hhvm
 
 before_script:
-  - phpenv config-add tests/IPubTests/php.ini
-  - echo `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
+  - echo "extension = zend_extension = xdebug.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - php .travis.composer.php
   - composer self-update
   - composer install --no-interaction --prefer-source --dev
