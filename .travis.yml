@@ -21,7 +21,7 @@ before_script:
   - composer install --no-interaction --prefer-source --dev
 
 script:
-  - ./vendor/bin/tester tests --coverage coverage.src src
+  - ./vendor/bin/tester -s -p php -c ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini tests --coverage coverage.src src
 
 after_script:
   # move code coverage
