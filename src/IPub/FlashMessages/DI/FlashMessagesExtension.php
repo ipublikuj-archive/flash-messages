@@ -27,6 +27,7 @@ class FlashMessagesExtension extends DI\CompilerExtension
 	protected $defaults = [
 		'useTitle'		=> TRUE,
 		'useOverlay'	=> FALSE,
+		'templateFile'	=> NULL
 	];
 
 	public function loadConfiguration()
@@ -62,6 +63,10 @@ class FlashMessagesExtension extends DI\CompilerExtension
 			$control->addSetup('$service->enableOverlay(?)', [$config['useOverlay']]);
 		} else {
 			$control->addSetup('$service->disableOverlay(?)', [$config['useOverlay']]);
+		}
+
+		if ($config['templateFile']) {
+			$control->addSetup('$service->setTemplateFile(?)', [$config['templateFile']]);
 		}
 
 		// Extension events
