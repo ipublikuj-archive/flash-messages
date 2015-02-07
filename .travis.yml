@@ -15,13 +15,12 @@ matrix:
     - php: hhvm
 
 before_script:
-  - echo "zend_extension = xdebug.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - php .travis.composer.php
   - composer self-update
   - composer install --no-interaction --prefer-source --dev
 
 script:
-  - ./vendor/bin/tester -s -p php -c ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini tests --coverage coverage.src src
+  - ./vendor/bin/tester tests --coverage coverage.src src
 
 after_script:
   # move code coverage
