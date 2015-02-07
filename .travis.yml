@@ -21,9 +21,9 @@ before_script:
 
 script:
   - ./vendor/bin/tester tests
-  - ./vendor/bin/tester --coverage-clover=coverage.clover
+  - ./vendor/bin/tester --coverage-src=coverage.src
 
 after_script:
   # move code coverage
   - wget https://scrutinizer-ci.com/ocular.phar
-  - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
+  - php ocular.phar code-coverage:upload --format=php-clover coverage.src
