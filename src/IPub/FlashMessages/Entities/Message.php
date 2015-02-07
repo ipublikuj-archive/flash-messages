@@ -67,7 +67,7 @@ class Message extends Nette\Object implements IMessage
 	 * @param Localization\ITranslator $translator
 	 * @param Adapters\IPhraseAdapter $phraseAdapter
 	 */
-	public function __construct(Localization\ITranslator $translator, Adapters\IPhraseAdapter $phraseAdapter)
+	public function __construct(Localization\ITranslator $translator = NULL, Adapters\IPhraseAdapter $phraseAdapter)
 	{
 		$this->translator		= $translator;
 		$this->phraseAdapter	= $phraseAdapter;
@@ -164,7 +164,7 @@ class Message extends Nette\Object implements IMessage
 	 */
 	public function setTitle($title = NULL)
 	{
-		$this->title = (string) $title;
+		$this->title = $title ? (string) $title : NULL;
 
 		return $this;
 	}

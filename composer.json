@@ -33,7 +33,12 @@
 		"nette/safe-stream"	: "~2.2",
 		"nette/tester"		: "@dev",
 		"tracy/tracy"		: "@dev",
+		"kdyby/translation"	: "@dev",
 		"janmarek/mockista"	: "@dev"
+	},
+
+	"suggest": {
+		"kdyby/translation"	: "If you wanna use translations in messages."
 	},
 
 	"autoload": {

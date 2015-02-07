@@ -149,21 +149,25 @@ class FlashNotifier extends Nette\Object
 	{
 		// Support for Kdyby/Translation
 		if ($message instanceof Translation\Phrase) {
-			$message = new Adapters\KdybyPhraseAdapter($message);
+			$phrase = new Adapters\KdybyPhraseAdapter($message);
 
 		// Default phrase adapter
 		} elseif (!$message instanceof Adapters\IPhraseAdapter) {
-			$message = new Adapters\DefaultPhraseAdapter($message, $count, $parameters);
+			$phrase = new Adapters\DefaultPhraseAdapter($message, $count, $parameters);
 		}
 
 		// Get all stored messages
 		$messages = $this->sessionStorage->get(SessionStorage::KEY_MESSAGES);
 
 		// Create flash message
-		$messages[] = $flash = (new Entities\Message($this->translator, $message))
+		$messages[] = $flash = (new Entities\Message($this->translator, $phrase))
 			->setLevel($level)
 			->setTitle($title)
 			->setOverlay($overlay);
+
+		if (!$this->translator instanceof Localization\ITranslator) {
+			$flash->setMessage($message);
+		}
 
 		// Store messages in session
 		$this->sessionStorage->set(SessionStorage::KEY_MESSAGES, $messages);
