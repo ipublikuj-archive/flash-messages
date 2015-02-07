@@ -21,7 +21,7 @@ before_script:
 
 script:
   - ./vendor/bin/tester tests
-  - ./vendor/bin/tester --coverage-src=coverage.src
+  - ./vendor/bin/tester --coverage coverage.src
 
 after_script:
   # move code coverage
