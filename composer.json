@@ -1,14 +1,15 @@
 {
 	"name"			: "ipub/flash-messages",
 	"type"			: "library",
-	"description"	: "Flash messages for Nette Framework",
+	"description"	: "Flash messages handler for Nette Framework",
 	"keywords"		: ["nette", "ipub", "ipublikuj", "tools", "flashes", "messages"],
-	"homepage"		: "https://github.com/iPublikuj/flash-messages.git",
+	"homepage"		: "https://github.com/iPublikuj/flash-messages",
 	"license"		: ["BSD-3-Clause", "GPL-2.0", "GPL-3.0"],
 
-	"authors"		: [
+	"authors": [
 		{
-			"name"		: "Adam Kadlec",
+			"name"		: "iPublikuj:cms",
+			"email"		: "info@ipublikuj.eu",
 			"homepage"	: "http://www.ipublikuj.eu/"
 		}
 	],

@@ -5,7 +5,7 @@
 [![Latest Stable Version](https://img.shields.io/packagist/v/ipub/flash-messages.svg?style=flat-square)](https://packagist.org/packages/ipub/flash-messages)
 [![Composer Downloads](https://img.shields.io/packagist/dt/ipub/flash-messages.svg?style=flat-square)](https://packagist.org/packages/ipub/flash-messages)
 
-Handling system flash messages for [Nette Framework](http://nette.org/)
+Flash messages handler for [Nette Framework](http://nette.org/)
 
 This component replace default flash messages handling. If you want to use one interface for displaying messages, use this extension. For eg. if you are showing messages in modal windows, but sometimes this windows are deactivated, you can reach it with this extension. It store messages in one place and check if were displayed or not.
 
