@@ -57,4 +57,14 @@ trait TFlashMessages
 	{
 		return $this->flashNotifier->message($message, $level, $title, $overlay, $count, $parameters);
 	}
+
+	/**
+	 * Flash messages component
+	 *
+	 * @return IPub\FlashMessages\Components\Control
+	 */
+	protected function createComponentFlashMessages()
+	{
+		return $this->flashMessagesFactory->create();
+	}
 }
