@@ -13,18 +13,8 @@ This component replace default flash messages handling. If you want to use one i
 
 The best way to install ipub/flash-messages is using  [Composer](http://getcomposer.org/):
 
-```json
-{
-	"require": {
-		"ipub/flash-messages": "dev-master"
-	}
-}
-```
-
-or
-
 ```sh
-$ composer require ipub/flash-messages:@dev
+$ composer require ipub/flash-messages
 ```
 
 After that you have to register extension in config.neon.
