@@ -29,14 +29,14 @@ use IPub\FlashMessages\Exceptions;
  * @package		iPublikuj:FlashMessages!
  * @subpackage	Components
  *
- * @property-read Application\UI\ITemplate $template
+ * @property Application\UI\ITemplate $template
  */
 class Control extends Application\UI\Control
 {
 	/**
 	 * @var string
 	 */
-	protected $templatePath;
+	protected $templateFile;
 
 	/**
 	 * @var FlashMessages\SessionStorage
@@ -162,8 +162,8 @@ class Control extends Application\UI\Control
 			// If template was not defined before...
 			if ($this->template->getFile() === NULL) {
 				// ...try to get base component template file
-				$templatePath = !empty($this->templatePath) ? $this->templatePath : __DIR__ . DIRECTORY_SEPARATOR .'template'. DIRECTORY_SEPARATOR .'default'. DIRECTORY_SEPARATOR .'default.latte';
-				$this->template->setFile($templatePath);
+				$templateFile = !empty($this->templateFile) ? $this->templateFile : __DIR__ . DIRECTORY_SEPARATOR .'template'. DIRECTORY_SEPARATOR .'default'. DIRECTORY_SEPARATOR .'default.latte';
+				$this->template->setFile($templateFile);
 			}
 
 			// Render component template
@@ -177,30 +177,30 @@ class Control extends Application\UI\Control
 	/**
 	 * Change default control template path
 	 *
-	 * @param string $templatePath
+	 * @param string $templateFile
 	 *
 	 * @return $this
 	 *
 	 * @throws Exceptions\FileNotFoundException
 	 */
-	public function setTemplateFile($templatePath)
+	public function setTemplateFile($templateFile)
 	{
 		// Check if template file exists...
-		if (!is_file($templatePath)) {
+		if (!is_file($templateFile)) {
 			// Remove extension
-			$template = basename($templatePath, '.latte');
+			$template = basename($templateFile, '.latte');
 
 			// ...check if extension template is used
 			if (is_file(__DIR__ . DIRECTORY_SEPARATOR .'template'. DIRECTORY_SEPARATOR . $template . DIRECTORY_SEPARATOR .'default.latte')) {
-				$templatePath = __DIR__ . DIRECTORY_SEPARATOR .'template'. DIRECTORY_SEPARATOR . $template . DIRECTORY_SEPARATOR .'default.latte';
+				$templateFile = __DIR__ . DIRECTORY_SEPARATOR .'template'. DIRECTORY_SEPARATOR . $template . DIRECTORY_SEPARATOR .'default.latte';
 
 			} else {
 				// ...if not throw exception
-				throw new Exceptions\FileNotFoundException('Template file "'. $templatePath .'" was not found.');
+				throw new Exceptions\FileNotFoundException('Template file "'. $templateFile .'" was not found.');
 			}
 		}
 
-		$this->templatePath = $templatePath;
+		$this->templateFile = $templateFile;
 
 		return $this;
 	}
