@@ -2,14 +2,14 @@
 /**
  * Control.php
  *
- * @copyright	More in license.md
- * @license		http://www.ipublikuj.eu
- * @author		Adam Kadlec http://www.ipublikuj.eu
- * @package		iPublikuj:FlashMessages!
- * @subpackage	Components
- * @since		5.0
+ * @copyright      More in license.md
+ * @license        http://www.ipublikuj.eu
+ * @author         Adam Kadlec http://www.ipublikuj.eu
+ * @package        iPublikuj:FlashMessages!
+ * @subpackage     Components
+ * @since          1.0.0
  *
- * @date		12.03.14
+ * @date           12.03.14
  */
 
 namespace IPub\FlashMessages\Components;
@@ -21,13 +21,14 @@ use Nette\Utils;
 
 use IPub;
 use IPub\FlashMessages;
+use IPub\FlashMessages\Entities;
 use IPub\FlashMessages\Exceptions;
 
 /**
  * Flash messages control
  *
- * @package		iPublikuj:FlashMessages!
- * @subpackage	Components
+ * @package        iPublikuj:FlashMessages!
+ * @subpackage     Components
  *
  * @property Application\UI\ITemplate $template
  */
@@ -88,7 +89,8 @@ class Control extends Application\UI\Control
 		$templateFile = NULL,
 		FlashMessages\SessionStorage $sessionStorage,
 		Nette\ComponentModel\IContainer $parent = NULL, $name = NULL
-	) {
+	)
+	{
 		// TODO: remove, only for tests
 		parent::__construct(NULL, NULL);
 
@@ -147,12 +149,13 @@ class Control extends Application\UI\Control
 		// Check if control has template
 		if ($this->template instanceof Nette\Bridges\ApplicationLatte\Template) {
 			// Load messages from session
-			$messages = $this->sessionStorage->get(FlashMessages\SessionStorage::KEY_MESSAGES);
+			/** @var Entities\IMessage[] $messages */
+			$messages = $this->sessionStorage->get(FlashMessages\SessionStorage::KEY_MESSAGES, []);
 
 			// Assign vars to template
-			$this->template->flashes	= $messages ? $messages : [];
-			$this->template->useTitle	= $this->useTitle;
-			$this->template->useOverlay	= $this->useOverlay;
+			$this->template->flashes = $messages ? $messages : [];
+			$this->template->useTitle = $this->useTitle;
+			$this->template->useOverlay = $this->useOverlay;
 
 			// Check if translator is available
 			if ($this->getTranslator() instanceof Localization\ITranslator) {
@@ -162,7 +165,7 @@ class Control extends Application\UI\Control
 			// If template was not defined before...
 			if ($this->template->getFile() === NULL) {
 				// ...try to get base component template file
-				$templateFile = !empty($this->templateFile) ? $this->templateFile : __DIR__ . DIRECTORY_SEPARATOR .'template'. DIRECTORY_SEPARATOR .'default'. DIRECTORY_SEPARATOR .'default.latte';
+				$templateFile = !empty($this->templateFile) ? $this->templateFile : __DIR__ . DIRECTORY_SEPARATOR . 'template' . DIRECTORY_SEPARATOR . 'default' . DIRECTORY_SEPARATOR . 'default.latte';
 				$this->template->setFile($templateFile);
 			}
 
@@ -191,12 +194,12 @@ class Control extends Application\UI\Control
 			$template = basename($templateFile, '.latte');
 
 			// ...check if extension template is used
-			if (is_file(__DIR__ . DIRECTORY_SEPARATOR .'template'. DIRECTORY_SEPARATOR . $template . DIRECTORY_SEPARATOR .'default.latte')) {
-				$templateFile = __DIR__ . DIRECTORY_SEPARATOR .'template'. DIRECTORY_SEPARATOR . $template . DIRECTORY_SEPARATOR .'default.latte';
+			if (is_file(__DIR__ . DIRECTORY_SEPARATOR . 'template' . DIRECTORY_SEPARATOR . $template . DIRECTORY_SEPARATOR . 'default.latte')) {
+				$templateFile = __DIR__ . DIRECTORY_SEPARATOR . 'template' . DIRECTORY_SEPARATOR . $template . DIRECTORY_SEPARATOR . 'default.latte';
 
 			} else {
 				// ...if not throw exception
-				throw new Exceptions\FileNotFoundException('Template file "'. $templateFile .'" was not found.');
+				throw new Exceptions\FileNotFoundException('Template file "' . $templateFile . '" was not found.');
 			}
 		}
 

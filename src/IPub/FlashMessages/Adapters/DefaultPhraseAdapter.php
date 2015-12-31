@@ -1,15 +1,15 @@
 <?php
 /**
- * KdybyPhraseAdapter.php
+ * DefaultPhraseAdapter.php
  *
- * @copyright	More in license.md
- * @license		http://www.ipublikuj.eu
- * @author		Adam Kadlec http://www.ipublikuj.eu
- * @package		iPublikuj:FlashMessages!
- * @subpackage	Adapters
- * @since		5.0
+ * @copyright      More in license.md
+ * @license        http://www.ipublikuj.eu
+ * @author         Adam Kadlec http://www.ipublikuj.eu
+ * @package        iPublikuj:FlashMessages!
+ * @subpackage     Adapters
+ * @since          1.0.0
  *
- * @date		06.02.15
+ * @date           06.02.15
  */
 
 namespace IPub\FlashMessages\Adapters;
@@ -17,6 +17,14 @@ namespace IPub\FlashMessages\Adapters;
 use Nette;
 use Nette\Localization;
 
+/**
+ * Default translator phrase adapter
+ *
+ * @package        iPublikuj:FlashMessages!
+ * @subpackage     Adapters
+ *
+ * @author         Adam Kadlec <adam.kadlec@fastybird.com>
+ */
 class DefaultPhraseAdapter extends Nette\Object implements IPhraseAdapter
 {
 	/**
@@ -41,9 +49,9 @@ class DefaultPhraseAdapter extends Nette\Object implements IPhraseAdapter
 	 */
 	function __construct($message, $count, $parameters = [])
 	{
-		$this->parameters	= $parameters;
-		$this->count		= $count;
-		$this->message		= $message;
+		$this->parameters = $parameters;
+		$this->count = $count;
+		$this->message = $message;
 	}
 
 	/**

@@ -2,14 +2,14 @@
 /**
  * IPhraseAdapter.php
  *
- * @copyright	More in license.md
- * @license		http://www.ipublikuj.eu
- * @author		Adam Kadlec http://www.ipublikuj.eu
- * @package		iPublikuj:FlashMessages!
- * @subpackage	Adapters
- * @since		5.0
+ * @copyright      More in license.md
+ * @license        http://www.ipublikuj.eu
+ * @author         Adam Kadlec http://www.ipublikuj.eu
+ * @package        iPublikuj:FlashMessages!
+ * @subpackage     Adapters
+ * @since          1.0.0
  *
- * @date		06.02.15
+ * @date           06.02.15
  */
 
 namespace IPub\FlashMessages\Adapters;
@@ -17,6 +17,14 @@ namespace IPub\FlashMessages\Adapters;
 use Nette;
 use Nette\Localization;
 
+/**
+ * Translator phrase adapter interface
+ *
+ * @package        iPublikuj:FlashMessages!
+ * @subpackage     Adapters
+ *
+ * @author         Adam Kadlec <adam.kadlec@fastybird.com>
+ */
 interface IPhraseAdapter
 {
 	/**

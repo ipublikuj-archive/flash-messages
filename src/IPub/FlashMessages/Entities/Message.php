@@ -2,14 +2,14 @@
 /**
  * Message.php
  *
- * @copyright	More in license.md
- * @license		http://www.ipublikuj.eu
- * @author		Adam Kadlec http://www.ipublikuj.eu
- * @package		iPublikuj:FlashMessages!
- * @subpackage	Entities
- * @since		5.0
+ * @copyright      More in license.md
+ * @license        http://www.ipublikuj.eu
+ * @author         Adam Kadlec http://www.ipublikuj.eu
+ * @package        iPublikuj:FlashMessages!
+ * @subpackage     Entities
+ * @since          1.0.0
  *
- * @date		06.02.15
+ * @date           06.02.15
  */
 
 namespace IPub\FlashMessages\Entities;
@@ -21,12 +21,20 @@ use IPub;
 use IPub\FlashMessages\Adapters;
 use IPub\FlashMessages\Exceptions;
 
+/**
+ * Flash message entity
+ *
+ * @package        iPublikuj:FlashMessages!
+ * @subpackage     Entities
+ *
+ * @author         Adam Kadlec <adam.kadlec@fastybird.com>
+ */
 class Message extends Nette\Object implements IMessage
 {
-	const LEVEL_INFO	= 'info';
-	const LEVEL_SUCCESS	= 'success';
-	const LEVEL_WARNING	= 'warning';
-	const LEVEL_ERROR	= 'error';
+	const LEVEL_INFO = 'info';
+	const LEVEL_SUCCESS = 'success';
+	const LEVEL_WARNING = 'warning';
+	const LEVEL_ERROR = 'error';
 
 	/**
 	 * @var string
@@ -64,13 +72,23 @@ class Message extends Nette\Object implements IMessage
 	protected $phraseAdapter;
 
 	/**
+	 * @var Adapters\IPhraseAdapter
+	 */
+	protected $titlePhraseAdapter;
+
+	/**
 	 * @param Localization\ITranslator $translator
 	 * @param Adapters\IPhraseAdapter $phraseAdapter
+	 * @param Adapters\IPhraseAdapter $titlePhraseAdapter
 	 */
-	public function __construct(Localization\ITranslator $translator = NULL, Adapters\IPhraseAdapter $phraseAdapter)
-	{
-		$this->translator		= $translator;
-		$this->phraseAdapter	= $phraseAdapter;
+	public function __construct(
+		Localization\ITranslator $translator = NULL,
+		Adapters\IPhraseAdapter $phraseAdapter,
+		Adapters\IPhraseAdapter $titlePhraseAdapter = NULL
+	) {
+		$this->translator = $translator;
+		$this->phraseAdapter = $phraseAdapter;
+		$this->titlePhraseAdapter = $titlePhraseAdapter;
 	}
 
 	/**
@@ -164,7 +182,15 @@ class Message extends Nette\Object implements IMessage
 	 */
 	public function setTitle($title = NULL)
 	{
-		$this->title = $title ? (string) $title : NULL;
+		if ($this->isUnserialized()) {
+			$this->title = $title;
+
+		} else {
+			if ($this->titlePhraseAdapter instanceof Adapters\IPhraseAdapter) {
+				$this->titlePhraseAdapter->setMessage($title);
+			}
+			$this->title = NULL;
+		}
 
 		return $this;
 	}
@@ -174,6 +200,10 @@ class Message extends Nette\Object implements IMessage
 	 */
 	public function getTitle()
 	{
+		if ($this->title === NULL && $this->translator && $this->titlePhraseAdapter instanceof Adapters\IPhraseAdapter) {
+			$this->title = $this->titlePhraseAdapter->translate($this->translator);
+		}
+
 		return $this->title;
 	}
 
@@ -257,6 +287,17 @@ class Message extends Nette\Object implements IMessage
 		return $this->translator === NULL;
 	}
 
+	/**
+	 * @return string
+	 */
+	public function __toString()
+	{
+		return $this->level . ' ' . ($this->title ? $this->title . ' ' : '') . $this->getMessage();
+	}
+
+	/**
+	 * @return array
+	 */
 	public function __sleep()
 	{
 		$this->message = $this->getMessage();

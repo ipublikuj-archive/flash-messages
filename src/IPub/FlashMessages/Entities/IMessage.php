@@ -2,14 +2,14 @@
 /**
  * Message.php
  *
- * @copyright	More in license.md
- * @license		http://www.ipublikuj.eu
- * @author		Adam Kadlec http://www.ipublikuj.eu
- * @package		iPublikuj:FlashMessages!
- * @subpackage	Entities
- * @since		5.0
+ * @copyright      More in license.md
+ * @license        http://www.ipublikuj.eu
+ * @author         Adam Kadlec http://www.ipublikuj.eu
+ * @package        iPublikuj:FlashMessages!
+ * @subpackage     Entities
+ * @since          1.0.0
  *
- * @date		06.02.15
+ * @date           06.02.15
  */
 
 namespace IPub\FlashMessages\Entities;
@@ -21,6 +21,14 @@ use IPub;
 use IPub\FlashMessages\Adapters;
 use IPub\FlashMessages\Exceptions;
 
+/**
+ * Flash message entity interface
+ *
+ * @package        iPublikuj:FlashMessages!
+ * @subpackage     Entities
+ *
+ * @author         Adam Kadlec <adam.kadlec@fastybird.com>
+ */
 interface IMessage
 {
 	/**
@@ -68,14 +76,14 @@ interface IMessage
 	public function error();
 
 	/**
-	 * @param string|null $title
+	 * @param string|NULL $title
 	 *
 	 * @return $this
 	 */
 	public function setTitle($title = NULL);
 
 	/**
-	 * @return string
+	 * @return Adapters\IPhraseAdapter|NULL
 	 */
 	public function getTitle();
 

@@ -2,14 +2,14 @@
 /**
  * TFlashMessages.php
  *
- * @copyright	More in license.md
- * @license		http://www.ipublikuj.eu
- * @author		Adam Kadlec http://www.ipublikuj.eu
- * @package		iPublikuj:FlashMessages!
- * @subpackage	common
- * @since		5.0
+ * @copyright      More in license.md
+ * @license        http://www.ipublikuj.eu
+ * @author         Adam Kadlec http://www.ipublikuj.eu
+ * @package        iPublikuj:FlashMessages!
+ * @subpackage     common
+ * @since          1.0.0
  *
- * @date		01.02.15
+ * @date           01.02.15
  */
 
 namespace IPub\FlashMessages;
@@ -19,6 +19,14 @@ use Nette;
 use IPub;
 use IPub\FlashMessages\Components;
 
+/**
+ * Flash message helper trait
+ *
+ * @package        iPublikuj:FlashMessages!
+ * @subpackage     common
+ *
+ * @author         Adam Kadlec <adam.kadlec@fastybird.com>
+ */
 trait TFlashMessages
 {
 	/**

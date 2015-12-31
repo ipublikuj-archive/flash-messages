@@ -2,14 +2,14 @@
 /**
  * KdybyPhraseAdapter.php
  *
- * @copyright	More in license.md
- * @license		http://www.ipublikuj.eu
- * @author		Adam Kadlec http://www.ipublikuj.eu
- * @package		iPublikuj:FlashMessages!
- * @subpackage	Adapters
- * @since		5.0
+ * @copyright      More in license.md
+ * @license        http://www.ipublikuj.eu
+ * @author         Adam Kadlec http://www.ipublikuj.eu
+ * @package        iPublikuj:FlashMessages!
+ * @subpackage     Adapters
+ * @since          1.0.0
  *
- * @date		06.02.15
+ * @date           06.02.15
  */
 
 namespace IPub\FlashMessages\Adapters;
@@ -20,6 +20,14 @@ use Nette\Localization;
 use Kdyby;
 use Kdyby\Translation;
 
+/**
+ * Kdyby\Translator extension translator phrase adapter
+ *
+ * @package        iPublikuj:FlashMessages!
+ * @subpackage     Adapters
+ *
+ * @author         Adam Kadlec <adam.kadlec@fastybird.com>
+ */
 class KdybyPhraseAdapter extends Nette\Object implements IPhraseAdapter
 {
 	/**

@@ -3,14 +3,14 @@
  * Test: IPub\FlashMessages\Extension
  * @testCase
  *
- * @copyright	More in license.md
- * @license		http://www.ipublikuj.eu
- * @author		Adam Kadlec http://www.ipublikuj.eu
- * @package		iPublikuj:FlashMessages!
- * @subpackage	Tests
- * @since		5.0
+ * @copyright      More in license.md
+ * @license        http://www.ipublikuj.eu
+ * @author         Adam Kadlec http://www.ipublikuj.eu
+ * @package        iPublikuj:FlashMessages!
+ * @subpackage     Tests
+ * @since          1.0.0
  *
- * @date		07.02.15
+ * @date           07.02.15
  */
 
 namespace IPubTests\FlashMessages;

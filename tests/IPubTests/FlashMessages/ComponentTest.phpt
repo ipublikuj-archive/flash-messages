@@ -3,14 +3,14 @@
  * Test: IPub\FlashMessages\Compiler
  * @testCase
  *
- * @copyright	More in license.md
- * @license		http://www.ipublikuj.eu
- * @author		Adam Kadlec http://www.ipublikuj.eu
- * @package		iPublikuj:FlashMessages!
- * @subpackage	Tests
- * @since		5.0
+ * @copyright      More in license.md
+ * @license        http://www.ipublikuj.eu
+ * @author         Adam Kadlec http://www.ipublikuj.eu
+ * @package        iPublikuj:FlashMessages!
+ * @subpackage     Tests
+ * @since          1.0.0
  *
- * @date		07.02.15
+ * @date           07.02.15
  */
 
 namespace IPubTests\FlashMessages;
@@ -36,7 +36,7 @@ class ComponentTest extends Tester\TestCase
 	private $presenterFactory;
 
 	/**
-	 * @var \SystemContainer|\Nette\DI\Container
+	 * @var Nette\DI\Container
 	 */
 	private $container;
 
@@ -70,7 +70,7 @@ class ComponentTest extends Tester\TestCase
 		$presenter = $this->createPresenter();
 
 		// Create GET request
-		$request = new Application\Request('Test', 'GET', array('action' => 'validTemplate'));
+		$request = new Application\Request('Test', 'GET', ['action' => 'validTemplate']);
 		// & fire presenter & catch response
 		$response = $presenter->run($request);
 
@@ -88,7 +88,7 @@ class ComponentTest extends Tester\TestCase
 		$presenter = $this->createPresenter();
 
 		// Create GET request
-		$request = new Application\Request('Test', 'GET', array('action' => 'invalidTemplate'));
+		$request = new Application\Request('Test', 'GET', ['action' => 'invalidTemplate']);
 		// & fire presenter & catch response
 		$presenter->run($request);
 	}
@@ -106,7 +106,7 @@ class ComponentTest extends Tester\TestCase
 	public function testCreateMessage($message, $level, $title = NULL, $overlay = FALSE, $count = 0, $parameters = [])
 	{
 		// Get notifier service
-		// @var IPub\FlashMessages\FlashNotifier
+		/** @var $notifier IPub\FlashMessages\FlashNotifier */
 		$notifier = $this->container->getService('flashMessages.notifier');
 
 		$flash = $notifier->message($message, $level, $title, $overlay, $count, $parameters);
@@ -125,7 +125,7 @@ class ComponentTest extends Tester\TestCase
 		$presenter = $this->createPresenter();
 
 		// Create GET request
-		$request = new Application\Request('Test', 'GET', array('action' => 'showMessage'));
+		$request = new Application\Request('Test', 'GET', ['action' => 'showMessage']);
 		// & fire presenter & catch response
 		$response = $presenter->run($request);
 
@@ -156,7 +156,7 @@ class ComponentTest extends Tester\TestCase
 	}
 
 	/**
-	 * @return \SystemContainer|\Nette\DI\Container
+	 * @return Nette\DI\Container
 	 */
 	protected function createContainer()
 	{
@@ -198,13 +198,13 @@ class TestPresenter extends UI\Presenter
 	public function renderValidTemplate()
 	{
 		// Set template for component testing
-		$this->template->setFile(__DIR__ . DIRECTORY_SEPARATOR .'templates'. DIRECTORY_SEPARATOR .'validTemplate.latte');
+		$this->template->setFile(__DIR__ . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . 'validTemplate.latte');
 	}
 
 	public function renderShowMessage()
 	{
 		// Set template for component testing
-		$this->template->setFile(__DIR__ . DIRECTORY_SEPARATOR .'templates'. DIRECTORY_SEPARATOR .'show.latte');
+		$this->template->setFile(__DIR__ . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . 'show.latte');
 	}
 
 	/**

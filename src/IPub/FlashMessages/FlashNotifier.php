@@ -2,14 +2,14 @@
 /**
  * TFlashMessages.php
  *
- * @copyright	More in license.md
- * @license		http://www.ipublikuj.eu
- * @author		Adam Kadlec http://www.ipublikuj.eu
- * @package		iPublikuj:FlashMessages!
- * @subpackage	common
- * @since		5.0
+ * @copyright      More in license.md
+ * @license        http://www.ipublikuj.eu
+ * @author         Adam Kadlec http://www.ipublikuj.eu
+ * @package        iPublikuj:FlashMessages!
+ * @subpackage     common
+ * @since          1.0.0
  *
- * @date		01.02.15
+ * @date           01.02.15
  */
 
 namespace IPub\FlashMessages;
@@ -24,6 +24,14 @@ use IPub;
 use IPub\FlashMessages\Adapters;
 use IPub\FlashMessages\Entities;
 
+/**
+ * Flash message notifier
+ *
+ * @package        iPublikuj:FlashMessages!
+ * @subpackage     common
+ *
+ * @author         Adam Kadlec <adam.kadlec@fastybird.com>
+ */
 class FlashNotifier extends Nette\Object
 {
 	/**
@@ -145,33 +153,111 @@ class FlashNotifier extends Nette\Object
 	 *
 	 * @return Entities\IMessage
 	 */
-	public function message($message, $level = 'info', $title = 'Notice', $overlay = FALSE, $count = NULL, $parameters = [])
+	public function message($message, $level = 'info', $title = 'Notice', $overlay = FALSE, $count = NULL, array $parameters = [])
 	{
+		$title = $this->checkForAttribute([$title, $overlay, $count, $parameters], 'title');
+		$overlay = $this->checkForAttribute([$title, $overlay, $count, $parameters], 'overlay');
+		$count = $this->checkForAttribute([$title, $overlay, $count, $parameters], 'count');
+		$parameters = $this->checkForAttribute([$title, $overlay, $count, $parameters], 'parameters');
+
 		// Support for Kdyby/Translation
 		if ($message instanceof Translation\Phrase) {
 			$phrase = new Adapters\KdybyPhraseAdapter($message);
 
-		// Default phrase adapter
-		} elseif (!$message instanceof Adapters\IPhraseAdapter) {
+			// Default phrase adapter
+		} else if (!$message instanceof Adapters\IPhraseAdapter) {
 			$phrase = new Adapters\DefaultPhraseAdapter($message, $count, $parameters);
 		}
 
+		// Support for Kdyby/Translation
+		if ($title instanceof Translation\Phrase) {
+			$titlePhrase = new Adapters\KdybyPhraseAdapter($title);
+
+		// Default phrase adapter
+		} else if (!$title instanceof Adapters\IPhraseAdapter && $title !== NULL) {
+			$titlePhrase = new Adapters\DefaultPhraseAdapter($title, $count, $parameters);
+
+		} else {
+			$titlePhrase = NULL;
+		}
+
 		// Get all stored messages
-		$messages = $this->sessionStorage->get(SessionStorage::KEY_MESSAGES);
+		$messages = $this->sessionStorage->get(SessionStorage::KEY_MESSAGES, []);
 
 		// Create flash message
-		$messages[] = $flash = (new Entities\Message($this->translator, $phrase))
+		$flash = (new Entities\Message($this->translator, $phrase, $titlePhrase))
 			->setLevel($level)
-			->setTitle($title)
 			->setOverlay($overlay);
 
 		if (!$this->translator instanceof Localization\ITranslator) {
 			$flash->setMessage($message);
+			$flash->setTitle($title);
+		}
+
+		if ($this->checkUnique($flash, $messages) === FALSE) {
+			$messages[] = $flash;
 		}
 
 		// Store messages in session
 		$this->sessionStorage->set(SessionStorage::KEY_MESSAGES, $messages);
 
 		return $flash;
+	}
+
+	/**
+	 * @param Entities\IMessage $flash
+	 * @param Entities\IMessage[] $messages
+	 *
+	 * @return bool
+	 */
+	private function checkUnique(Entities\IMessage $flash, array $messages)
+	{
+		foreach ($messages as $member) {
+			if ((string) $member === (string) $flash) {
+				return TRUE;
+			}
+		}
+
+		return FALSE;
+	}
+
+	/**
+	 * @param array $attributes
+	 * @param string $type
+	 *
+	 * @return mixed
+	 */
+	private function checkForAttribute(array $attributes, $type)
+	{
+		foreach($attributes as $attribute) {
+			switch($type)
+			{
+				case 'title':
+					if (is_string($attribute) === TRUE || $attribute instanceof Translation\Phrase || $attribute instanceof Adapters\IPhraseAdapter) {
+						return $attribute;
+					}
+					break;
+
+				case 'overlay':
+					if (is_bool($attribute) === TRUE) {
+						return $attribute;
+					}
+					break;
+
+				case 'count':
+					if (is_numeric($attribute) === TRUE) {
+						return $attribute;
+					}
+					break;
+
+				case 'parameters':
+					if (is_array($attribute) === TRUE) {
+						return $attribute;
+					}
+					break;
+			}
+		}
+
+		return NULL;
 	}
 }

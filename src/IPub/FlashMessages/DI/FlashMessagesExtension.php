@@ -2,14 +2,14 @@
 /**
  * FlashMessagesExtension.php
  *
- * @copyright	More in license.md
- * @license		http://www.ipublikuj.eu
- * @author		Adam Kadlec http://www.ipublikuj.eu
- * @package		iPublikuj:FlashMessages!
- * @subpackage	DI
- * @since		5.0
+ * @copyright      More in license.md
+ * @license        http://www.ipublikuj.eu
+ * @author         Adam Kadlec http://www.ipublikuj.eu
+ * @package        iPublikuj:FlashMessages!
+ * @subpackage     DI
+ * @since          1.0.0
  *
- * @date		05.02.15
+ * @date           05.02.15
  */
 
 namespace IPub\FlashMessages\DI;
@@ -19,15 +19,23 @@ use Nette\DI;
 use Nette\Utils;
 use Nette\PhpGenerator as Code;
 
+/**
+ * Flash messages extension container
+ *
+ * @package        iPublikuj:FlashMessages!
+ * @subpackage     DI
+ *
+ * @author         Adam Kadlec <adam.kadlec@fastybird.com>
+ */
 class FlashMessagesExtension extends DI\CompilerExtension
 {
 	/**
 	 * @var array
 	 */
 	protected $defaults = [
-		'useTitle'		=> TRUE,
-		'useOverlay'	=> FALSE,
-		'templateFile'	=> NULL
+		'useTitle'     => TRUE,
+		'useOverlay'   => FALSE,
+		'templateFile' => NULL
 	];
 
 	public function loadConfiguration()
@@ -75,7 +83,7 @@ class FlashMessagesExtension extends DI\CompilerExtension
 			->setClass('IPub\FlashMessages\Events\OnResponseHandler');
 
 		$application = $builder->getDefinition('application');
-		$application->addSetup('$service->onResponse[] = ?', array('@' . $this->prefix('onResponseHandler')));
+		$application->addSetup('$service->onResponse[] = ?', ['@' . $this->prefix('onResponseHandler')]);
 	}
 
 	/**

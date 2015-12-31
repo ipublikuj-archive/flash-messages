@@ -2,14 +2,14 @@
 /**
  * SessionStorage.php
  *
- * @copyright	More in license.md
- * @license		http://www.ipublikuj.eu
- * @author		Adam Kadlec http://www.ipublikuj.eu
- * @package		iPublikuj:FlashMessages!
- * @subpackage	common
- * @since		5.0
+ * @copyright      More in license.md
+ * @license        http://www.ipublikuj.eu
+ * @author         Adam Kadlec http://www.ipublikuj.eu
+ * @package        iPublikuj:FlashMessages!
+ * @subpackage     common
+ * @since          1.0.0
  *
- * @date		05.02.15
+ * @date           05.02.15
  */
 
 namespace IPub\FlashMessages;
@@ -17,13 +17,21 @@ namespace IPub\FlashMessages;
 use Nette;
 use Nette\Http;
 
+/**
+ * Flash message session storage
+ *
+ * @package        iPublikuj:FlashMessages!
+ * @subpackage     common
+ *
+ * @author         Adam Kadlec <adam.kadlec@fastybird.com>
+ */
 class SessionStorage extends Nette\Object
 {
 	/**
 	 * Define session keys
 	 */
-	const KEY_MESSAGES	= 'messages';
-	const KEY_IMPORTANT	= 'important';
+	const KEY_MESSAGES = 'messages';
+	const KEY_IMPORTANT = 'important';
 
 	/**
 	 * @var Http\SessionSection
@@ -57,7 +65,7 @@ class SessionStorage extends Nette\Object
 	/**
 	 * Get the data for $key
 	 *
-	 * @param string $key The key of the data to retrieve
+	 * @param string $key    The key of the data to retrieve
 	 * @param mixed $default The default value to return if $key is not found
 	 *
 	 * @return mixed
