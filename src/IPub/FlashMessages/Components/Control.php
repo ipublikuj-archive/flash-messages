@@ -94,7 +94,7 @@ class Control extends Application\UI\Control
 		// TODO: remove, only for tests
 		parent::__construct(NULL, NULL);
 
-		if ($templateFile) {
+		if ($templateFile !== NULL) {
 			$this->setTemplateFile($templateFile);
 		}
 

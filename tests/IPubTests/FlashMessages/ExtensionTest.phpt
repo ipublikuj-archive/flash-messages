@@ -27,19 +27,6 @@ require __DIR__ . '/../bootstrap.php';
 
 class ExtensionTest extends Tester\TestCase
 {
-	/**
-	 * @return \SystemContainer|\Nette\DI\Container
-	 */
-	protected function createContainer()
-	{
-		$config = new Nette\Configurator();
-		$config->setTempDirectory(TEMP_DIR);
-
-		FlashMessages\DI\FlashMessagesExtension::register($config);
-
-		return $config->createContainer();
-	}
-
 	public function testCompilersServices()
 	{
 		$dic = $this->createContainer();
@@ -53,7 +40,19 @@ class ExtensionTest extends Tester\TestCase
 
 		Assert::true($factory instanceof IPub\FlashMessages\Components\IControl);
 		Assert::true($factory->create() instanceof IPub\FlashMessages\Components\Control);
+	}
 
+	/**
+	 * @return Nette\DI\Container
+	 */
+	protected function createContainer()
+	{
+		$config = new Nette\Configurator();
+		$config->setTempDirectory(TEMP_DIR);
+
+		FlashMessages\DI\FlashMessagesExtension::register($config);
+
+		return $config->createContainer();
 	}
 }
 

@@ -31,6 +31,11 @@ use IPub\FlashMessages\Exceptions;
  */
 interface IMessage
 {
+	const LEVEL_INFO = 'info';
+	const LEVEL_SUCCESS = 'success';
+	const LEVEL_WARNING = 'warning';
+	const LEVEL_ERROR = 'error';
+
 	/**
 	 * @param string $message
 	 *
@@ -83,7 +88,7 @@ interface IMessage
 	public function setTitle($title = NULL);
 
 	/**
-	 * @return Adapters\IPhraseAdapter|NULL
+	 * @return string|NULL
 	 */
 	public function getTitle();
 

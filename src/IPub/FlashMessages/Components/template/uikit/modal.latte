@@ -1,6 +1,6 @@
-<div n:class="uk-modal, modal, display, $modalClass">
+<div class="uk-modal modal display alert alert-{$level} {$modalClass}" data-status="{$level}">
 	<div class="uk-modal-dialog">
-		<div n:if="$title" class="uk-modal-header">{$title}</div>
+		<div n:if="$title && $useTitle" class="uk-modal-header">{$title}</div>
 		<p>
 			{$body}
 		</p>

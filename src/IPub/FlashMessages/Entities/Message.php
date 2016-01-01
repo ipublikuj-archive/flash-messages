@@ -31,11 +31,6 @@ use IPub\FlashMessages\Exceptions;
  */
 class Message extends Nette\Object implements IMessage
 {
-	const LEVEL_INFO = 'info';
-	const LEVEL_SUCCESS = 'success';
-	const LEVEL_WARNING = 'warning';
-	const LEVEL_ERROR = 'error';
-
 	/**
 	 * @var string
 	 */

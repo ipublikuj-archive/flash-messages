@@ -5,7 +5,8 @@
 			{include 'modal.latte',
 				'modalClass' => 'flash-modal',
 				'title' => $flash->getTitle(),
-				'body' => $flash->getMessage()
+				'body' => $flash->getMessage(),
+				'useTitle' => $useTitle
 			}
 		{else}
 		<div class="alert alert-{$flash->getLevel() == 'error' ? 'danger' : $flash->getLevel()}">

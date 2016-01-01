@@ -1,7 +1,7 @@
-<div id="flash-overlay-modal" n:class="modal, fade, $modalClass">
+<div id="flash-overlay-modal" class="modal fade display alert alert-{$level} {$modalClass}" data-status="{$level}">
 	<div class="modal-dialog">
 		<div class="modal-content">
-			<div n:if="$title" class="modal-header">
+			<div n:if="$title && $useTitle" class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				<h4 class="modal-title">{$title}</h4>
 			</div>

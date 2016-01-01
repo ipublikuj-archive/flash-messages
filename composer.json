@@ -20,11 +20,13 @@
 	},
 
 	"require": {
-		"php"				: ">=5.4.0",
+		"php"	: ">=5.4.0",
+
 		"nette/application"	: "~2.2",
 		"nette/di"			: "~2.2",
 		"nette/utils"		: "~2.2",
-		"latte/latte"		: "~2.2"
+
+		"latte/latte"	: "~2.2"
 	},
 
 	"require-dev": {
@@ -34,8 +36,12 @@
 		"nette/robot-loader"	: "~2.2",
 		"nette/safe-stream"		: "~2.2",
 		"nette/tester"			: "@dev",
-		"tracy/tracy"			: "@dev",
-		"janmarek/mockista"		: "@dev"
+
+		"tracy/tracy"	: "@dev",
+
+		"janmarek/mockista"	: "@dev",
+
+		"kdyby/translation"	: "~2.2"
 	},
 
 	"suggest": {

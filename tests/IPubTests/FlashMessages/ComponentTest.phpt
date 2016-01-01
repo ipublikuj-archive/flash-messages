@@ -142,6 +142,102 @@ class ComponentTest extends Tester\TestCase
 		Assert::equal('Message to display', (string) $messageContentElement[0]);
 	}
 
+	public function testRenderMessageWithTitle()
+	{
+		// Create test presenter
+		$presenter = $this->createPresenter();
+
+		// Create GET request
+		$request = new Application\Request('Test', 'GET', ['action' => 'showMessageWithTitle']);
+		// & fire presenter & catch response
+		$response = $presenter->run($request);
+
+		$dq = Tester\DomQuery::fromHtml((string) $response->getSource());
+
+		Assert::true($dq->has('div[class*="ipub-flash-messages"]'));
+
+		$messageElement = $dq->find('div[class*="alert"]');
+
+		Assert::equal('success', (string) $messageElement[0]->attributes()->{'data-status'});
+
+		$messageContentElement = $dq->find('div[class*="alert"] p');
+
+		Assert::equal('Message to display', (string) $messageContentElement[0]);
+
+		$messageTitleElement = $dq->find('h2');
+
+		Assert::equal('Message title', (string) $messageTitleElement[0]);
+	}
+
+	public function testRenderMessageWithoutTitle()
+	{
+		// Create test presenter
+		$presenter = $this->createPresenter();
+
+		// Create GET request
+		$request = new Application\Request('Test', 'GET', ['action' => 'showMessageWithoutTitle']);
+		// & fire presenter & catch response
+		$response = $presenter->run($request);
+
+		$dq = Tester\DomQuery::fromHtml((string) $response->getSource());
+
+		Assert::true($dq->has('div[class*="ipub-flash-messages"]'));
+
+		$messageElement = $dq->find('div[class*="alert"]');
+
+		Assert::equal('success', (string) $messageElement[0]->attributes()->{'data-status'});
+
+		$messageContentElement = $dq->find('div[class*="alert"] p');
+
+		Assert::equal('Message to display', (string) $messageContentElement[0]);
+
+		Assert::false($dq->has('h2'));
+	}
+
+	public function testRenderMessageWithOverlay()
+	{
+		// Create test presenter
+		$presenter = $this->createPresenter();
+
+		// Create GET request
+		$request = new Application\Request('Test', 'GET', ['action' => 'showMessageWithOverlay']);
+		// & fire presenter & catch response
+		$response = $presenter->run($request);
+
+		$dq = Tester\DomQuery::fromHtml((string) $response->getSource());
+
+		Assert::true($dq->has('div[class*="ipub-flash-messages"]'));
+		Assert::true($dq->has('div[class*="overlay"]'));
+
+		$modalElement = $dq->find('div[class*="alert"]');
+
+		Assert::equal('success', (string) $modalElement[0]->attributes()->{'data-status'});
+
+		$messageContentElement = $dq->find('div[class*="modal-body"] p');
+
+		Assert::equal('Message to display', (string) $messageContentElement[0]);
+
+		$messageTitleElement = $dq->find('h3[class*="modal-title"]');
+
+		Assert::equal('Message title', (string) $messageTitleElement[0]);
+	}
+
+	public function testRenderMessageWithoutOverlay()
+	{
+		// Create test presenter
+		$presenter = $this->createPresenter();
+
+		// Create GET request
+		$request = new Application\Request('Test', 'GET', ['action' => 'showMessageWithoutOverlay']);
+		// & fire presenter & catch response
+		$response = $presenter->run($request);
+
+		$dq = Tester\DomQuery::fromHtml((string) $response->getSource());
+
+		Assert::true($dq->has('div[class*="ipub-flash-messages"]'));
+		Assert::false($dq->has('div[class*="overlay"]'));
+	}
+
 	/**
 	 * @return Application\IPresenter
 	 */
@@ -195,6 +291,26 @@ class TestPresenter extends UI\Presenter
 		$this->flashMessage('Message to display', 'success');
 	}
 
+	public function actionShowMessageWithTitle()
+	{
+		$this->flashMessage('Message to display', 'success', 'Message title');
+	}
+
+	public function actionShowMessageWithoutTitle()
+	{
+		$this->flashMessage('Message to display', 'success', 'Message title');
+	}
+
+	public function actionShowMessageWithOverlay()
+	{
+		$this->flashMessage('Message to display', 'success', 'Message title', TRUE);
+	}
+
+	public function actionShowMessageWithoutOverlay()
+	{
+		$this->flashMessage('Message to display', 'success', 'Message title', TRUE);
+	}
+
 	public function renderValidTemplate()
 	{
 		// Set template for component testing
@@ -205,6 +321,42 @@ class TestPresenter extends UI\Presenter
 	{
 		// Set template for component testing
 		$this->template->setFile(__DIR__ . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . 'show.latte');
+	}
+
+	public function renderShowMessageWithTitle()
+	{
+		// Set template for component testing
+		$this->template->setFile(__DIR__ . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . 'show.latte');
+
+		// Globaly enable titles
+		$this['flashMessages']->enableTitle();
+	}
+
+	public function renderShowMessageWithoutTitle()
+	{
+		// Set template for component testing
+		$this->template->setFile(__DIR__ . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . 'show.latte');
+
+		// Globaly enable titles
+		$this['flashMessages']->disableTitle();
+	}
+
+	public function renderShowMessageWithOverlay()
+	{
+		// Set template for component testing
+		$this->template->setFile(__DIR__ . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . 'show.latte');
+
+		// Globaly enable titles
+		$this['flashMessages']->enableOverlay();
+	}
+
+	public function renderShowMessageWithoutOverlay()
+	{
+		// Set template for component testing
+		$this->template->setFile(__DIR__ . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . 'show.latte');
+
+		// Globaly enable titles
+		$this['flashMessages']->disableOverlay();
 	}
 
 	/**

@@ -60,13 +60,14 @@ class FlashNotifier extends Nette\Object
 	 * @param string $message
 	 * @param string|null $title
 	 *
-	 * @return $this
+	 * @return Entities\IMessage
 	 */
 	public function success($message, $title = NULL)
 	{
-		$this->message($message, 'success', $title);
+		$args = func_get_args();
+		array_splice($args, 1, 0, ['success']);
 
-		return $this;
+		return call_user_func_array([$this, 'setMessage'], $args);
 	}
 
 	/**
@@ -75,13 +76,14 @@ class FlashNotifier extends Nette\Object
 	 * @param string $message
 	 * @param string|null $title
 	 *
-	 * @return $this
+	 * @return Entities\IMessage
 	 */
 	public function info($message, $title = NULL)
 	{
-		$this->message($message, 'info', $title);
+		$args = func_get_args();
+		array_splice($args, 1, 0, ['info']);
 
-		return $this;
+		return call_user_func_array([$this, 'setMessage'], $args);
 	}
 
 	/**
@@ -90,13 +92,14 @@ class FlashNotifier extends Nette\Object
 	 * @param string $message
 	 * @param string|null $title
 	 *
-	 * @return $this
+	 * @return Entities\IMessage
 	 */
 	public function warning($message, $title = NULL)
 	{
-		$this->message($message, 'warning', $title);
+		$args = func_get_args();
+		array_splice($args, 1, 0, ['warning']);
 
-		return $this;
+		return call_user_func_array([$this, 'setMessage'], $args);
 	}
 
 	/**
@@ -105,13 +108,14 @@ class FlashNotifier extends Nette\Object
 	 * @param string $message
 	 * @param string|null $title
 	 *
-	 * @return $this
+	 * @return Entities\IMessage
 	 */
 	public function error($message, $title = NULL)
 	{
-		$this->message($message, 'danger', $title);
+		$args = func_get_args();
+		array_splice($args, 1, 0, ['danger']);
 
-		return $this;
+		return call_user_func_array([$this, 'setMessage'], $args);
 	}
 
 	/**
@@ -132,13 +136,38 @@ class FlashNotifier extends Nette\Object
 	 * @param string $message
 	 * @param string $title
 	 *
-	 * @return $this
+	 * @return Entities\IMessage
 	 */
-	public function overlay($message, $title = 'Notice')
+	public function overlay($message, $title = NULL)
 	{
-		$this->message($message, 'info', $title, TRUE);
+		$args = func_get_args();
 
-		return $this;
+		$level = $args[1];
+
+		if (is_string($level) === FALSE || $level === NULL
+			|| !in_array($level, [Entities\IMessage::LEVEL_ERROR, Entities\IMessage::LEVEL_INFO, Entities\IMessage::LEVEL_SUCCESS, Entities\IMessage::LEVEL_WARNING])
+		) {
+			array_splice($args, 1, 0, ['info']);
+		}
+
+		array_splice($args, 3, 0, [TRUE]);
+
+		return call_user_func_array([$this, 'setMessage'], $args);
+	}
+
+	/**
+	 * @param string $message
+	 * @param string $level
+	 * @param string $title
+	 * @param boolean $overlay
+	 * @param int|null $count
+	 * @param array $parameters
+	 *
+	 * @return Entities\IMessage
+	 */
+	public function message($message, $level = 'info', $title = NULL, $overlay = FALSE, $count = NULL, array $parameters = [])
+	{
+		return $this->setMessage($message, $level, $title, $overlay, $count, $parameters);
 	}
 
 	/**
@@ -153,12 +182,18 @@ class FlashNotifier extends Nette\Object
 	 *
 	 * @return Entities\IMessage
 	 */
-	public function message($message, $level = 'info', $title = 'Notice', $overlay = FALSE, $count = NULL, array $parameters = [])
+	public function setMessage($message, $level = 'info', $title = NULL, $overlay = FALSE, $count = NULL, array $parameters = [])
 	{
-		$title = $this->checkForAttribute([$title, $overlay, $count, $parameters], 'title');
-		$overlay = $this->checkForAttribute([$title, $overlay, $count, $parameters], 'overlay');
-		$count = $this->checkForAttribute([$title, $overlay, $count, $parameters], 'count');
-		$parameters = $this->checkForAttribute([$title, $overlay, $count, $parameters], 'parameters');
+		$args = func_get_args();
+		// Remove message
+		unset($args[0]);
+		// Remove level
+		unset($args[1]);
+
+		$title = $this->checkForAttribute($args, 'title', NULL);
+		$overlay = $this->checkForAttribute($args, 'overlay', FALSE);
+		$count = $this->checkForAttribute($args, 'count', NULL);
+		$parameters = $this->checkForAttribute($args, 'parameters', []);
 
 		// Support for Kdyby/Translation
 		if ($message instanceof Translation\Phrase) {
@@ -224,10 +259,11 @@ class FlashNotifier extends Nette\Object
 	/**
 	 * @param array $attributes
 	 * @param string $type
+	 * @param mixed $default
 	 *
 	 * @return mixed
 	 */
-	private function checkForAttribute(array $attributes, $type)
+	private function checkForAttribute(array $attributes, $type, $default)
 	{
 		foreach($attributes as $attribute) {
 			switch($type)
@@ -258,6 +294,7 @@ class FlashNotifier extends Nette\Object
 			}
 		}
 
-		return NULL;
+		// Return default
+		return $default;
 	}
 }

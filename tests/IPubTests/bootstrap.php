@@ -15,6 +15,8 @@ define('TEMP_DIR', __DIR__ . '/../tmp/' . (isset($_SERVER['argv']) ? md5(seriali
 Tester\Helpers::purge(TEMP_DIR);
 \Tracy\Debugger::$logDirectory = TEMP_DIR;
 
+session_save_path(TEMP_DIR);
+
 function id($val) {
 	return $val;
 }

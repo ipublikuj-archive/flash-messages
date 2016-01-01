@@ -1,6 +1,6 @@
 <div class="overlay"></div>
-<div n:class="modal, display, $modalClass">
-	<div n:if="$title" class="modal-header">
+<div class="modal display alert alert-{$level} {$modalClass}" data-status="{$level}">
+	<div n:if="$title && $useTitle" class="modal-header">
 		<h3 class="modal-title">{$title}</h3>
 	</div>
 	<div class="modal-body">

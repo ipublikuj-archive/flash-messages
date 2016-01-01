@@ -14,11 +14,9 @@
 
 namespace IPub\FlashMessages\Events;
 
-use Nette;
-use Nette\Application;
-
 use IPub;
 use IPub\FlashMessages;
+use IPub\FlashMessages\Entities;
 
 /**
  * Flash message storage events
@@ -44,11 +42,11 @@ class OnResponseHandler
 	}
 
 	/**
-	 * @param Application\Application $application
+	 *
 	 */
-	public function __invoke(Application\Application $application)
+	public function __invoke()
 	{
-		/** @var FlashMessages\Entities\IMessage[] $messages */
+		/** @var Entities\IMessage[] $messages */
 		$messages = $this->sessionStorage->get(FlashMessages\SessionStorage::KEY_MESSAGES, []);
 
 		foreach ($messages as $key => $message) {

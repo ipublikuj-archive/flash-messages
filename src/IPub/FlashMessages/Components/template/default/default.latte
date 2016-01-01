@@ -4,8 +4,10 @@
 		{if $flash->getOverlay() && $useOverlay}
 			{include 'modal.latte',
 				'modalClass' => 'flash-modal',
+				'level' => $flash->getLevel(),
 				'title' => $flash->getTitle(),
-				'body' => $flash->getMessage()
+				'body' => $flash->getMessage(),
+				'useTitle' => $useTitle
 			}
 		{else}
 		<div class="alert alert-{$flash->getLevel()}" data-status="{$flash->getLevel()}">
