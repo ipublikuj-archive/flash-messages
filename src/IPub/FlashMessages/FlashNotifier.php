@@ -199,9 +199,12 @@ class FlashNotifier extends Nette\Object
 		if ($message instanceof Translation\Phrase) {
 			$phrase = new Adapters\KdybyPhraseAdapter($message);
 
-			// Default phrase adapter
+		// Default phrase adapter
 		} else if (!$message instanceof Adapters\IPhraseAdapter) {
 			$phrase = new Adapters\DefaultPhraseAdapter($message, $count, $parameters);
+
+		} else {
+			$phrase = $message;
 		}
 
 		// Support for Kdyby/Translation
@@ -225,8 +228,13 @@ class FlashNotifier extends Nette\Object
 			->setOverlay($overlay);
 
 		if (!$this->translator instanceof Localization\ITranslator) {
-			$flash->setMessage($message);
-			$flash->setTitle($title);
+			if (is_string($message) === TRUE) {
+				$flash->setMessage($message);
+			}
+
+			if (is_string($title) === TRUE) {
+				$flash->setTitle($title);
+			}
 		}
 
 		if ($this->checkUnique($flash, $messages) === FALSE) {
