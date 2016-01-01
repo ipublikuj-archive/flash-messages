@@ -48,7 +48,11 @@ class KdybyPhraseAdapter extends Nette\Object implements IPhraseAdapter
 	 */
 	public function translate(Localization\ITranslator $translator)
 	{
-		return $this->phrase->translate($translator);
+		if ($translator instanceof Translation\Translator) {
+			return $this->phrase->translate($translator);
+		}
+
+		return NULL;
 	}
 
 	/**

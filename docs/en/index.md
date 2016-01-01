@@ -1,3 +1,34 @@
+# Quickstart
+
+This extension replace default flash messages handling. If you want to use one interface for displaying messages, use this extension. For eg. if you are showing messages in modal windows, but sometimes this windows are deactivated, you can reach it with this extension. It store messages in one place and check if were displayed or not.
+
+## Installation
+
+The best way to install ipub/flash-messages is using  [Composer](http://getcomposer.org/):
+
+```sh
+$ composer require ipub/flash-messages
+```
+
+After that you have to register extension in config.neon.
+
+```neon
+extensions:
+    flashMessages: IPub\FlashMessages\DI\FlashMessagesExtension
+```
+
+Package contains trait, which you will have to use in presenters or components to implement Flash messages component factory. This works only for PHP 5.4+, for older version you can simply copy trait content and paste it into class where you want to use it.
+
+```php
+<?php
+
+class BasePresenter extends Nette\Application\UI\Presenter
+{
+    use IPub\FlashMessages\TFlashMessages;
+
+    // ...
+}
+```
 
 ## Usage
 
@@ -10,7 +41,7 @@ namespace Your\Coool\Namespace\Presenter;
 
 use IPub\FlashMessages;
 
-class SomePresenter
+class SomePresenter extends Nette\Application\UI\Presenter
 {
 	/**
 	 * Insert extension trait (only for PHP 5.4+)
@@ -59,8 +90,13 @@ And if you want to display some message you can use Nette default method to stor
 ```php
 <?php
 
-class BasePresenter extends Nette\Application\UI\Presenter
+class SomePresenter extends Nette\Application\UI\Presenter
 {
+	/**
+	 * Insert extension trait (only for PHP 5.4+)
+	 */
+	use FlashMessages\TFlashMessages;
+
 	public function actionSome()
 	{
 		$this->flashMessage('Message text', 'warning');
@@ -77,15 +113,20 @@ This extension has its own methods to create flash messages, which support more 
 ```php
 <?php
 
-class BasePresenter extends Nette\Application\UI\Presenter
+class SomePresenter extends Nette\Application\UI\Presenter
 {
+	/**
+	 * Insert extension trait (only for PHP 5.4+)
+	 */
+	use FlashMessages\TFlashMessages;
+
 	public function actionSome()
 	{
 		$this->flashNotifier->message('Message text', 'warning', 'My message title');
 
 		// or
 
-		$this->warning('Message text', 'My message title');
+		$this->flashNotifier->warning('Message text', 'My message title');
 	}
 }
 ```
@@ -99,6 +140,31 @@ Available methods to store message:
 
 Message title is optional parameter.
 
-### Important modal messages
+### Messages in modal windows with overlay
 
-If you want to create important message and display it in modal window, you can use special option for it: *overlay*
+If you want to create important message and display it in modal window, you can use special option or special method:
+
+```php
+<?php
+
+class SomePresenter extends Nette\Application\UI\Presenter
+{
+	/**
+	 * Insert extension trait (only for PHP 5.4+)
+	 */
+	use FlashMessages\TFlashMessages;
+
+	public function actionSome()
+	{
+		$this->flashNotifier->overlay('Message text', 'warning', 'My message title');
+
+		// or
+
+		$this->flashNotifier->overlay('Message text', 'My message title'); // Without level info message will be created
+
+		// or
+
+		$this->flashNotifier->message('Message text', 'warning', 'My message title', TRUE);
+	}
+}
+```

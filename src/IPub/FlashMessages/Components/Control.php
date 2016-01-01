@@ -80,19 +80,15 @@ class Control extends Application\UI\Control
 	/**
 	 * @param NULL|string $templateFile
 	 * @param FlashMessages\SessionStorage $sessionStorage
-	 * @param Nette\ComponentModel\IContainer $parent
-	 * @param null $name
 	 *
 	 * @throws Exceptions\FileNotFoundException
 	 */
 	public function __construct(
 		$templateFile = NULL,
-		FlashMessages\SessionStorage $sessionStorage,
-		Nette\ComponentModel\IContainer $parent = NULL, $name = NULL
+		FlashMessages\SessionStorage $sessionStorage
 	)
 	{
-		// TODO: remove, only for tests
-		parent::__construct(NULL, NULL);
+		parent::__construct();
 
 		if ($templateFile !== NULL) {
 			$this->setTemplateFile($templateFile);
