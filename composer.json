@@ -41,7 +41,7 @@
 
 		"janmarek/mockista"	: "@dev",
 
-		"kdyby/translation"	: "~2.2"
+		"kdyby/translation"	: "~2.0"
 	},
 
 	"suggest": {
