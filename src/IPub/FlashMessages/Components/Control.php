@@ -33,6 +33,8 @@ use IPub\FlashMessages\Storage;
  * @package        iPublikuj:FlashMessages!
  * @subpackage     Components
  *
+ * @author         Adam Kadlec http://www.ipublikuj.eu
+ *
  * @property Application\UI\ITemplate $template
  */
 class Control extends Application\UI\Control
@@ -188,16 +190,18 @@ class Control extends Application\UI\Control
 	{
 		// Check if template file exists...
 		if (!is_file($templateFile)) {
-			// Remove extension
-			$template = basename($templateFile, '.latte');
+			// Get component actual dir
+			$dir = dirname($this->getReflection()->getFileName());
+
+			$templateName = preg_replace('/.latte/', '', $templateFile);
 
 			// ...check if extension template is used
-			if (is_file(__DIR__ . DIRECTORY_SEPARATOR . 'template' . DIRECTORY_SEPARATOR . $template . DIRECTORY_SEPARATOR . 'default.latte')) {
-				$templateFile = __DIR__ . DIRECTORY_SEPARATOR . 'template' . DIRECTORY_SEPARATOR . $template . DIRECTORY_SEPARATOR . 'default.latte';
+			if (is_file($dir . DIRECTORY_SEPARATOR . 'template' . DIRECTORY_SEPARATOR . $templateName . '.latte')) {
+				$templateFile = $dir . DIRECTORY_SEPARATOR . 'template' . DIRECTORY_SEPARATOR . $templateName . '.latte';
 
 			} else {
 				// ...if not throw exception
-				throw new Exceptions\FileNotFoundException('Template file "' . $templateFile . '" was not found.');
+				throw new Exceptions\FileNotFoundException(sprintf('Template file "%s" was not found.', $templateFile));
 			}
 		}
 

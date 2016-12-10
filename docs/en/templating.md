@@ -11,14 +11,12 @@ If you are using one of the front-end framework you can just define it:
 ```php
 namespace Your\Coool\Namespace\Presenter;
 
-use IPub\FlashMessages;
-
 class SomePresenter
 {
 	/**
 	 * Insert extension trait (only for PHP 5.4+)
 	 */
-	use FlashMessages\TFlashMessages;
+	use \IPub\FlashMessages\TFlashMessages;
 
 	/**
 	 * Component for displaying messages
@@ -31,7 +29,7 @@ class SomePresenter
 		$control = $this->flashMessagesFactory->create();
 
 		// Define template
-		$control->setTemplateFile('bootstrap.latte');
+		$control->setTemplateFile('bootstrap');
 
 		return $control;
 	}
@@ -47,14 +45,12 @@ If you don't want to use one of the predefined template from extension, you can 
 ```php
 namespace Your\Coool\Namespace\Presenter;
 
-use IPub\FlashMessages;
-
 class SomePresenter
 {
 	/**
 	 * Insert extension trait (only for PHP 5.4+)
 	 */
-	use FlashMessages\TFlashMessages;
+	use \IPub\FlashMessages\TFlashMessages;
 
 	/**
 	 * Component for displaying messages
@@ -80,14 +76,12 @@ Factory which is creating component can pass info about what template should be 
 ```php
 namespace Your\Coool\Namespace\Presenter;
 
-use IPub\FlashMessages;
-
 class SomePresenter
 {
 	/**
 	 * Insert extension trait (only for PHP 5.4+)
 	 */
-	use FlashMessages\TFlashMessages;
+	use \IPub\FlashMessages\TFlashMessages;
 
 	/**
 	 * Component for displaying messages
@@ -97,7 +91,7 @@ class SomePresenter
 	protected function createComponentFlashMessages()
 	{
 		// Create control
-		$control = $this->flashMessagesFactory->create('bootstrap.latte');
+		$control = $this->flashMessagesFactory->create('bootstrap');
 
 		// or
 
@@ -114,7 +108,12 @@ Another way how to configure template is in extension configuration.
 
 ```neon
 	flashMessages:
-		templateFile	: bootstrap.latte // uikit.latte // default.latte // or/path/to/your/template.latte
+		templateFile	: bootstrap // uikit // default // or/path/to/your/template.latte
 ```
 
 System will automatically asset this template into component 
+
+## More
+
+- [Read more how to implement flash messages extension](https://github.com/iPublikuj/flash-messages/blob/master/docs/en/index.md)
+- [Read more how to translate messages](https://github.com/iPublikuj/flash-messages/blob/master/docs/en/translators.md)

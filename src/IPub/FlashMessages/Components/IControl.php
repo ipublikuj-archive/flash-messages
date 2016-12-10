@@ -21,6 +21,8 @@ namespace IPub\FlashMessages\Components;
  *
  * @package        iPublikuj:FlashMessages!
  * @subpackage     Components
+ *
+ * @author         Adam Kadlec http://www.ipublikuj.eu
  */
 interface IControl
 {

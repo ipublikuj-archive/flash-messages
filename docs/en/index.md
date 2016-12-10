@@ -39,14 +39,12 @@ At first you have to create component as usual, like other component in Nette:
 ```php
 namespace Your\Coool\Namespace\Presenter;
 
-use IPub\FlashMessages;
-
 class SomePresenter extends Nette\Application\UI\Presenter
 {
 	/**
 	 * Insert extension trait (only for PHP 5.4+)
 	 */
-	use FlashMessages\TFlashMessages;
+	use \IPub\FlashMessages\TFlashMessages;
 
 	/**
 	 * Component for displaying messages
@@ -95,7 +93,7 @@ class SomePresenter extends Nette\Application\UI\Presenter
 	/**
 	 * Insert extension trait (only for PHP 5.4+)
 	 */
-	use FlashMessages\TFlashMessages;
+	use \IPub\FlashMessages\TFlashMessages;
 
 	public function actionSome()
 	{
@@ -118,7 +116,7 @@ class SomePresenter extends Nette\Application\UI\Presenter
 	/**
 	 * Insert extension trait (only for PHP 5.4+)
 	 */
-	use FlashMessages\TFlashMessages;
+	use \IPub\FlashMessages\TFlashMessages;
 
 	public function actionSome()
 	{
@@ -168,3 +166,8 @@ class SomePresenter extends Nette\Application\UI\Presenter
 	}
 }
 ```
+
+## More
+
+- [Read more how to translate messages](https://github.com/iPublikuj/flash-messages/blob/master/docs/en/translators.md)
+- [Read more about templating system](https://github.com/iPublikuj/flash-messages/blob/master/docs/en/templating.md)
