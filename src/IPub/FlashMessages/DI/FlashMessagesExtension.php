@@ -71,16 +71,12 @@ class FlashMessagesExtension extends DI\CompilerExtension
 			])
 			->setInject(TRUE);
 
-		if ($config['useTitle'] === TRUE) {
-			$control->addSetup('$service->enableTitle(?)', [$config['useTitle']]);
-		} else {
-			$control->addSetup('$service->disableTitle(?)', [$config['useTitle']]);
-		}
-
-		if ($config['useOverlay'] === TRUE) {
-			$control->addSetup('$service->enableOverlay(?)', [$config['useOverlay']]);
-		} else {
-			$control->addSetup('$service->disableOverlay(?)', [$config['useOverlay']]);
+		foreach (['useTitle' => ['enableTitle', 'disableTitle'], 'useOverlay' => ['enableOverlay', 'disableOverlay']] as $parameter => $commands) {
+			if ($config[$parameter] === TRUE) {
+				$control->addSetup('$service->' . $commands[0] . '(?)', [$config[$parameter]]);
+			} else {
+				$control->addSetup('$service->' . $commands[1] . '(?)', [$config[$parameter]]);
+			}
 		}
 
 		if ($config['templateFile']) {

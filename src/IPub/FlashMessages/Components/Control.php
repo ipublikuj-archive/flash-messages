@@ -138,25 +138,28 @@ class Control extends Application\UI\Control
 	 */
 	public function beforeRender()
 	{
-		// Load messages from session
-		/** @var Entities\IMessage[] $messages */
-		$messages = $this->storage->get(Storage\IStorage::KEY_MESSAGES, []);
+		// Check if control has template
+		if ($this->template instanceof Nette\Bridges\ApplicationLatte\Template) {
+			// Load messages from session
+			/** @var Entities\IMessage[] $messages */
+			$messages = $this->storage->get(Storage\IStorage::KEY_MESSAGES, []);
 
-		// Assign vars to template
-		$this->template->flashes = $messages ? $messages : [];
-		$this->template->useTitle = $this->useTitle;
-		$this->template->useOverlay = $this->useOverlay;
+			// Assign vars to template
+			$this->template->flashes = $messages ? $messages : [];
+			$this->template->useTitle = $this->useTitle;
+			$this->template->useOverlay = $this->useOverlay;
 
-		// Check if translator is available
-		if ($this->getTranslator() instanceof Localization\ITranslator) {
-			$this->template->setTranslator($this->getTranslator());
-		}
+			// Check if translator is available
+			if ($this->getTranslator() instanceof Localization\ITranslator) {
+				$this->template->setTranslator($this->getTranslator());
+			}
 
-		// If template was not defined before...
-		if ($this->template->getFile() === NULL) {
-			// ...try to get base component template file
-			$templateFile = !empty($this->templateFile) ? $this->templateFile : __DIR__ . DIRECTORY_SEPARATOR . 'template' . DIRECTORY_SEPARATOR . 'default' . DIRECTORY_SEPARATOR . 'default.latte';
-			$this->template->setFile($templateFile);
+			// If template was not defined before...
+			if ($this->template->getFile() === NULL) {
+				// ...try to get base component template file
+				$templateFile = !empty($this->templateFile) ? $this->templateFile : __DIR__ . DIRECTORY_SEPARATOR . 'template' . DIRECTORY_SEPARATOR . 'default' . DIRECTORY_SEPARATOR . 'default.latte';
+				$this->template->setFile($templateFile);
+			}
 		}
 	}
 
