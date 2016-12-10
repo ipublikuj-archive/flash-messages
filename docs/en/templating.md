@@ -2,9 +2,9 @@
 
 This extension come with three predefined templates:
 
-* bootstrap.latte if you are using [Twitter Bootstrap](http://getbootstrap.com/)
-* uikit.latte if you are using [YooTheme UIKit](http://getuikit.com/)
-* default.latte for custom styling (this template is loaded as default)
+* **bootstrap** if you are using [Twitter Bootstrap](http://getbootstrap.com/)
+* **uikit** if you are using [YooTheme UIKit](http://getuikit.com/)
+* **default** for custom styling (this template is loaded as default)
 
 If you are using one of the front-end framework you can just define it:
 
