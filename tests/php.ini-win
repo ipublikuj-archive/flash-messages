@@ -1,3 +1,4 @@
 [PHP]
 extension_dir = "./ext"
 extension = php_xdebug.dll
+extension = php_json.dll

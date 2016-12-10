@@ -1,7 +1,7 @@
 <div n:snippet="messages" class="ipub-flash-messages uk-text-left">
 {foreach $flashes as $flash}
 	{if !$flash->isDisplayed()}
-		{if $flash->getOverlay() && $useOverlay}
+		{if $flash->hasOverlay() && $useOverlay}
 			{include 'modal.latte',
 				'modalClass' => 'flash-modal',
 				'title' => $flash->getTitle(),
@@ -11,10 +11,10 @@
 		{else}
 		<div class="alert alert-{$flash->getLevel() == 'error' ? 'danger' : $flash->getLevel()}">
 			<a class="close" data-dismiss="alert" href="#">×</a>
-			<strong n:if="$flash->getTitle() && $useTitle">{!$flash->getTitle()}</strong> {!$flash->getMessage()}
+			<strong n:if="$flash->getTitle() && $useTitle">{$flash->getTitle()|noescape}</strong> {$flash->getMessage()|noescape}
 		</div>
 		{/if}
-		{?$flash->setDisplayed()}
+		{php $flash->setDisplayed()}
 	{/if}
 {/foreach}
 </div>

@@ -12,6 +12,8 @@
  * @date           06.02.15
  */
 
+declare(strict_types = 1);
+
 namespace IPub\FlashMessages\Adapters;
 
 use Nette;
@@ -23,35 +25,35 @@ use Nette\Localization;
  * @package        iPublikuj:FlashMessages!
  * @subpackage     Adapters
  *
- * @author         Adam Kadlec <adam.kadlec@fastybird.com>
+ * @author         Adam Kadlec <adam.kadlec@ipublikuj.eu>
  */
 interface IPhraseAdapter
 {
 	/**
 	 * @param Localization\ITranslator $translator
 	 *
-	 * @return string
+	 * @return string|NULL
 	 */
-	public function translate(Localization\ITranslator $translator);
+	function translate(Localization\ITranslator $translator);
 
 	/**
 	 * @param string $message
 	 *
-	 * @return $this
+	 * @return void
 	 */
-	public function setMessage($message);
+	function setMessage($message);
 
 	/**
 	 * @param int $count
 	 *
-	 * @return $this
+	 * @return void
 	 */
-	public function setCount($count);
+	function setCount($count);
 
 	/**
 	 * @param array $parameters
 	 *
-	 * @return $this
+	 * @return void
 	 */
-	public function setParameters($parameters);
+	function setParameters($parameters);
 }

@@ -13,6 +13,8 @@
  * @date           01.01.16
  */
 
+declare(strict_types = 1);
+
 namespace IPubTests\FlashMessages;
 
 use Nette;
@@ -26,7 +28,7 @@ use IPub;
 use IPub\FlashMessages;
 use IPub\FlashMessages\Entities;
 
-require __DIR__ . '/../bootstrap.php';
+require __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'bootstrap.php';
 
 class NotifierTest extends Tester\TestCase
 {
@@ -62,7 +64,7 @@ class NotifierTest extends Tester\TestCase
 		Assert::same('Message text', $flash->getMessage());
 		Assert::same(Entities\IMessage::LEVEL_SUCCESS, $flash->getLevel());
 		Assert::same(NULL, $flash->getTitle());
-		Assert::true($flash->getOverlay());
+		Assert::true($flash->hasOverlay());
 
 		// Without title and without overlay
 		$flash = $this->notifier->setMessage('Message text', Entities\IMessage::LEVEL_SUCCESS, FALSE);
@@ -71,7 +73,7 @@ class NotifierTest extends Tester\TestCase
 		Assert::same('Message text', $flash->getMessage());
 		Assert::same(Entities\IMessage::LEVEL_SUCCESS, $flash->getLevel());
 		Assert::same(NULL, $flash->getTitle());
-		Assert::false($flash->getOverlay());
+		Assert::false($flash->hasOverlay());
 
 		// Without title and without overlay
 		$flash = $this->notifier->setMessage('Message text: %param%', Entities\IMessage::LEVEL_SUCCESS, ['param' => 'value']);
@@ -80,7 +82,7 @@ class NotifierTest extends Tester\TestCase
 		Assert::same('Message text: value', $flash->getMessage());
 		Assert::same(Entities\IMessage::LEVEL_SUCCESS, $flash->getLevel());
 		Assert::same(NULL, $flash->getTitle());
-		Assert::false($flash->getOverlay());
+		Assert::false($flash->hasOverlay());
 
 		// Without title and without overlay and with params
 		$flash = $this->notifier->setMessage('Message text: %param%', Entities\IMessage::LEVEL_SUCCESS, 5, ['param' => 'value']);
@@ -89,7 +91,7 @@ class NotifierTest extends Tester\TestCase
 		Assert::same('Message text: value', $flash->getMessage());
 		Assert::same(Entities\IMessage::LEVEL_SUCCESS, $flash->getLevel());
 		Assert::same(NULL, $flash->getTitle());
-		Assert::false($flash->getOverlay());
+		Assert::false($flash->hasOverlay());
 
 		// Without title and with overlay and params
 		$flash = $this->notifier->setMessage('Message text: %param%', Entities\IMessage::LEVEL_SUCCESS, TRUE, 5, ['param' => 'value']);
@@ -98,7 +100,7 @@ class NotifierTest extends Tester\TestCase
 		Assert::same('Message text: value', $flash->getMessage());
 		Assert::same(Entities\IMessage::LEVEL_SUCCESS, $flash->getLevel());
 		Assert::same(NULL, $flash->getTitle());
-		Assert::true($flash->getOverlay());
+		Assert::true($flash->hasOverlay());
 
 		// Short call with info without title and with overlay and params
 		$flash = $this->notifier->info('Message text: %param%', TRUE, 5, ['param' => 'value']);
@@ -107,7 +109,7 @@ class NotifierTest extends Tester\TestCase
 		Assert::same('Message text: value', $flash->getMessage());
 		Assert::same(Entities\IMessage::LEVEL_INFO, $flash->getLevel());
 		Assert::same(NULL, $flash->getTitle());
-		Assert::true($flash->getOverlay());
+		Assert::true($flash->hasOverlay());
 
 		// With shortcut call with info without title and without overlay and params
 		$flash = $this->notifier->info('Message text: %param%', ['param' => 'value']);
@@ -116,7 +118,7 @@ class NotifierTest extends Tester\TestCase
 		Assert::same('Message text: value', $flash->getMessage());
 		Assert::same(Entities\IMessage::LEVEL_INFO, $flash->getLevel());
 		Assert::same(NULL, $flash->getTitle());
-		Assert::false($flash->getOverlay());
+		Assert::false($flash->hasOverlay());
 	}
 
 	public function testSkipOverlay()
@@ -128,7 +130,7 @@ class NotifierTest extends Tester\TestCase
 		Assert::same('Message text', $flash->getMessage());
 		Assert::same(Entities\IMessage::LEVEL_SUCCESS, $flash->getLevel());
 		Assert::same('Message title', $flash->getTitle());
-		Assert::false($flash->getOverlay());
+		Assert::false($flash->hasOverlay());
 
 		// Without overlay with params
 		$flash = $this->notifier->setMessage('Message text: %param%', Entities\IMessage::LEVEL_SUCCESS, 'Message title and %param%', ['param' => 'value']);
@@ -137,7 +139,7 @@ class NotifierTest extends Tester\TestCase
 		Assert::same('Message text: value', $flash->getMessage());
 		Assert::same(Entities\IMessage::LEVEL_SUCCESS, $flash->getLevel());
 		Assert::same('Message title and value', $flash->getTitle());
-		Assert::false($flash->getOverlay());
+		Assert::false($flash->hasOverlay());
 
 		// Without overlay with params
 		$flash = $this->notifier->setMessage('Message text: %param%', Entities\IMessage::LEVEL_SUCCESS, 'Message title and %param%', 5, ['param' => 'value']);
@@ -146,7 +148,7 @@ class NotifierTest extends Tester\TestCase
 		Assert::same('Message text: value', $flash->getMessage());
 		Assert::same(Entities\IMessage::LEVEL_SUCCESS, $flash->getLevel());
 		Assert::same('Message title and value', $flash->getTitle());
-		Assert::false($flash->getOverlay());
+		Assert::false($flash->hasOverlay());
 
 		// Short call with info without title and with overlay and params
 		$flash = $this->notifier->info('Message text: %param%', 'Message title and %param%', ['param' => 'value']);
@@ -155,7 +157,7 @@ class NotifierTest extends Tester\TestCase
 		Assert::same('Message text: value', $flash->getMessage());
 		Assert::same(Entities\IMessage::LEVEL_INFO, $flash->getLevel());
 		Assert::same('Message title and value', $flash->getTitle());
-		Assert::false($flash->getOverlay());
+		Assert::false($flash->hasOverlay());
 
 		// Short call with info without title and with overlay and params
 		$flash = $this->notifier->info('Message text: %param%', 'Message title and %param%', 5, ['param' => 'value']);
@@ -164,7 +166,7 @@ class NotifierTest extends Tester\TestCase
 		Assert::same('Message text: value', $flash->getMessage());
 		Assert::same(Entities\IMessage::LEVEL_INFO, $flash->getLevel());
 		Assert::same('Message title and value', $flash->getTitle());
-		Assert::false($flash->getOverlay());
+		Assert::false($flash->hasOverlay());
 	}
 
 	public function testOverlayShortCut()
@@ -176,7 +178,7 @@ class NotifierTest extends Tester\TestCase
 		Assert::same('Message text', $flash->getMessage());
 		Assert::same(Entities\IMessage::LEVEL_INFO, $flash->getLevel());
 		Assert::same('Message title', $flash->getTitle());
-		Assert::true($flash->getOverlay());
+		Assert::true($flash->hasOverlay());
 
 		// Short call with info without title and with level and without params
 		$flash = $this->notifier->overlay('Message text', Entities\IMessage::LEVEL_ERROR);
@@ -185,7 +187,7 @@ class NotifierTest extends Tester\TestCase
 		Assert::same('Message text', $flash->getMessage());
 		Assert::same(Entities\IMessage::LEVEL_ERROR, $flash->getLevel());
 		Assert::same(NULL, $flash->getTitle());
-		Assert::true($flash->getOverlay());
+		Assert::true($flash->hasOverlay());
 
 		// Short call with info without title and with level and with params
 		$flash = $this->notifier->overlay('Message text: %param%', Entities\IMessage::LEVEL_ERROR, ['param' => 'value']);
@@ -194,7 +196,7 @@ class NotifierTest extends Tester\TestCase
 		Assert::same('Message text: value', $flash->getMessage());
 		Assert::same(Entities\IMessage::LEVEL_ERROR, $flash->getLevel());
 		Assert::same(NULL, $flash->getTitle());
-		Assert::true($flash->getOverlay());
+		Assert::true($flash->hasOverlay());
 
 		// Short call with info with title and without level and with params
 		$flash = $this->notifier->overlay('Message text: %param%', 'Message title and %param%', ['param' => 'value']);
@@ -203,7 +205,7 @@ class NotifierTest extends Tester\TestCase
 		Assert::same('Message text: value', $flash->getMessage());
 		Assert::same(Entities\IMessage::LEVEL_INFO, $flash->getLevel());
 		Assert::same('Message title and value', $flash->getTitle());
-		Assert::true($flash->getOverlay());
+		Assert::true($flash->hasOverlay());
 
 		// Short call with info with title and without level and with params
 		$flash = $this->notifier->overlay('Message text: %param%', 'Message title and %param%', 5, ['param' => 'value']);
@@ -212,7 +214,7 @@ class NotifierTest extends Tester\TestCase
 		Assert::same('Message text: value', $flash->getMessage());
 		Assert::same(Entities\IMessage::LEVEL_INFO, $flash->getLevel());
 		Assert::same('Message title and value', $flash->getTitle());
-		Assert::true($flash->getOverlay());
+		Assert::true($flash->hasOverlay());
 	}
 
 	/**
@@ -225,7 +227,7 @@ class NotifierTest extends Tester\TestCase
 
 		FlashMessages\DI\FlashMessagesExtension::register($config);
 
-		$config->addConfig(__DIR__ . '/files/translator.neon', $config::NONE);
+		$config->addConfig(__DIR__ . DS . 'files' . DS . 'translator.neon');
 
 		return $config->createContainer();
 	}

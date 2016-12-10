@@ -1,7 +1,6 @@
-nette:
-	application:
-		mapping:
-			*: IPubTests\FlashMessages\*Presenter
+application:
+	mapping:
+		*: IPubTests\FlashMessages\*Presenter
 
 services:
 	# Test presenter

@@ -25,7 +25,7 @@ use IPub\FlashMessages\Components;
  * @package        iPublikuj:FlashMessages!
  * @subpackage     common
  *
- * @author         Adam Kadlec <adam.kadlec@fastybird.com>
+ * @author         Adam Kadlec <adam.kadlec@ipublikuj.eu>
  */
 trait TFlashMessages
 {

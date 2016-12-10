@@ -12,13 +12,14 @@
  * @date           06.02.15
  */
 
+declare(strict_types = 1);
+
 namespace IPub\FlashMessages\Entities;
 
 use Nette;
 use Nette\Localization;
 
 use IPub;
-use IPub\FlashMessages\Adapters;
 use IPub\FlashMessages\Exceptions;
 
 /**
@@ -27,7 +28,7 @@ use IPub\FlashMessages\Exceptions;
  * @package        iPublikuj:FlashMessages!
  * @subpackage     Entities
  *
- * @author         Adam Kadlec <adam.kadlec@fastybird.com>
+ * @author         Adam Kadlec <adam.kadlec@ipublikuj.eu>
  */
 interface IMessage
 {
@@ -39,98 +40,98 @@ interface IMessage
 	/**
 	 * @param string $message
 	 *
-	 * @return $this
+	 * @return void
 	 */
-	public function setMessage($message);
+	function setMessage(string $message);
 
 	/**
 	 * @return string
 	 */
-	public function getMessage();
+	function getMessage() : string;
 
 	/**
 	 * @param string $level
 	 *
-	 * @return $this
+	 * @return void
 	 */
-	public function setLevel($level);
+	function setLevel(string $level);
 
 	/**
 	 * @return string
 	 */
-	public function getLevel();
+	function getLevel() : string;
 
 	/**
-	 * @return $this
+	 * @return void
 	 */
-	public function info();
+	function info();
 
 	/**
-	 * @return $this
+	 * @return void
 	 */
-	public function success();
+	function success();
 
 	/**
-	 * @return $this
+	 * @return void
 	 */
-	public function warning();
+	function warning();
 
 	/**
-	 * @return $this
+	 * @return void
 	 */
-	public function error();
+	function error();
 
 	/**
 	 * @param string|NULL $title
 	 *
-	 * @return $this
+	 * @return void
 	 */
-	public function setTitle($title = NULL);
+	function setTitle(string $title = NULL);
 
 	/**
 	 * @return string|NULL
 	 */
-	public function getTitle();
+	function getTitle();
 
 	/**
 	 * @param bool $overlay
 	 *
-	 * @return $this
+	 * @return void
 	 */
-	public function setOverlay($overlay);
+	function setOverlay(bool $overlay);
 
 	/**
 	 * @return bool
 	 */
-	public function getOverlay();
+	function hasOverlay() : bool;
 
 	/**
 	 * @param array $parameter
 	 *
-	 * @return $this
+	 * @return void
 	 *
 	 * @throws Exceptions\InvalidStateException when object is unserialized
 	 */
-	public function setParameters(array $parameter);
+	function setParameters(array $parameter);
 
 	/**
 	 * @param int $count
 	 *
-	 * @return $this
+	 * @return void
 	 *
 	 * @throws Exceptions\InvalidStateException when object is unserialized
 	 */
-	public function setCount($count);
+	function setCount(int $count);
 
 	/**
 	 * @param bool $displayed
 	 *
-	 * @return $this
+	 * @return void
 	 */
-	public function setDisplayed($displayed = TRUE);
+	function setDisplayed(bool $displayed = TRUE);
 
 	/**
 	 * @return bool
 	 */
-	public function isDisplayed();
+	function isDisplayed() : bool;
 }

@@ -12,6 +12,8 @@
  * @date           01.02.15
  */
 
+declare(strict_types = 1);
+
 namespace IPub\FlashMessages;
 
 use Nette;
@@ -23,6 +25,7 @@ use Kdyby\Translation;
 use IPub;
 use IPub\FlashMessages\Adapters;
 use IPub\FlashMessages\Entities;
+use IPub\FlashMessages\Storage;
 
 /**
  * Flash message notifier
@@ -30,14 +33,14 @@ use IPub\FlashMessages\Entities;
  * @package        iPublikuj:FlashMessages!
  * @subpackage     common
  *
- * @author         Adam Kadlec <adam.kadlec@fastybird.com>
+ * @author         Adam Kadlec <adam.kadlec@ipublikuj.eu>
  */
 class FlashNotifier extends Nette\Object
 {
 	/**
-	 * @var SessionStorage
+	 * @var Storage\IStorage
 	 */
-	protected $sessionStorage;
+	protected $storage;
 
 	/**
 	 * @var Localization\ITranslator
@@ -45,12 +48,14 @@ class FlashNotifier extends Nette\Object
 	protected $translator;
 
 	/**
-	 * @param SessionStorage $sessionStorage
+	 * @param Storage\IStorage $storage
 	 * @param Localization\ITranslator $translator
 	 */
-	public function __construct(SessionStorage $sessionStorage, Localization\ITranslator $translator = NULL)
-	{
-		$this->sessionStorage = $sessionStorage;
+	public function __construct(
+		Storage\IStorage $storage,
+		Localization\ITranslator $translator = NULL
+	) {
+		$this->storage = $storage;
 		$this->translator = $translator;
 	}
 
@@ -58,11 +63,11 @@ class FlashNotifier extends Nette\Object
 	 * Flash a success message
 	 *
 	 * @param string $message
-	 * @param string|null $title
+	 * @param string|NULL $title
 	 *
 	 * @return Entities\IMessage
 	 */
-	public function success($message, $title = NULL)
+	public function success($message, $title = NULL) : Entities\IMessage
 	{
 		$args = func_get_args();
 		array_splice($args, 1, 0, ['success']);
@@ -74,11 +79,11 @@ class FlashNotifier extends Nette\Object
 	 * Flash an information message
 	 *
 	 * @param string $message
-	 * @param string|null $title
+	 * @param string|NULL $title
 	 *
 	 * @return Entities\IMessage
 	 */
-	public function info($message, $title = NULL)
+	public function info($message, $title = NULL) : Entities\IMessage
 	{
 		$args = func_get_args();
 		array_splice($args, 1, 0, ['info']);
@@ -90,11 +95,11 @@ class FlashNotifier extends Nette\Object
 	 * Flash a warning message
 	 *
 	 * @param string $message
-	 * @param string|null $title
+	 * @param string|NULL $title
 	 *
 	 * @return Entities\IMessage
 	 */
-	public function warning($message, $title = NULL)
+	public function warning($message, $title = NULL) : Entities\IMessage
 	{
 		$args = func_get_args();
 		array_splice($args, 1, 0, ['warning']);
@@ -106,11 +111,11 @@ class FlashNotifier extends Nette\Object
 	 * Flash an error message
 	 *
 	 * @param string $message
-	 * @param string|null $title
+	 * @param string|NULL $title
 	 *
 	 * @return Entities\IMessage
 	 */
-	public function error($message, $title = NULL)
+	public function error($message, $title = NULL) : Entities\IMessage
 	{
 		$args = func_get_args();
 		array_splice($args, 1, 0, ['danger']);
@@ -121,24 +126,22 @@ class FlashNotifier extends Nette\Object
 	/**
 	 * Add an "important" flash to the session
 	 *
-	 * @return $this
+	 * @return void
 	 */
 	public function important()
 	{
-		$this->sessionStorage->set(SessionStorage::KEY_IMPORTANT, TRUE);
-
-		return $this;
+		$this->storage->set(Storage\IStorage::KEY_IMPORTANT, TRUE);
 	}
 
 	/**
 	 * Flash an overlay modal
 	 *
 	 * @param string $message
-	 * @param string $title
+	 * @param string|NULL $title
 	 *
 	 * @return Entities\IMessage
 	 */
-	public function overlay($message, $title = NULL)
+	public function overlay($message, $title = NULL) : Entities\IMessage
 	{
 		$args = func_get_args();
 
@@ -158,14 +161,14 @@ class FlashNotifier extends Nette\Object
 	/**
 	 * @param string $message
 	 * @param string $level
-	 * @param string $title
+	 * @param string|NULL $title
 	 * @param boolean $overlay
-	 * @param int|null $count
+	 * @param int|NULL $count
 	 * @param array $parameters
 	 *
 	 * @return Entities\IMessage
 	 */
-	public function message($message, $level = 'info', $title = NULL, $overlay = FALSE, $count = NULL, array $parameters = [])
+	public function message($message, $level = 'info', $title = NULL, $overlay = FALSE, $count = NULL, array $parameters = []) : Entities\IMessage
 	{
 		return $this->setMessage($message, $level, $title, $overlay, $count, $parameters);
 	}
@@ -175,14 +178,14 @@ class FlashNotifier extends Nette\Object
 	 *
 	 * @param string $message
 	 * @param string $level
-	 * @param string $title
+	 * @param string|NULL $title
 	 * @param boolean $overlay
-	 * @param int|null $count
+	 * @param int|NULL $count
 	 * @param array $parameters
 	 *
 	 * @return Entities\IMessage
 	 */
-	public function setMessage($message, $level = 'info', $title = NULL, $overlay = FALSE, $count = NULL, array $parameters = [])
+	public function setMessage($message, $level = 'info', $title = NULL, $overlay = FALSE, $count = NULL, array $parameters = []) : Entities\IMessage
 	{
 		$args = func_get_args();
 		// Remove message
@@ -220,12 +223,12 @@ class FlashNotifier extends Nette\Object
 		}
 
 		// Get all stored messages
-		$messages = $this->sessionStorage->get(SessionStorage::KEY_MESSAGES, []);
+		$messages = $this->storage->get(Storage\IStorage::KEY_MESSAGES, []);
 
 		// Create flash message
-		$flash = (new Entities\Message($this->translator, $phrase, $titlePhrase))
-			->setLevel($level)
-			->setOverlay($overlay);
+		$flash = new Entities\Message($this->translator, $phrase, $titlePhrase);
+		$flash->setLevel($level);
+		$flash->setOverlay($overlay);
 
 		if (!$this->translator instanceof Localization\ITranslator) {
 			if (is_string($message) === TRUE) {
@@ -242,7 +245,7 @@ class FlashNotifier extends Nette\Object
 		}
 
 		// Store messages in session
-		$this->sessionStorage->set(SessionStorage::KEY_MESSAGES, $messages);
+		$this->storage->set(Storage\IStorage::KEY_MESSAGES, $messages);
 
 		return $flash;
 	}
@@ -253,7 +256,7 @@ class FlashNotifier extends Nette\Object
 	 *
 	 * @return bool
 	 */
-	private function checkUnique(Entities\IMessage $flash, array $messages)
+	private function checkUnique(Entities\IMessage $flash, array $messages) : bool
 	{
 		foreach ($messages as $member) {
 			if ((string) $member === (string) $flash) {
@@ -271,7 +274,7 @@ class FlashNotifier extends Nette\Object
 	 *
 	 * @return mixed
 	 */
-	private function checkForAttribute(array $attributes, $type, $default)
+	private function checkForAttribute(array $attributes, string $type, $default)
 	{
 		foreach($attributes as $attribute) {
 			switch($type)

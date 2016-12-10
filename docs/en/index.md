@@ -32,7 +32,7 @@ class BasePresenter extends Nette\Application\UI\Presenter
 
 ## Usage
 
-### Create component in Presenter or Control
+### Create component in Presenter or Component
 
 At first you have to create component as usual, like other component in Nette:
 
@@ -51,7 +51,7 @@ class SomePresenter extends Nette\Application\UI\Presenter
 	/**
 	 * Component for displaying messages
 	 *
-	 * @return FlashMessages\Control
+	 * @return FlashMessages\Component
 	 */
 	protected function createComponentFlashMessages()
 	{

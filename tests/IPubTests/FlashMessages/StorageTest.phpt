@@ -13,6 +13,8 @@
  * @date           01.01.16
  */
 
+declare(strict_types = 1);
+
 namespace IPubTests\FlashMessages;
 
 use Nette;
@@ -25,12 +27,12 @@ use Tester\Assert;
 use IPub;
 use IPub\FlashMessages;
 
-require __DIR__ . '/../bootstrap.php';
+require __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'bootstrap.php';
 
 class StorageTest extends Tester\TestCase
 {
 	/**
-	 * @var Nette\Application\IPresenterFactory
+	 * @var Application\IPresenterFactory
 	 */
 	private $presenterFactory;
 
@@ -65,10 +67,10 @@ class StorageTest extends Tester\TestCase
 		$notifier->message('Stored message', 'success');
 
 		// Get session storage from container
-		/** @var FlashMessages\SessionStorage $sessionStorage */
-		$sessionStorage = $container->getByType('IPub\FlashMessages\SessionStorage');
+		/** @var FlashMessages\Storage\Session $storage */
+		$storage = $container->getByType('IPub\FlashMessages\Storage\Session');
 
-		Assert::equal(1, count($sessionStorage->get(FlashMessages\SessionStorage::KEY_MESSAGES, [])));
+		Assert::equal(1, count($storage->get(FlashMessages\Storage\Session::KEY_MESSAGES, [])));
 
 		// Create container
 		$container = $this->createContainer();
@@ -81,23 +83,23 @@ class StorageTest extends Tester\TestCase
 		$notifier->message('Second stored message', 'success');
 
 		// Get session storage from container
-		/** @var FlashMessages\SessionStorage $sessionStorage */
-		$sessionStorage = $container->getByType('IPub\FlashMessages\SessionStorage');
+		/** @var FlashMessages\Storage\Session $storage */
+		$storage = $container->getByType('IPub\FlashMessages\Storage\Session');
 
-		Assert::equal(2, count($sessionStorage->get(FlashMessages\SessionStorage::KEY_MESSAGES, [])));
+		Assert::equal(2, count($storage->get(FlashMessages\Storage\Session::KEY_MESSAGES, [])));
 
 		// Create container
 		$container = $this->createContainer();
 
 		// Get session storage from container
-		/** @var FlashMessages\SessionStorage $sessionStorage */
-		$sessionStorage = $container->getByType('IPub\FlashMessages\SessionStorage');
+		/** @var FlashMessages\Storage\Session $storage */
+		$storage = $container->getByType('IPub\FlashMessages\Storage\Session');
 
 		/** @var FlashMessages\Entities\IMessage[] $messages */
-		$messages = $sessionStorage->get(FlashMessages\SessionStorage::KEY_MESSAGES, []);
+		$messages = $storage->get(FlashMessages\Storage\Session::KEY_MESSAGES, []);
 		$messages[0]->setDisplayed();
 
-		Assert::equal(2, count($sessionStorage->get(FlashMessages\SessionStorage::KEY_MESSAGES, [])));
+		Assert::equal(2, count($storage->get(FlashMessages\Storage\Session::KEY_MESSAGES, [])));
 
 		// Get event from container
 		/** @var FlashMessages\Events\OnResponseHandler $event */
@@ -105,7 +107,7 @@ class StorageTest extends Tester\TestCase
 
 		$event->__invoke();
 
-		Assert::equal(1, count($sessionStorage->get(FlashMessages\SessionStorage::KEY_MESSAGES, [])));
+		Assert::equal(1, count($storage->get(FlashMessages\Storage\Session::KEY_MESSAGES, [])));
 	}
 
 	/**

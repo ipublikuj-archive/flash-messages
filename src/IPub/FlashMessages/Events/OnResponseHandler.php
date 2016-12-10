@@ -12,11 +12,14 @@
  * @date           06.02.15
  */
 
+declare(strict_types = 1);
+
 namespace IPub\FlashMessages\Events;
 
 use IPub;
 use IPub\FlashMessages;
 use IPub\FlashMessages\Entities;
+use IPub\FlashMessages\Storage;
 
 /**
  * Flash message storage events
@@ -24,30 +27,30 @@ use IPub\FlashMessages\Entities;
  * @package        iPublikuj:FlashMessages!
  * @subpackage     Events
  *
- * @author         Adam Kadlec <adam.kadlec@fastybird.com>
+ * @author         Adam Kadlec <adam.kadlec@ipublikuj.eu>
  */
 class OnResponseHandler
 {
 	/**
-	 * @var FlashMessages\SessionStorage
+	 * @var Storage\IStorage
 	 */
-	private $sessionStorage;
+	private $storage;
 
 	/**
-	 * @param FlashMessages\SessionStorage $sessionStorage
+	 * @param Storage\IStorage $storage
 	 */
-	public function __construct(FlashMessages\SessionStorage $sessionStorage)
+	public function __construct(Storage\IStorage $storage)
 	{
-		$this->sessionStorage = $sessionStorage;
+		$this->storage = $storage;
 	}
 
 	/**
-	 *
+	 * @return void
 	 */
 	public function __invoke()
 	{
 		/** @var Entities\IMessage[] $messages */
-		$messages = $this->sessionStorage->get(FlashMessages\SessionStorage::KEY_MESSAGES, []);
+		$messages = $this->storage->get(Storage\IStorage::KEY_MESSAGES, []);
 
 		foreach ($messages as $key => $message) {
 			if ($message->isDisplayed()) {
@@ -56,6 +59,6 @@ class OnResponseHandler
 		}
 
 		// Update messages in session
-		$this->sessionStorage->set(FlashMessages\SessionStorage::KEY_MESSAGES, $messages);
+		$this->storage->set(Storage\IStorage::KEY_MESSAGES, $messages);
 	}
 }

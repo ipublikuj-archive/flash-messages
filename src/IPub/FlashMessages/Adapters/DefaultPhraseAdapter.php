@@ -12,6 +12,8 @@
  * @date           06.02.15
  */
 
+declare(strict_types = 1);
+
 namespace IPub\FlashMessages\Adapters;
 
 use Nette;
@@ -23,24 +25,24 @@ use Nette\Localization;
  * @package        iPublikuj:FlashMessages!
  * @subpackage     Adapters
  *
- * @author         Adam Kadlec <adam.kadlec@fastybird.com>
+ * @author         Adam Kadlec <adam.kadlec@ipublikuj.eu>
  */
 class DefaultPhraseAdapter extends Nette\Object implements IPhraseAdapter
 {
 	/**
 	 * @var string
 	 */
-	protected $message;
+	private $message;
 
 	/**
 	 * @var int
 	 */
-	protected $count;
+	private $count;
 
 	/**
 	 * @var array
 	 */
-	protected $parameters;
+	private $parameters;
 
 	/**
 	 * @param string $message

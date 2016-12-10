@@ -1,4 +1,5 @@
 extension = xdebug.so
+extension = json.so
 
 [xdebug]
 xdebug.enable = On

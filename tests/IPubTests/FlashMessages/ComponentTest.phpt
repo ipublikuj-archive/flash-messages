@@ -13,6 +13,8 @@
  * @date           07.02.15
  */
 
+declare(strict_types = 1);
+
 namespace IPubTests\FlashMessages;
 
 use Nette;
@@ -26,12 +28,12 @@ use Tester\Assert;
 use IPub;
 use IPub\FlashMessages;
 
-require __DIR__ . '/../bootstrap.php';
+require __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'bootstrap.php';
 
 class ComponentTest extends Tester\TestCase
 {
 	/**
-	 * @var Nette\Application\IPresenterFactory
+	 * @var Application\IPresenterFactory
 	 */
 	private $presenterFactory;
 
@@ -116,7 +118,7 @@ class ComponentTest extends Tester\TestCase
 		Assert::same($message, $flash->getMessage());
 		Assert::same($level, $flash->getLevel());
 		Assert::same($title, $flash->getTitle());
-		Assert::same($overlay, $flash->getOverlay());
+		Assert::same($overlay, $flash->hasOverlay());
 	}
 
 	public function testRenderMessage()
@@ -261,7 +263,7 @@ class ComponentTest extends Tester\TestCase
 
 		FlashMessages\DI\FlashMessagesExtension::register($config);
 
-		$config->addConfig(__DIR__ . '/files/presenters.neon', $config::NONE);
+		$config->addConfig(__DIR__ . DS . 'files' . DS . 'presenters.neon');
 
 		return $config->createContainer();
 	}

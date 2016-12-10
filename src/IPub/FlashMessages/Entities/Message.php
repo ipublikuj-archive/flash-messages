@@ -12,6 +12,8 @@
  * @date           06.02.15
  */
 
+declare(strict_types = 1);
+
 namespace IPub\FlashMessages\Entities;
 
 use Nette;
@@ -27,49 +29,49 @@ use IPub\FlashMessages\Exceptions;
  * @package        iPublikuj:FlashMessages!
  * @subpackage     Entities
  *
- * @author         Adam Kadlec <adam.kadlec@fastybird.com>
+ * @author         Adam Kadlec <adam.kadlec@ipublikuj.eu>
  */
 class Message extends Nette\Object implements IMessage
 {
 	/**
 	 * @var string
 	 */
-	protected $message;
+	private $message;
 
 	/**
 	 * @var string
 	 */
-	protected $level;
+	private $level;
 
 	/**
 	 * @var string
 	 */
-	protected $title;
+	private $title;
 
 	/**
 	 * @var bool
 	 */
-	protected $overlay = FALSE;
+	private $overlay = FALSE;
 
 	/**
 	 * @var bool
 	 */
-	protected $displayed = FALSE;
+	private $displayed = FALSE;
 
 	/**
 	 * @var Localization\ITranslator
 	 */
-	protected $translator;
+	private $translator;
 
 	/**
 	 * @var Adapters\IPhraseAdapter
 	 */
-	protected $phraseAdapter;
+	private $phraseAdapter;
 
 	/**
 	 * @var Adapters\IPhraseAdapter
 	 */
-	protected $titlePhraseAdapter;
+	private $titlePhraseAdapter;
 
 	/**
 	 * @param Localization\ITranslator $translator
@@ -89,7 +91,7 @@ class Message extends Nette\Object implements IMessage
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setMessage($message)
+	public function setMessage(string $message)
 	{
 		if ($this->isUnserialized()) {
 			$this->message = $message;
@@ -98,14 +100,12 @@ class Message extends Nette\Object implements IMessage
 			$this->phraseAdapter->setMessage($message);
 			$this->message = NULL;
 		}
-
-		return $this;
 	}
 
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getMessage()
+	public function getMessage() : string
 	{
 		if ($this->message === NULL && $this->translator) {
 			$this->message = $this->phraseAdapter->translate($this->translator);
@@ -117,17 +117,15 @@ class Message extends Nette\Object implements IMessage
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setLevel($level)
+	public function setLevel(string $level)
 	{
 		$this->level = $level;
-
-		return $this;
 	}
 
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getLevel()
+	public function getLevel() : string
 	{
 		return $this->level;
 	}
@@ -138,8 +136,6 @@ class Message extends Nette\Object implements IMessage
 	public function info()
 	{
 		$this->setLevel(self::LEVEL_INFO);
-
-		return $this;
 	}
 
 	/**
@@ -148,8 +144,6 @@ class Message extends Nette\Object implements IMessage
 	public function success()
 	{
 		$this->setLevel(self::LEVEL_SUCCESS);
-
-		return $this;
 	}
 
 	/**
@@ -158,8 +152,6 @@ class Message extends Nette\Object implements IMessage
 	public function warning()
 	{
 		$this->setLevel(self::LEVEL_WARNING);
-
-		return $this;
 	}
 
 	/**
@@ -168,14 +160,12 @@ class Message extends Nette\Object implements IMessage
 	public function error()
 	{
 		$this->setLevel(self::LEVEL_ERROR);
-
-		return $this;
 	}
 
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setTitle($title = NULL)
+	public function setTitle(string $title = NULL)
 	{
 		if ($this->isUnserialized()) {
 			$this->title = $title;
@@ -186,8 +176,6 @@ class Message extends Nette\Object implements IMessage
 			}
 			$this->title = NULL;
 		}
-
-		return $this;
 	}
 
 	/**
@@ -205,17 +193,15 @@ class Message extends Nette\Object implements IMessage
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setOverlay($overlay)
+	public function setOverlay(bool $overlay)
 	{
-		$this->overlay = (bool) $overlay;
-
-		return $this;
+		$this->overlay = $overlay;
 	}
 
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getOverlay()
+	public function hasOverlay() : bool
 	{
 		return $this->overlay;
 	}
@@ -228,38 +214,32 @@ class Message extends Nette\Object implements IMessage
 		$this->validateState(__FUNCTION__);
 		$this->phraseAdapter->setParameters($parameter);
 		$this->message = NULL;
-
-		return $this;
 	}
 
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setCount($count)
+	public function setCount(int $count)
 	{
 		$this->validateState(__FUNCTION__);
 		$this->phraseAdapter->setCount($count);
 		$this->message = NULL;
-
-		return $this;
 	}
 
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setDisplayed($displayed = TRUE)
+	public function setDisplayed(bool $displayed = TRUE)
 	{
-		$this->displayed = (bool) $displayed;
-
-		return $this;
+		$this->displayed = $displayed;
 	}
 
 	/**
 	 * {@inheritdoc}
 	 */
-	public function isDisplayed()
+	public function isDisplayed() : bool
 	{
-		return $this->displayed === TRUE ? TRUE : FALSE;
+		return $this->displayed;
 	}
 
 	/**
@@ -267,17 +247,17 @@ class Message extends Nette\Object implements IMessage
 	 *
 	 * @throws Exceptions\InvalidStateException
 	 */
-	private function validateState($method)
+	private function validateState(string $method)
 	{
 		if ($this->isUnserialized()) {
-			throw new Exceptions\InvalidStateException("You cannot call method $method on unserialized Entities\\Message object");
+			throw new Exceptions\InvalidStateException(sprintf('You cannot call method %s on unserialized Entities\Message object', $method));
 		}
 	}
 
 	/**
 	 * @return bool
 	 */
-	private function isUnserialized()
+	private function isUnserialized() : bool
 	{
 		return $this->translator === NULL;
 	}

@@ -12,6 +12,8 @@
  * @date           12.03.14
  */
 
+declare(strict_types = 1);
+
 namespace IPub\FlashMessages\Components;
 
 /**
@@ -23,9 +25,9 @@ namespace IPub\FlashMessages\Components;
 interface IControl
 {
 	/**
-	 * @param NULL|string $templateFile
+	 * @param string|NULL $templateFile
 	 *
 	 * @return Control
 	 */
-	public function create($templateFile = NULL);
+	public function create($templateFile = NULL) : Control;
 }

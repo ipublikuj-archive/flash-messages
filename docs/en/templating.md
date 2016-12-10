@@ -23,7 +23,7 @@ class SomePresenter
 	/**
 	 * Component for displaying messages
 	 *
-	 * @return FlashMessages\Control
+	 * @return FlashMessages\Component
 	 */
 	protected function createComponentFlashMessages()
 	{
@@ -59,7 +59,7 @@ class SomePresenter
 	/**
 	 * Component for displaying messages
 	 *
-	 * @return FlashMessages\Control
+	 * @return FlashMessages\Component
 	 */
 	protected function createComponentFlashMessages()
 	{
@@ -92,7 +92,7 @@ class SomePresenter
 	/**
 	 * Component for displaying messages
 	 *
-	 * @return FlashMessages\Control
+	 * @return FlashMessages\Component
 	 */
 	protected function createComponentFlashMessages()
 	{

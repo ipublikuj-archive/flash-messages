@@ -12,6 +12,8 @@
  * @date           05.02.15
  */
 
+declare(strict_types = 1);
+
 namespace IPub\FlashMessages\DI;
 
 use Nette;
@@ -19,13 +21,19 @@ use Nette\DI;
 use Nette\Utils;
 use Nette\PhpGenerator as Code;
 
+use IPub;
+use IPub\FlashMessages;
+use IPub\FlashMessages\Components;
+use IPub\FlashMessages\Events;
+use IPub\FlashMessages\Storage;
+
 /**
  * Flash messages extension container
  *
  * @package        iPublikuj:FlashMessages!
  * @subpackage     DI
  *
- * @author         Adam Kadlec <adam.kadlec@fastybird.com>
+ * @author         Adam Kadlec <adam.kadlec@ipublikuj.eu>
  */
 class FlashMessagesExtension extends DI\CompilerExtension
 {
@@ -48,19 +56,20 @@ class FlashMessagesExtension extends DI\CompilerExtension
 
 		// Notifier
 		$builder->addDefinition($this->prefix('notifier'))
-			->setClass('IPub\FlashMessages\FlashNotifier');
+			->setClass(FlashMessages\FlashNotifier::class);
 
 		// Session storage
-		$builder->addDefinition($this->prefix('session'))
-			->setClass('IPub\FlashMessages\SessionStorage');
+		$builder->addDefinition($this->prefix('storage'))
+			->setClass(Storage\Session::class);
 
 		// Display components
 		$control = $builder->addDefinition($this->prefix('messages'))
-			->setClass('IPub\FlashMessages\Components\Control')
-			->setImplement('IPub\FlashMessages\Components\IControl')
-			->setArguments([new Nette\PhpGenerator\PhpLiteral('$templateFile')])
-			->setInject(TRUE)
-			->addTag('cms.components');
+			->setClass(Components\Control::class)
+			->setImplement(Components\IControl::class)
+			->setArguments([
+				new Nette\PhpGenerator\PhpLiteral('$templateFile'),
+			])
+			->setInject(TRUE);
 
 		if ($config['useTitle'] === TRUE) {
 			$control->addSetup('$service->enableTitle(?)', [$config['useTitle']]);
@@ -80,7 +89,7 @@ class FlashMessagesExtension extends DI\CompilerExtension
 
 		// Extension events
 		$builder->addDefinition($this->prefix('onResponseHandler'))
-			->setClass('IPub\FlashMessages\Events\OnResponseHandler');
+			->setClass(Events\OnResponseHandler::class);
 
 		$application = $builder->getDefinition('application');
 		$application->addSetup('$service->onResponse[] = ?', ['@' . $this->prefix('onResponseHandler')]);
@@ -90,7 +99,7 @@ class FlashMessagesExtension extends DI\CompilerExtension
 	 * @param Nette\Configurator $config
 	 * @param string $extensionName
 	 */
-	public static function register(Nette\Configurator $config, $extensionName = 'flashMessages')
+	public static function register(Nette\Configurator $config, string $extensionName = 'flashMessages')
 	{
 		$config->onCompile[] = function (Nette\Configurator $config, Nette\DI\Compiler $compiler) use ($extensionName) {
 			$compiler->addExtension($extensionName, new FlashMessagesExtension());

@@ -13,6 +13,8 @@
  * @date           07.02.15
  */
 
+declare(strict_types = 1);
+
 namespace IPubTests\FlashMessages;
 
 use Nette;
@@ -23,7 +25,7 @@ use Tester\Assert;
 use IPub;
 use IPub\FlashMessages;
 
-require __DIR__ . '/../bootstrap.php';
+require __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'bootstrap.php';
 
 class ExtensionTest extends Tester\TestCase
 {
@@ -32,7 +34,7 @@ class ExtensionTest extends Tester\TestCase
 		$dic = $this->createContainer();
 
 		Assert::true($dic->getService('flashMessages.notifier') instanceof IPub\FlashMessages\FlashNotifier);
-		Assert::true($dic->getService('flashMessages.session') instanceof IPub\FlashMessages\SessionStorage);
+		Assert::true($dic->getService('flashMessages.storage') instanceof IPub\FlashMessages\Storage\Session);
 		Assert::true($dic->getService('flashMessages.onResponseHandler') instanceof IPub\FlashMessages\Events\OnResponseHandler);
 
 		// Get component factory

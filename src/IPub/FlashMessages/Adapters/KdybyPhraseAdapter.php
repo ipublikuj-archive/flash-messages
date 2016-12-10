@@ -12,6 +12,8 @@
  * @date           06.02.15
  */
 
+declare(strict_types = 1);
+
 namespace IPub\FlashMessages\Adapters;
 
 use Nette;
@@ -26,14 +28,14 @@ use Kdyby\Translation;
  * @package        iPublikuj:FlashMessages!
  * @subpackage     Adapters
  *
- * @author         Adam Kadlec <adam.kadlec@fastybird.com>
+ * @author         Adam Kadlec <adam.kadlec@ipublikuj.eu>
  */
 class KdybyPhraseAdapter extends Nette\Object implements IPhraseAdapter
 {
 	/**
 	 * @var Translation\Phrase
 	 */
-	protected $phrase;
+	private $phrase;
 
 	/**
 	 * @param Translation\Phrase $phrase

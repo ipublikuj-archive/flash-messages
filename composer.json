@@ -4,7 +4,7 @@
 	"description"	: "Flash messages handler for Nette Framework",
 	"keywords"		: ["nette", "ipub", "ipublikuj", "tools", "flashes", "messages"],
 	"homepage"		: "https://github.com/iPublikuj/flash-messages",
-	"license"		: ["BSD-3-Clause", "GPL-2.0", "GPL-3.0"],
+	"license"		: ["GPL-2.0", "GPL-3.0"],
 
 	"authors": [
 		{
@@ -20,26 +20,24 @@
 	},
 
 	"require": {
-		"php"	: ">=5.4.0",
+		"php"	: ">=7.0.0",
 
-		"nette/application"	: "~2.2",
-		"nette/di"			: "~2.2",
-		"nette/utils"		: "~2.2",
+		"nette/application"	: "~2.3",
+		"nette/di"			: "~2.3",
+		"nette/utils"		: "~2.3",
 
-		"latte/latte"	: "~2.2"
+		"latte/latte"	: "~2.3"
 	},
 
 	"require-dev": {
-		"nette/bootstrap"		: "~2.2",
-		"nette/forms"			: "~2.2",
-		"nette/mail"			: "~2.2",
-		"nette/robot-loader"	: "~2.2",
-		"nette/safe-stream"		: "~2.2",
+		"nette/bootstrap"		: "~2.3",
+		"nette/forms"			: "~2.3",
+		"nette/mail"			: "~2.3",
+		"nette/robot-loader"	: "~2.3",
+		"nette/safe-stream"		: "~2.3",
 		"nette/tester"			: "@dev",
 
 		"tracy/tracy"	: "@dev",
-
-		"janmarek/mockista"	: "@dev",
 
 		"kdyby/translation"	: "~2.0"
 	},
