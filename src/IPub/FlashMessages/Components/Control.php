@@ -196,8 +196,8 @@ class Control extends Application\UI\Control
 			$templateName = preg_replace('/.latte/', '', $templateFile);
 
 			// ...check if extension template is used
-			if (is_file($dir . DIRECTORY_SEPARATOR . 'template' . DIRECTORY_SEPARATOR . $templateName . '.latte')) {
-				$templateFile = $dir . DIRECTORY_SEPARATOR . 'template' . DIRECTORY_SEPARATOR . $templateName . '.latte';
+			if (is_file($dir . DIRECTORY_SEPARATOR . 'template' . DIRECTORY_SEPARATOR . $templateName . DIRECTORY_SEPARATOR . 'default.latte')) {
+				$templateFile = $dir . DIRECTORY_SEPARATOR . 'template' . DIRECTORY_SEPARATOR . $templateName . DIRECTORY_SEPARATOR . 'default.latte';
 
 			} else {
 				// ...if not throw exception
