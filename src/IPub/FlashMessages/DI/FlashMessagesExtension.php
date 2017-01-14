@@ -35,7 +35,7 @@ use IPub\FlashMessages\Storage;
  *
  * @author         Adam Kadlec <adam.kadlec@ipublikuj.eu>
  */
-class FlashMessagesExtension extends DI\CompilerExtension
+final class FlashMessagesExtension extends DI\CompilerExtension
 {
 	/**
 	 * @var array
