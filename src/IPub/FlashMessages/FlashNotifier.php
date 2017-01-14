@@ -43,20 +43,28 @@ class FlashNotifier extends Nette\Object
 	protected $storage;
 
 	/**
+	 * @var bool
+	 */
+	protected $useTranslator;
+
+	/**
 	 * @var Localization\ITranslator
 	 */
 	protected $translator;
 
 	/**
+	 * @param bool $useTranslator
 	 * @param Storage\IStorage $storage
-	 * @param Localization\ITranslator $translator
+	 * @param Localization\ITranslator|NULL $translator
 	 */
 	public function __construct(
+		bool $useTranslator = TRUE,
 		Storage\IStorage $storage,
 		Localization\ITranslator $translator = NULL
 	) {
 		$this->storage = $storage;
 		$this->translator = $translator;
+		$this->useTranslator = $useTranslator;
 	}
 
 	/**
@@ -226,11 +234,11 @@ class FlashNotifier extends Nette\Object
 		$messages = $this->storage->get(Storage\IStorage::KEY_MESSAGES, []);
 
 		// Create flash message
-		$flash = new Entities\Message($this->translator, $phrase, $titlePhrase);
+		$flash = new Entities\Message(($this->useTranslator ? $this->translator : NULL), $phrase, $titlePhrase);
 		$flash->setLevel($level);
 		$flash->setOverlay($overlay);
 
-		if (!$this->translator instanceof Localization\ITranslator) {
+		if (!$this->useTranslator || !$this->translator instanceof Localization\ITranslator) {
 			if (is_string($message) === TRUE) {
 				$flash->setMessage($message);
 			}

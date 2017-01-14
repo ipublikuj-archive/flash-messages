@@ -41,11 +41,15 @@ class FlashMessagesExtension extends DI\CompilerExtension
 	 * @var array
 	 */
 	protected $defaults = [
-		'useTitle'     => TRUE,
-		'useOverlay'   => FALSE,
-		'templateFile' => NULL
+		'useTitle'      => TRUE,
+		'useOverlay'    => FALSE,
+		'templateFile'  => NULL,
+		'useTranslator' => TRUE,
 	];
 
+	/**
+	 * @return void
+	 */
 	public function loadConfiguration()
 	{
 		$config = $this->getConfig($this->defaults);
@@ -56,7 +60,8 @@ class FlashMessagesExtension extends DI\CompilerExtension
 
 		// Notifier
 		$builder->addDefinition($this->prefix('notifier'))
-			->setClass(FlashMessages\FlashNotifier::class);
+			->setClass(FlashMessages\FlashNotifier::class)
+			->setArguments(['useTranslator' => $config['useTranslator']]);
 
 		// Session storage
 		$builder->addDefinition($this->prefix('storage'))
@@ -94,6 +99,8 @@ class FlashMessagesExtension extends DI\CompilerExtension
 	/**
 	 * @param Nette\Configurator $config
 	 * @param string $extensionName
+	 *
+	 * @return void
 	 */
 	public static function register(Nette\Configurator $config, string $extensionName = 'flashMessages')
 	{

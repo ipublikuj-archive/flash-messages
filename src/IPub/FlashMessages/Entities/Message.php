@@ -66,7 +66,7 @@ class Message extends Nette\Object implements IMessage
 	/**
 	 * @var Adapters\IPhraseAdapter
 	 */
-	private $phraseAdapter;
+	private $messagePhraseAdapter;
 
 	/**
 	 * @var Adapters\IPhraseAdapter
@@ -75,16 +75,16 @@ class Message extends Nette\Object implements IMessage
 
 	/**
 	 * @param Localization\ITranslator $translator
-	 * @param Adapters\IPhraseAdapter $phraseAdapter
+	 * @param Adapters\IPhraseAdapter $messagePhraseAdapter
 	 * @param Adapters\IPhraseAdapter $titlePhraseAdapter
 	 */
 	public function __construct(
 		Localization\ITranslator $translator = NULL,
-		Adapters\IPhraseAdapter $phraseAdapter,
+		Adapters\IPhraseAdapter $messagePhraseAdapter,
 		Adapters\IPhraseAdapter $titlePhraseAdapter = NULL
 	) {
 		$this->translator = $translator;
-		$this->phraseAdapter = $phraseAdapter;
+		$this->messagePhraseAdapter = $messagePhraseAdapter;
 		$this->titlePhraseAdapter = $titlePhraseAdapter;
 	}
 
@@ -97,7 +97,7 @@ class Message extends Nette\Object implements IMessage
 			$this->message = $message;
 
 		} else {
-			$this->phraseAdapter->setMessage($message);
+			$this->messagePhraseAdapter->setMessage($message);
 			$this->message = NULL;
 		}
 	}
@@ -108,7 +108,7 @@ class Message extends Nette\Object implements IMessage
 	public function getMessage() : string
 	{
 		if ($this->message === NULL && $this->translator) {
-			$this->message = $this->phraseAdapter->translate($this->translator);
+			$this->message = $this->messagePhraseAdapter->translate($this->translator);
 		}
 
 		return $this->message;
@@ -212,7 +212,7 @@ class Message extends Nette\Object implements IMessage
 	public function setParameters(array $parameter)
 	{
 		$this->validateState(__FUNCTION__);
-		$this->phraseAdapter->setParameters($parameter);
+		$this->messagePhraseAdapter->setParameters($parameter);
 		$this->message = NULL;
 	}
 
@@ -222,7 +222,7 @@ class Message extends Nette\Object implements IMessage
 	public function setCount(int $count)
 	{
 		$this->validateState(__FUNCTION__);
-		$this->phraseAdapter->setCount($count);
+		$this->messagePhraseAdapter->setCount($count);
 		$this->message = NULL;
 	}
 

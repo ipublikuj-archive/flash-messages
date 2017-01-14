@@ -66,6 +66,8 @@ class Control extends Application\UI\Control
 
 	/**
 	 * @param Localization\ITranslator $translator
+	 *
+	 * @return void
 	 */
 	public function injectTranslator(Localization\ITranslator $translator = NULL)
 	{
@@ -93,6 +95,8 @@ class Control extends Application\UI\Control
 
 	/**
 	 * @param \Nette\ComponentModel\IComponent
+	 *
+	 * @return void
 	 */
 	public function attached($presenter)
 	{
@@ -135,6 +139,8 @@ class Control extends Application\UI\Control
 
 	/**
 	 * Prepare component for rendering
+	 *
+	 * @return void
 	 */
 	public function beforeRender()
 	{
@@ -165,6 +171,8 @@ class Control extends Application\UI\Control
 
 	/**
 	 * Render control
+	 *
+	 * @return void
 	 */
 	public function render()
 	{
