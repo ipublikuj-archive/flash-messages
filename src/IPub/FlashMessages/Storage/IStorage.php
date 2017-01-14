@@ -20,7 +20,7 @@ use Nette;
 use Nette\Http;
 
 /**
- * Confirmer status storage interface
+ * Message status storage interface
  *
  * @package        iPublikuj:FlashMessages!
  * @subpackage     Storage

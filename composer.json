@@ -19,12 +19,23 @@
 		"issues"	:"https://github.com/iPublikuj/flash-messages/issues"
 	},
 
+	"extra": {
+		"ipub"	: {
+			"configuration" : {
+				"extensions" : {
+					"flashMessages" : "IPub\\FlashMessages\\DI\\FlashMessagesExtension"
+				}
+			}
+		}
+	},
+
 	"require": {
 		"php"	: ">=7.0.0",
 
 		"nette/application"	: "~2.3",
 		"nette/di"			: "~2.3",
 		"nette/utils"		: "~2.3",
+		"nette/http"		: "~2.3",
 
 		"latte/latte"	: "~2.3"
 	},
@@ -40,10 +51,6 @@
 		"tracy/tracy"	: "@dev",
 
 		"kdyby/translation"	: "~2.0"
-	},
-
-	"suggest": {
-		"kdyby/translation"	: "If you wanna use translations in messages."
 	},
 
 	"autoload": {
