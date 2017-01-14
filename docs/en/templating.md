@@ -14,7 +14,7 @@ namespace Your\Coool\Namespace\Presenter;
 class SomePresenter
 {
 	/**
-	 * Insert extension trait (only for PHP 5.4+)
+	 * Insert extension trait
 	 */
 	use \IPub\FlashMessages\TFlashMessages;
 
@@ -48,7 +48,7 @@ namespace Your\Coool\Namespace\Presenter;
 class SomePresenter
 {
 	/**
-	 * Insert extension trait (only for PHP 5.4+)
+	 * Insert extension trait
 	 */
 	use \IPub\FlashMessages\TFlashMessages;
 
@@ -79,7 +79,7 @@ namespace Your\Coool\Namespace\Presenter;
 class SomePresenter
 {
 	/**
-	 * Insert extension trait (only for PHP 5.4+)
+	 * Insert extension trait
 	 */
 	use \IPub\FlashMessages\TFlashMessages;
 
