@@ -42,7 +42,10 @@ class ComponentTest extends Tester\TestCase
 	 */
 	private $container;
 
-	public function dataMessagesValues()
+	/**
+	 * @return array
+	 */
+	public function dataMessagesValues() : array
 	{
 		return [
 			['This is success message', FlashMessages\Entities\Message::LEVEL_SUCCESS, 'Success message title', FALSE, 0, []],
@@ -54,7 +57,7 @@ class ComponentTest extends Tester\TestCase
 	}
 
 	/**
-	 * Set up
+	 * {@inheritdoc}
 	 */
 	public function setUp()
 	{
@@ -105,7 +108,7 @@ class ComponentTest extends Tester\TestCase
 	 * @param int $count
 	 * @param array $parameters
 	 */
-	public function testCreateMessage($message, $level, $title = NULL, $overlay = FALSE, $count = 0, $parameters = [])
+	public function testCreateMessage(string $message, string $level, string $title = NULL, bool $overlay = FALSE, int $count = 0, array $parameters = [])
 	{
 		// Get notifier service
 		/** @var $notifier IPub\FlashMessages\FlashNotifier */
@@ -243,7 +246,7 @@ class ComponentTest extends Tester\TestCase
 	/**
 	 * @return Application\IPresenter
 	 */
-	protected function createPresenter()
+	protected function createPresenter() : Application\IPresenter
 	{
 		// Create test presenter
 		$presenter = $this->presenterFactory->createPresenter('Test');
@@ -256,7 +259,7 @@ class ComponentTest extends Tester\TestCase
 	/**
 	 * @return Nette\DI\Container
 	 */
-	protected function createContainer()
+	protected function createContainer() : Nette\DI\Container
 	{
 		$config = new Nette\Configurator();
 		$config->setTempDirectory(TEMP_DIR);
@@ -366,7 +369,7 @@ class TestPresenter extends UI\Presenter
 	 *
 	 * @return FlashMessages\Components\Control
 	 */
-	protected function createComponentFlashMessages()
+	protected function createComponentFlashMessages() : FlashMessages\Components\Control
 	{
 		// Init confirmation dialog
 		$control = $this->flashMessagesFactory->create();

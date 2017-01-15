@@ -42,7 +42,7 @@ class StorageTest extends Tester\TestCase
 	private $container;
 
 	/**
-	 * Set up
+	 * {@inheritdoc}
 	 */
 	public function setUp()
 	{
@@ -113,7 +113,7 @@ class StorageTest extends Tester\TestCase
 	/**
 	 * @return Application\IPresenter
 	 */
-	protected function createPresenter()
+	protected function createPresenter() : Application\IPresenter
 	{
 		// Create test presenter
 		$presenter = $this->presenterFactory->createPresenter('StorageTest');
@@ -126,7 +126,7 @@ class StorageTest extends Tester\TestCase
 	/**
 	 * @return Nette\DI\Container
 	 */
-	protected function createContainer()
+	protected function createContainer() : Nette\DI\Container
 	{
 		$config = new Nette\Configurator();
 		$config->setTempDirectory(TEMP_DIR);
@@ -155,7 +155,7 @@ class StorageTestPresenter extends UI\Presenter
 	 *
 	 * @return FlashMessages\Components\Control
 	 */
-	protected function createComponentFlashMessages()
+	protected function createComponentFlashMessages() : FlashMessages\Components\Control
 	{
 		// Init confirmation dialog
 		$control = $this->flashMessagesFactory->create();

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 define('DS', DIRECTORY_SEPARATOR);
 
 require __DIR__ . DS . '..' . DS . '..' . DS . 'vendor' . DS . 'autoload.php';
@@ -13,7 +15,7 @@ Tester\Environment::setup();
 date_default_timezone_set('Europe/Prague');
 
 // Create temporary directory
-define('TEMP_DIR', __DIR__ . DS . '..' . DS . 'tmp' . DS . (isset($_SERVER['argv']) ? md5(serialize($_SERVER['argv'])) : getmypid()));
+define('TEMP_DIR', __DIR__ . '/../tmp/' . (isset($_SERVER['argv']) ? md5(serialize($_SERVER['argv'])) : getmypid()));
 Tester\Helpers::purge(TEMP_DIR);
 \Tracy\Debugger::$logDirectory = TEMP_DIR;
 
@@ -27,7 +29,6 @@ function id($val)
 	return $val;
 }
 
-function run(Tester\TestCase $testCase)
-{
+function run(Tester\TestCase $testCase) {
 	$testCase->run();
 }
