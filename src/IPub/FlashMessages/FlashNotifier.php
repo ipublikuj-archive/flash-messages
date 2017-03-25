@@ -267,7 +267,7 @@ class FlashNotifier extends Nette\Object
 	private function checkUnique(Entities\IMessage $flash, array $messages) : bool
 	{
 		foreach ($messages as $member) {
-			if ((string) $member === (string) $flash) {
+			if ((string) $member === (string) $flash && !$member->isDisplayed()) {
 				return TRUE;
 			}
 		}
