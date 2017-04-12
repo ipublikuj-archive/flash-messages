@@ -37,9 +37,7 @@
 		"nette/utils"		: "~2.3",
 		"nette/http"		: "~2.3",
 
-		"latte/latte"	: "~2.3",
-
-		"pds/skeleton"	: "@dev"
+		"latte/latte"	: "~2.3"
 	},
 
 	"require-dev": {
@@ -52,7 +50,9 @@
 
 		"tracy/tracy"	: "@dev",
 
-		"kdyby/translation"	: "~2.0"
+		"kdyby/translation"	: "~2.0",
+		
+		"pds/skeleton"	: "@dev"
 	},
 
 	"autoload": {
