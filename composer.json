@@ -50,7 +50,9 @@
 
 		"tracy/tracy"	: "@dev",
 
-		"kdyby/translation"	: "~2.0"
+		"kdyby/translation"	: "~2.0",
+		
+		"pds/skeleton"	: "@dev"
 	},
 
 	"autoload": {
