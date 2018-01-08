@@ -27,8 +27,11 @@ use Nette\Localization;
  *
  * @author         Adam Kadlec <adam.kadlec@ipublikuj.eu>
  */
-class DefaultPhraseAdapter extends Nette\Object implements IPhraseAdapter
+class DefaultPhraseAdapter implements IPhraseAdapter
 {
+
+	use Nette\SmartObject;
+
 	/**
 	 * @var string
 	 */

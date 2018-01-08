@@ -31,8 +31,11 @@ use IPub\FlashMessages\Exceptions;
  *
  * @author         Adam Kadlec <adam.kadlec@ipublikuj.eu>
  */
-class Message extends Nette\Object implements IMessage
+class Message implements IMessage
 {
+
+	use Nette\SmartObject;
+
 	/**
 	 * @var string
 	 */

@@ -30,8 +30,11 @@ use Kdyby\Translation;
  *
  * @author         Adam Kadlec <adam.kadlec@ipublikuj.eu>
  */
-class KdybyPhraseAdapter extends Nette\Object implements IPhraseAdapter
+class KdybyPhraseAdapter implements IPhraseAdapter
 {
+
+	use Nette\SmartObject;
+
 	/**
 	 * @var Translation\Phrase
 	 */

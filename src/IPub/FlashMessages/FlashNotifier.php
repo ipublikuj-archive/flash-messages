@@ -35,8 +35,11 @@ use IPub\FlashMessages\Storage;
  *
  * @author         Adam Kadlec <adam.kadlec@ipublikuj.eu>
  */
-class FlashNotifier extends Nette\Object
+class FlashNotifier
 {
+
+	use Nette\SmartObject;
+
 	/**
 	 * @var Storage\IStorage
 	 */
