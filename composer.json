@@ -1,5 +1,5 @@
 {
-	"name"			: "vymak/flash-messages",
+	"name"			: "ipub/flash-messages",
 	"type"			: "library",
 	"description"	: "Flash messages handler for Nette Framework",
 	"keywords"		: ["nette", "ipub", "ipublikuj", "tools", "flashes", "messages"],
