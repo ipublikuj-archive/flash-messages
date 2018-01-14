@@ -45,7 +45,7 @@ trait TFlashMessages
 	 *
 	 * @return void
 	 */
-	public function injectFlashMessages(Components\IControl $flashMessagesFactory, FlashNotifier $flashNotifier)
+	public function injectFlashMessages(Components\IControl $flashMessagesFactory, FlashNotifier $flashNotifier) : void
 	{
 		$this->flashMessagesFactory = $flashMessagesFactory;
 		$this->flashNotifier = $flashNotifier;
@@ -56,10 +56,10 @@ trait TFlashMessages
 	 *
 	 * @param string $message
 	 * @param string $level
-	 * @param string|null $title
+	 * @param string|NULL $title
 	 * @param bool $overlay
-	 * @param int|null $count
-	 * @param array|null $parameters
+	 * @param int|NULL $count
+	 * @param array|NULL $parameters
 	 *
 	 * @return Entities\IMessage
 	 */

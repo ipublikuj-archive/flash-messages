@@ -45,7 +45,7 @@ final class Session implements IStorage
 	/**
 	 * {@inheritdoc}
 	 */
-	public function set(string $key, $value)
+	public function set(string $key, $value) : void
 	{
 		$this->session->$key = $value;
 	}
@@ -61,7 +61,7 @@ final class Session implements IStorage
 	/**
 	 * {@inheritdoc}
 	 */
-	public function clear(string $key)
+	public function clear(string $key) : void
 	{
 		unset($this->session->$key);
 	}
@@ -69,7 +69,7 @@ final class Session implements IStorage
 	/**
 	 * {@inheritdoc}
 	 */
-	public function clearAll()
+	public function clearAll() : void
 	{
 		$this->session->remove();
 	}

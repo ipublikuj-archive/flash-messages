@@ -47,7 +47,7 @@ class OnResponseHandler
 	/**
 	 * @return void
 	 */
-	public function __invoke()
+	public function __invoke() : void
 	{
 		/** @var Entities\IMessage[] $messages */
 		$messages = $this->storage->get(Storage\IStorage::KEY_MESSAGES, []);

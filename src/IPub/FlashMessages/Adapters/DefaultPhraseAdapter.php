@@ -62,7 +62,7 @@ class DefaultPhraseAdapter implements IPhraseAdapter
 	/**
 	 * {@inheritdoc}
 	 */
-	public function translate(Localization\ITranslator $translator)
+	public function translate(Localization\ITranslator $translator) : ?string
 	{
 		return $translator->translate($this->message, $this->count, $this->parameters);
 	}
@@ -70,7 +70,7 @@ class DefaultPhraseAdapter implements IPhraseAdapter
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setMessage($message)
+	public function setMessage($message) : void
 	{
 		$this->message = $message;
 	}
@@ -78,7 +78,7 @@ class DefaultPhraseAdapter implements IPhraseAdapter
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setCount($count)
+	public function setCount($count) : void
 	{
 		$this->count = $count;
 	}
@@ -86,7 +86,7 @@ class DefaultPhraseAdapter implements IPhraseAdapter
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setParameters($parameters)
+	public function setParameters($parameters) : void
 	{
 		$this->parameters = $parameters;
 	}

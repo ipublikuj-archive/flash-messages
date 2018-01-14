@@ -50,7 +50,7 @@ final class FlashMessagesExtension extends DI\CompilerExtension
 	/**
 	 * @return void
 	 */
-	public function loadConfiguration()
+	public function loadConfiguration() : void
 	{
 		$config = $this->getConfig($this->defaults);
 		$builder = $this->getContainerBuilder();
@@ -104,7 +104,7 @@ final class FlashMessagesExtension extends DI\CompilerExtension
 	 */
 	public static function register(Nette\Configurator $config, string $extensionName = 'flashMessages')
 	{
-		$config->onCompile[] = function (Nette\Configurator $config, Nette\DI\Compiler $compiler) use ($extensionName) {
+		$config->onCompile[] = function (Nette\Configurator $config, Nette\DI\Compiler $compiler) use ($extensionName) : void {
 			$compiler->addExtension($extensionName, new FlashMessagesExtension());
 		};
 	}

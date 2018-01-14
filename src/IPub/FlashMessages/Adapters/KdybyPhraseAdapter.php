@@ -51,7 +51,7 @@ class KdybyPhraseAdapter implements IPhraseAdapter
 	/**
 	 * {@inheritdoc}
 	 */
-	public function translate(Localization\ITranslator $translator)
+	public function translate(Localization\ITranslator $translator) : ?string
 	{
 		if ($translator instanceof Translation\Translator) {
 			return $this->phrase->translate($translator);
@@ -63,7 +63,7 @@ class KdybyPhraseAdapter implements IPhraseAdapter
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setMessage($message)
+	public function setMessage($message) : void
 	{
 		$this->phrase->message = $message;
 	}
@@ -71,7 +71,7 @@ class KdybyPhraseAdapter implements IPhraseAdapter
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setCount($count)
+	public function setCount($count) : void
 	{
 		$this->phrase->count = $count;
 	}
@@ -79,7 +79,7 @@ class KdybyPhraseAdapter implements IPhraseAdapter
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setParameters($parameters)
+	public function setParameters($parameters) : void
 	{
 		$this->phrase->parameters = $parameters;
 	}

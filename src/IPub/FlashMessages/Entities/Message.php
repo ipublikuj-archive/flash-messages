@@ -94,7 +94,7 @@ class Message implements IMessage
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setMessage(string $message)
+	public function setMessage(string $message) : void
 	{
 		if ($this->isUnserialized()) {
 			$this->message = $message;
@@ -120,7 +120,7 @@ class Message implements IMessage
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setLevel(string $level)
+	public function setLevel(string $level) : void
 	{
 		$this->level = $level;
 	}
@@ -136,7 +136,7 @@ class Message implements IMessage
 	/**
 	 * {@inheritdoc}
 	 */
-	public function info()
+	public function info() : void
 	{
 		$this->setLevel(self::LEVEL_INFO);
 	}
@@ -144,7 +144,7 @@ class Message implements IMessage
 	/**
 	 * {@inheritdoc}
 	 */
-	public function success()
+	public function success() : void
 	{
 		$this->setLevel(self::LEVEL_SUCCESS);
 	}
@@ -152,7 +152,7 @@ class Message implements IMessage
 	/**
 	 * {@inheritdoc}
 	 */
-	public function warning()
+	public function warning() : void
 	{
 		$this->setLevel(self::LEVEL_WARNING);
 	}
@@ -160,7 +160,7 @@ class Message implements IMessage
 	/**
 	 * {@inheritdoc}
 	 */
-	public function error()
+	public function error() : void
 	{
 		$this->setLevel(self::LEVEL_ERROR);
 	}
@@ -168,7 +168,7 @@ class Message implements IMessage
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setTitle(string $title = NULL)
+	public function setTitle(string $title = NULL) : void
 	{
 		if ($this->isUnserialized()) {
 			$this->title = $title;
@@ -184,7 +184,7 @@ class Message implements IMessage
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getTitle()
+	public function getTitle() : ?string
 	{
 		if ($this->title === NULL && $this->translator && $this->titlePhraseAdapter instanceof Adapters\IPhraseAdapter) {
 			$this->title = $this->titlePhraseAdapter->translate($this->translator);
@@ -196,7 +196,7 @@ class Message implements IMessage
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setOverlay(bool $overlay)
+	public function setOverlay(bool $overlay) : void
 	{
 		$this->overlay = $overlay;
 	}
@@ -212,7 +212,7 @@ class Message implements IMessage
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setParameters(array $parameter)
+	public function setParameters(array $parameter) : void
 	{
 		$this->validateState(__FUNCTION__);
 		$this->messagePhraseAdapter->setParameters($parameter);
@@ -222,7 +222,7 @@ class Message implements IMessage
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setCount(int $count)
+	public function setCount(int $count) : void
 	{
 		$this->validateState(__FUNCTION__);
 		$this->messagePhraseAdapter->setCount($count);
@@ -232,7 +232,7 @@ class Message implements IMessage
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setDisplayed(bool $displayed = TRUE)
+	public function setDisplayed(bool $displayed = TRUE) : void
 	{
 		$this->displayed = $displayed;
 	}
@@ -248,9 +248,11 @@ class Message implements IMessage
 	/**
 	 * @param string $method
 	 *
+	 * @return void
+	 *
 	 * @throws Exceptions\InvalidStateException
 	 */
-	private function validateState(string $method)
+	private function validateState(string $method) : void
 	{
 		if ($this->isUnserialized()) {
 			throw new Exceptions\InvalidStateException(sprintf('You cannot call method %s on unserialized Entities\Message object', $method));

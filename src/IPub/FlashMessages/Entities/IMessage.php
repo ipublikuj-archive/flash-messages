@@ -42,68 +42,68 @@ interface IMessage
 	 *
 	 * @return void
 	 */
-	function setMessage(string $message);
+	public function setMessage(string $message) : void;
 
 	/**
 	 * @return string
 	 */
-	function getMessage() : string;
+	public function getMessage() : string;
 
 	/**
 	 * @param string $level
 	 *
 	 * @return void
 	 */
-	function setLevel(string $level);
+	public function setLevel(string $level) : void;
 
 	/**
 	 * @return string
 	 */
-	function getLevel() : string;
+	public function getLevel() : string;
 
 	/**
 	 * @return void
 	 */
-	function info();
+	public function info() : void;
 
 	/**
 	 * @return void
 	 */
-	function success();
+	public function success() : void;
 
 	/**
 	 * @return void
 	 */
-	function warning();
+	public function warning() : void;
 
 	/**
 	 * @return void
 	 */
-	function error();
+	public function error() : void;
 
 	/**
 	 * @param string|NULL $title
 	 *
 	 * @return void
 	 */
-	function setTitle(string $title = NULL);
+	public function setTitle(string $title = NULL) : void;
 
 	/**
 	 * @return string|NULL
 	 */
-	function getTitle();
+	public function getTitle() : ?string;
 
 	/**
 	 * @param bool $overlay
 	 *
 	 * @return void
 	 */
-	function setOverlay(bool $overlay);
+	public function setOverlay(bool $overlay) : void;
 
 	/**
 	 * @return bool
 	 */
-	function hasOverlay() : bool;
+	public function hasOverlay() : bool;
 
 	/**
 	 * @param array $parameter
@@ -112,7 +112,7 @@ interface IMessage
 	 *
 	 * @throws Exceptions\InvalidStateException when object is unserialized
 	 */
-	function setParameters(array $parameter);
+	public function setParameters(array $parameter) : void;
 
 	/**
 	 * @param int $count
@@ -121,17 +121,17 @@ interface IMessage
 	 *
 	 * @throws Exceptions\InvalidStateException when object is unserialized
 	 */
-	function setCount(int $count);
+	public function setCount(int $count) : void;
 
 	/**
 	 * @param bool $displayed
 	 *
 	 * @return void
 	 */
-	function setDisplayed(bool $displayed = TRUE);
+	public function setDisplayed(bool $displayed = TRUE) : void;
 
 	/**
 	 * @return bool
 	 */
-	function isDisplayed() : bool;
+	public function isDisplayed() : bool;
 }

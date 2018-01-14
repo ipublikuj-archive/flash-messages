@@ -34,26 +34,26 @@ interface IPhraseAdapter
 	 *
 	 * @return string|NULL
 	 */
-	function translate(Localization\ITranslator $translator);
+	public function translate(Localization\ITranslator $translator) : ?string;
 
 	/**
 	 * @param string $message
 	 *
 	 * @return void
 	 */
-	function setMessage($message);
+	public function setMessage($message) : void;
 
 	/**
 	 * @param int $count
 	 *
 	 * @return void
 	 */
-	function setCount($count);
+	public function setCount($count) : void;
 
 	/**
 	 * @param array $parameters
 	 *
 	 * @return void
 	 */
-	function setParameters($parameters);
+	public function setParameters($parameters) : void;
 }

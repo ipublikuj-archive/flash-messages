@@ -78,7 +78,7 @@ class FlashNotifier
 	 *
 	 * @return Entities\IMessage
 	 */
-	public function success($message, $title = NULL) : Entities\IMessage
+	public function success(string $message, string $title = NULL) : Entities\IMessage
 	{
 		$args = func_get_args();
 		array_splice($args, 1, 0, ['success']);
@@ -94,7 +94,7 @@ class FlashNotifier
 	 *
 	 * @return Entities\IMessage
 	 */
-	public function info($message, $title = NULL) : Entities\IMessage
+	public function info(string $message, string $title = NULL) : Entities\IMessage
 	{
 		$args = func_get_args();
 		array_splice($args, 1, 0, ['info']);
@@ -110,7 +110,7 @@ class FlashNotifier
 	 *
 	 * @return Entities\IMessage
 	 */
-	public function warning($message, $title = NULL) : Entities\IMessage
+	public function warning(string $message, string $title = NULL) : Entities\IMessage
 	{
 		$args = func_get_args();
 		array_splice($args, 1, 0, ['warning']);
@@ -126,7 +126,7 @@ class FlashNotifier
 	 *
 	 * @return Entities\IMessage
 	 */
-	public function error($message, $title = NULL) : Entities\IMessage
+	public function error(string $message, string $title = NULL) : Entities\IMessage
 	{
 		$args = func_get_args();
 		array_splice($args, 1, 0, ['danger']);
@@ -139,7 +139,7 @@ class FlashNotifier
 	 *
 	 * @return void
 	 */
-	public function important()
+	public function important() : void
 	{
 		$this->storage->set(Storage\IStorage::KEY_IMPORTANT, TRUE);
 	}
@@ -152,7 +152,7 @@ class FlashNotifier
 	 *
 	 * @return Entities\IMessage
 	 */
-	public function overlay($message, $title = NULL) : Entities\IMessage
+	public function overlay(string $message, string $title = NULL) : Entities\IMessage
 	{
 		$args = func_get_args();
 
@@ -173,13 +173,13 @@ class FlashNotifier
 	 * @param string $message
 	 * @param string $level
 	 * @param string|NULL $title
-	 * @param boolean $overlay
+	 * @param bool $overlay
 	 * @param int|NULL $count
 	 * @param array $parameters
 	 *
 	 * @return Entities\IMessage
 	 */
-	public function message($message, $level = 'info', $title = NULL, $overlay = FALSE, $count = NULL, array $parameters = []) : Entities\IMessage
+	public function message(string $message, string $level = 'info', string $title = NULL, bool $overlay = FALSE, int $count = NULL, array $parameters = []) : Entities\IMessage
 	{
 		return $this->setMessage($message, $level, $title, $overlay, $count, $parameters);
 	}
@@ -190,15 +190,16 @@ class FlashNotifier
 	 * @param string $message
 	 * @param string $level
 	 * @param string|NULL $title
-	 * @param boolean $overlay
+	 * @param bool $overlay
 	 * @param int|NULL $count
 	 * @param array $parameters
 	 *
 	 * @return Entities\IMessage
 	 */
-	public function setMessage($message, $level = 'info', $title = NULL, $overlay = FALSE, $count = NULL, array $parameters = []) : Entities\IMessage
+	public function setMessage(string $message, string $level = 'info', string $title = NULL, bool $overlay = FALSE, int $count = NULL, array $parameters = []) : Entities\IMessage
 	{
 		$args = func_get_args();
+
 		// Remove message
 		unset($args[0]);
 		// Remove level

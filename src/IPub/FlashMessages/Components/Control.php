@@ -69,19 +69,19 @@ class Control extends Application\UI\Control
 	 *
 	 * @return void
 	 */
-	public function injectTranslator(Localization\ITranslator $translator = NULL)
+	public function injectTranslator(Localization\ITranslator $translator = NULL) : void
 	{
 		$this->translator = $translator;
 	}
 
 	/**
-	 * @param NULL|string $templateFile
+	 * @param string|NULL $templateFile
 	 * @param Storage\IStorage $storage
 	 *
 	 * @throws Exceptions\FileNotFoundException
 	 */
 	public function __construct(
-		$templateFile = NULL,
+		string $templateFile = NULL,
 		Storage\IStorage $storage
 	) {
 		parent::__construct();
@@ -98,7 +98,7 @@ class Control extends Application\UI\Control
 	 *
 	 * @return void
 	 */
-	public function attached($presenter)
+	public function attached($presenter) : void
 	{
 		parent::attached($presenter);
 
@@ -108,7 +108,7 @@ class Control extends Application\UI\Control
 	/**
 	 * @return void
 	 */
-	public function enableTitle()
+	public function enableTitle() : void
 	{
 		$this->useTitle = TRUE;
 	}
@@ -116,7 +116,7 @@ class Control extends Application\UI\Control
 	/**
 	 * @return void
 	 */
-	public function disableTitle()
+	public function disableTitle() : void
 	{
 		$this->useTitle = FALSE;
 	}
@@ -124,7 +124,7 @@ class Control extends Application\UI\Control
 	/**
 	 * @return void
 	 */
-	public function enableOverlay()
+	public function enableOverlay() : void
 	{
 		$this->useOverlay = TRUE;
 	}
@@ -132,7 +132,7 @@ class Control extends Application\UI\Control
 	/**
 	 * @return void
 	 */
-	public function disableOverlay()
+	public function disableOverlay() : void
 	{
 		$this->useOverlay = FALSE;
 	}
@@ -142,7 +142,7 @@ class Control extends Application\UI\Control
 	 *
 	 * @return void
 	 */
-	public function beforeRender()
+	public function beforeRender() : void
 	{
 		// Check if control has template
 		if ($this->template instanceof Nette\Bridges\ApplicationLatte\Template) {
@@ -174,7 +174,7 @@ class Control extends Application\UI\Control
 	 *
 	 * @return void
 	 */
-	public function render()
+	public function render() : void
 	{
 		// Check if control has template
 		if ($this->template instanceof Nette\Bridges\ApplicationLatte\Template) {
@@ -197,7 +197,7 @@ class Control extends Application\UI\Control
 	 *
 	 * @throws Exceptions\FileNotFoundException
 	 */
-	public function setTemplateFile($templateFile)
+	public function setTemplateFile(string $templateFile) : void
 	{
 		// Check if template file exists...
 		if (!is_file($templateFile)) {
@@ -224,15 +224,15 @@ class Control extends Application\UI\Control
 	 *
 	 * @return void
 	 */
-	public function setTranslator(Localization\ITranslator $translator)
+	public function setTranslator(Localization\ITranslator $translator) : void
 	{
 		$this->translator = $translator;
 	}
 
 	/**
-	 * @return Localization\ITranslator|null
+	 * @return Localization\ITranslator|NULL
 	 */
-	public function getTranslator()
+	public function getTranslator() : ?Localization\ITranslator
 	{
 		if ($this->translator instanceof Localization\ITranslator) {
 			return $this->translator;
