@@ -30,7 +30,7 @@
 	},
 
 	"require": {
-		"php"	: ">=7.0.0",
+		"php"	: ">=7.1.0",
 
 		"nette/application"	: "~2.4",
 		"nette/di"			: "~2.4",
@@ -46,13 +46,13 @@
 		"nette/mail"			: "~2.4",
 		"nette/robot-loader"	: "~2.4",
 		"nette/safe-stream"		: "~2.3",
-		"nette/tester"			: "@dev",
+		"nette/tester"			: "~2.0",
 
-		"tracy/tracy"	: "@dev",
+		"tracy/tracy"	: "~2.4",
 
 		"kdyby/translation"	: "~2.0",
-		
-		"pds/skeleton"	: "@dev"
+
+		"pds/skeleton"	: "~1.0"
 	},
 
 	"autoload": {
