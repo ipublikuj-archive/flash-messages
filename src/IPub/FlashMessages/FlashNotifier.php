@@ -37,7 +37,9 @@ use IPub\FlashMessages\Storage;
  */
 class FlashNotifier
 {
-
+	/**
+	 * Implement nette smart magic
+	 */
 	use Nette\SmartObject;
 
 	/**

@@ -33,7 +33,9 @@ use IPub\FlashMessages\Exceptions;
  */
 class Message implements IMessage
 {
-
+	/**
+	 * Implement nette smart magic
+	 */
 	use Nette\SmartObject;
 
 	/**

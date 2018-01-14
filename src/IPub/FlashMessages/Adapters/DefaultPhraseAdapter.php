@@ -29,7 +29,9 @@ use Nette\Localization;
  */
 class DefaultPhraseAdapter implements IPhraseAdapter
 {
-
+	/**
+	 * Implement nette smart magic
+	 */
 	use Nette\SmartObject;
 
 	/**

@@ -32,7 +32,9 @@ use Kdyby\Translation;
  */
 class KdybyPhraseAdapter implements IPhraseAdapter
 {
-
+	/**
+	 * Implement nette smart magic
+	 */
 	use Nette\SmartObject;
 
 	/**
