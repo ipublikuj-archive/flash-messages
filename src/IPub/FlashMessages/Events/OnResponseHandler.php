@@ -16,8 +16,6 @@ declare(strict_types = 1);
 
 namespace IPub\FlashMessages\Events;
 
-use IPub;
-use IPub\FlashMessages;
 use IPub\FlashMessages\Entities;
 use IPub\FlashMessages\Storage;
 

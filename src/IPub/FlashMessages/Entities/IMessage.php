@@ -16,10 +16,6 @@ declare(strict_types = 1);
 
 namespace IPub\FlashMessages\Entities;
 
-use Nette;
-use Nette\Localization;
-
-use IPub;
 use IPub\FlashMessages\Exceptions;
 
 /**
@@ -32,10 +28,10 @@ use IPub\FlashMessages\Exceptions;
  */
 interface IMessage
 {
-	const LEVEL_INFO = 'info';
-	const LEVEL_SUCCESS = 'success';
-	const LEVEL_WARNING = 'warning';
-	const LEVEL_ERROR = 'error';
+	public const LEVEL_INFO = 'info';
+	public const LEVEL_SUCCESS = 'success';
+	public const LEVEL_WARNING = 'warning';
+	public const LEVEL_ERROR = 'error';
 
 	/**
 	 * @param string $message

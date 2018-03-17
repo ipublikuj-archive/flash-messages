@@ -25,7 +25,6 @@ use Nette\Utils;
 use Tester;
 use Tester\Assert;
 
-use IPub;
 use IPub\FlashMessages;
 
 require __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'bootstrap.php';
@@ -59,17 +58,17 @@ class ComponentTest extends Tester\TestCase
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setUp()
+	public function setUp() : void
 	{
 		parent::setUp();
 
 		$this->container = $this->createContainer();
 
 		// Get presenter factory from container
-		$this->presenterFactory = $this->container->getByType('Nette\Application\IPresenterFactory');
+		$this->presenterFactory = $this->container->getByType(Nette\Application\IPresenterFactory::class);
 	}
 
-	public function testSetValidTemplate()
+	public function testSetValidTemplate() : void
 	{
 		// Create test presenter
 		$presenter = $this->createPresenter();
@@ -85,9 +84,9 @@ class ComponentTest extends Tester\TestCase
 	}
 
 	/**
-	 * @throws \IPub\FlashMessages\Exceptions\FileNotFoundException
+	 * @throws FlashMessages\Exceptions\FileNotFoundException
 	 */
-	public function testSetInvalidTemplate()
+	public function testSetInvalidTemplate() : void
 	{
 		// Create test presenter
 		$presenter = $this->createPresenter();
@@ -108,10 +107,10 @@ class ComponentTest extends Tester\TestCase
 	 * @param int $count
 	 * @param array $parameters
 	 */
-	public function testCreateMessage(string $message, string $level, string $title = NULL, bool $overlay = FALSE, int $count = 0, array $parameters = [])
+	public function testCreateMessage(string $message, string $level, string $title = NULL, bool $overlay = FALSE, int $count = 0, array $parameters = []) : void
 	{
 		// Get notifier service
-		/** @var $notifier IPub\FlashMessages\FlashNotifier */
+		/** @var $notifier FlashMessages\FlashNotifier */
 		$notifier = $this->container->getService('flashMessages.notifier');
 
 		$flash = $notifier->message($message, $level, $title, $overlay, $count, $parameters);
@@ -124,7 +123,7 @@ class ComponentTest extends Tester\TestCase
 		Assert::same($overlay, $flash->hasOverlay());
 	}
 
-	public function testRenderMessage()
+	public function testRenderMessage() : void
 	{
 		// Create test presenter
 		$presenter = $this->createPresenter();
@@ -147,7 +146,7 @@ class ComponentTest extends Tester\TestCase
 		Assert::equal('Message to display', (string) $messageContentElement[0]);
 	}
 
-	public function testRenderMessageWithTitle()
+	public function testRenderMessageWithTitle() : void
 	{
 		// Create test presenter
 		$presenter = $this->createPresenter();
@@ -174,7 +173,7 @@ class ComponentTest extends Tester\TestCase
 		Assert::equal('Message title', (string) $messageTitleElement[0]);
 	}
 
-	public function testRenderMessageWithoutTitle()
+	public function testRenderMessageWithoutTitle() : void
 	{
 		// Create test presenter
 		$presenter = $this->createPresenter();
@@ -199,7 +198,7 @@ class ComponentTest extends Tester\TestCase
 		Assert::false($dq->has('h2'));
 	}
 
-	public function testRenderMessageWithOverlay()
+	public function testRenderMessageWithOverlay() : void
 	{
 		// Create test presenter
 		$presenter = $this->createPresenter();
@@ -227,7 +226,7 @@ class ComponentTest extends Tester\TestCase
 		Assert::equal('Message title', (string) $messageTitleElement[0]);
 	}
 
-	public function testRenderMessageWithoutOverlay()
+	public function testRenderMessageWithoutOverlay() : void
 	{
 		// Create test presenter
 		$presenter = $this->createPresenter();
@@ -279,56 +278,56 @@ class TestPresenter extends UI\Presenter
 	 */
 	use FlashMessages\TFlashMessages;
 
-	public function actionValidTemplate()
+	public function actionValidTemplate() : void
 	{
 		// Set valid template name
 		$this['flashMessages']->setTemplateFile('bootstrap.latte');
 	}
 
-	public function actionInvalidTemplate()
+	public function actionInvalidTemplate() : void
 	{
 		// Set invalid template name
 		$this['flashMessages']->setTemplateFile('invalid.latte');
 	}
 
-	public function actionShowMessage()
+	public function actionShowMessage() : void
 	{
 		$this->flashMessage('Message to display', 'success');
 	}
 
-	public function actionShowMessageWithTitle()
+	public function actionShowMessageWithTitle() : void
 	{
 		$this->flashMessage('Message to display', 'success', 'Message title');
 	}
 
-	public function actionShowMessageWithoutTitle()
+	public function actionShowMessageWithoutTitle() : void
 	{
 		$this->flashMessage('Message to display', 'success', 'Message title');
 	}
 
-	public function actionShowMessageWithOverlay()
+	public function actionShowMessageWithOverlay() : void
 	{
 		$this->flashMessage('Message to display', 'success', 'Message title', TRUE);
 	}
 
-	public function actionShowMessageWithoutOverlay()
+	public function actionShowMessageWithoutOverlay() : void
 	{
 		$this->flashMessage('Message to display', 'success', 'Message title', TRUE);
 	}
 
-	public function renderValidTemplate()
+	public function renderValidTemplate() : void
 	{
 		// Set template for component testing
 		$this->template->setFile(__DIR__ . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . 'validTemplate.latte');
 	}
 
-	public function renderShowMessage()
+	public function renderShowMessage() : void
 	{
 		// Set template for component testing
 		$this->template->setFile(__DIR__ . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . 'show.latte');
 	}
 
-	public function renderShowMessageWithTitle()
+	public function renderShowMessageWithTitle() : void
 	{
 		// Set template for component testing
 		$this->template->setFile(__DIR__ . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . 'show.latte');
@@ -337,7 +336,7 @@ class TestPresenter extends UI\Presenter
 		$this['flashMessages']->enableTitle();
 	}
 
-	public function renderShowMessageWithoutTitle()
+	public function renderShowMessageWithoutTitle() : void
 	{
 		// Set template for component testing
 		$this->template->setFile(__DIR__ . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . 'show.latte');
@@ -346,7 +345,7 @@ class TestPresenter extends UI\Presenter
 		$this['flashMessages']->disableTitle();
 	}
 
-	public function renderShowMessageWithOverlay()
+	public function renderShowMessageWithOverlay() : void
 	{
 		// Set template for component testing
 		$this->template->setFile(__DIR__ . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . 'show.latte');
@@ -355,7 +354,7 @@ class TestPresenter extends UI\Presenter
 		$this['flashMessages']->enableOverlay();
 	}
 
-	public function renderShowMessageWithoutOverlay()
+	public function renderShowMessageWithoutOverlay() : void
 	{
 		// Set template for component testing
 		$this->template->setFile(__DIR__ . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . 'show.latte');

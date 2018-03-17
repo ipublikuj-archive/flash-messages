@@ -14,10 +14,8 @@
 
 namespace IPub\FlashMessages;
 
-use Nette;
-
-use IPub;
 use IPub\FlashMessages\Components;
+use IPub\FlashMessages\Entities;
 
 /**
  * Flash message helper trait
@@ -63,7 +61,7 @@ trait TFlashMessages
 	 *
 	 * @return Entities\IMessage
 	 */
-	public function flashMessage($message, $level = 'info', $title = NULL, $overlay = FALSE, $count = NULL, $parameters = []) : Entities\IMessage
+	public function flashMessage($message, $level = Entities\IMessage::LEVEL_INFO, $title = NULL, $overlay = FALSE, $count = NULL, $parameters = []) : Entities\IMessage
 	{
 		return $this->flashNotifier->message($message, $level, $title, $overlay, $count, $parameters);
 	}
@@ -71,9 +69,9 @@ trait TFlashMessages
 	/**
 	 * Flash messages component
 	 *
-	 * @return IPub\FlashMessages\Components\Control
+	 * @return Components\Control
 	 */
-	protected function createComponentFlashMessages() : IPub\FlashMessages\Components\Control
+	protected function createComponentFlashMessages() : Components\Control
 	{
 		return $this->flashMessagesFactory->create();
 	}

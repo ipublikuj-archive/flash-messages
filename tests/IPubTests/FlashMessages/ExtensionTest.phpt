@@ -22,20 +22,19 @@ use Nette;
 use Tester;
 use Tester\Assert;
 
-use IPub;
 use IPub\FlashMessages;
 
 require __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'bootstrap.php';
 
 class ExtensionTest extends Tester\TestCase
 {
-	public function testCompilersServices()
+	public function testCompilersServices() : void
 	{
 		$dic = $this->createContainer();
 
-		Assert::true($dic->getService('flashMessages.notifier') instanceof IPub\FlashMessages\FlashNotifier);
-		Assert::true($dic->getService('flashMessages.storage') instanceof IPub\FlashMessages\Storage\Session);
-		Assert::true($dic->getService('flashMessages.onResponseHandler') instanceof IPub\FlashMessages\Events\OnResponseHandler);
+		Assert::true($dic->getService('flashMessages.notifier') instanceof FlashMessages\FlashNotifier);
+		Assert::true($dic->getService('flashMessages.storage') instanceof FlashMessages\Storage\Session);
+		Assert::true($dic->getService('flashMessages.onResponseHandler') instanceof FlashMessages\Events\OnResponseHandler);
 
 		// Get component factory
 		$factory = $dic->getService('flashMessages.messages');

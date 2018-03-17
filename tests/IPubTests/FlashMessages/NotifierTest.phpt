@@ -24,7 +24,6 @@ use Nette\Application\UI;
 use Tester;
 use Tester\Assert;
 
-use IPub;
 use IPub\FlashMessages;
 use IPub\FlashMessages\Entities;
 
@@ -45,17 +44,17 @@ class NotifierTest extends Tester\TestCase
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setUp()
+	public function setUp() : void
 	{
 		parent::setUp();
 
 		$this->container = $this->createContainer();
 
 		// Get flash notifier from container
-		$this->notifier = $this->container->getByType('IPub\FlashMessages\FlashNotifier');
+		$this->notifier = $this->container->getByType(FlashMessages\FlashNotifier::class);
 	}
 
-	public function testSkipTitle()
+	public function testSkipTitle() : void
 	{
 		// Without title and with overlay
 		$flash = $this->notifier->setMessage('Message text', Entities\IMessage::LEVEL_SUCCESS, TRUE, NULL);
@@ -121,7 +120,7 @@ class NotifierTest extends Tester\TestCase
 		Assert::false($flash->hasOverlay());
 	}
 
-	public function testSkipOverlay()
+	public function testSkipOverlay() : void
 	{
 		// Without overlay
 		$flash = $this->notifier->setMessage('Message text', Entities\IMessage::LEVEL_SUCCESS, 'Message title');
@@ -169,7 +168,7 @@ class NotifierTest extends Tester\TestCase
 		Assert::false($flash->hasOverlay());
 	}
 
-	public function testOverlayShortCut()
+	public function testOverlayShortCut() : void
 	{
 		// Short call with info with title and without params
 		$flash = $this->notifier->overlay('Message text', 'Message title');

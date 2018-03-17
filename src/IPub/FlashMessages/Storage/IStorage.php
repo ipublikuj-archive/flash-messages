@@ -16,9 +16,6 @@ declare(strict_types = 1);
 
 namespace IPub\FlashMessages\Storage;
 
-use Nette;
-use Nette\Http;
-
 /**
  * Message status storage interface
  *
@@ -32,8 +29,8 @@ interface IStorage
 	/**
 	 * Define session keys
 	 */
-	const KEY_MESSAGES = 'messages';
-	const KEY_IMPORTANT = 'important';
+	public const KEY_MESSAGES = 'messages';
+	public const KEY_IMPORTANT = 'important';
 
 	/**
 	 * Stores the given ($key, $value) pair, so that future calls to

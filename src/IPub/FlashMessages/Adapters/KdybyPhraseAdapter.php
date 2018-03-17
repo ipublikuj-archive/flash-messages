@@ -19,7 +19,6 @@ namespace IPub\FlashMessages\Adapters;
 use Nette;
 use Nette\Localization;
 
-use Kdyby;
 use Kdyby\Translation;
 
 /**

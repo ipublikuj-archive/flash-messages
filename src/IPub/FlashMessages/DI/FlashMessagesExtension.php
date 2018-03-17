@@ -21,7 +21,6 @@ use Nette\DI;
 use Nette\Utils;
 use Nette\PhpGenerator as Code;
 
-use IPub;
 use IPub\FlashMessages;
 use IPub\FlashMessages\Components;
 use IPub\FlashMessages\Events;
@@ -60,16 +59,16 @@ final class FlashMessagesExtension extends DI\CompilerExtension
 
 		// Notifier
 		$builder->addDefinition($this->prefix('notifier'))
-			->setClass(FlashMessages\FlashNotifier::class)
+			->setType(FlashMessages\FlashNotifier::class)
 			->setArguments(['useTranslator' => $config['useTranslator']]);
 
 		// Session storage
 		$builder->addDefinition($this->prefix('storage'))
-			->setClass(Storage\Session::class);
+			->setType(Storage\Session::class);
 
 		// Display components
 		$control = $builder->addDefinition($this->prefix('messages'))
-			->setClass(Components\Control::class)
+			->setType(Components\Control::class)
 			->setImplement(Components\IControl::class)
 			->setArguments([
 				new Nette\PhpGenerator\PhpLiteral('$templateFile'),
@@ -90,7 +89,7 @@ final class FlashMessagesExtension extends DI\CompilerExtension
 
 		// Extension events
 		$builder->addDefinition($this->prefix('onResponseHandler'))
-			->setClass(Events\OnResponseHandler::class);
+			->setType(Events\OnResponseHandler::class);
 
 		$application = $builder->getDefinition('application');
 		$application->addSetup('$service->onResponse[] = ?', ['@' . $this->prefix('onResponseHandler')]);
@@ -102,7 +101,7 @@ final class FlashMessagesExtension extends DI\CompilerExtension
 	 *
 	 * @return void
 	 */
-	public static function register(Nette\Configurator $config, string $extensionName = 'flashMessages')
+	public static function register(Nette\Configurator $config, string $extensionName = 'flashMessages') : void
 	{
 		$config->onCompile[] = function (Nette\Configurator $config, Nette\DI\Compiler $compiler) use ($extensionName) : void {
 			$compiler->addExtension($extensionName, new FlashMessagesExtension());

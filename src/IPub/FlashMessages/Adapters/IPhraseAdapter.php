@@ -16,7 +16,6 @@ declare(strict_types = 1);
 
 namespace IPub\FlashMessages\Adapters;
 
-use Nette;
 use Nette\Localization;
 
 /**

@@ -16,13 +16,12 @@ declare(strict_types = 1);
 
 namespace IPub\FlashMessages\Components;
 
-use Nette;
 use Nette\Application;
+use Nette\Bridges;
+use Nette\ComponentModel;
 use Nette\Localization;
 use Nette\Utils;
 
-use IPub;
-use IPub\FlashMessages;
 use IPub\FlashMessages\Entities;
 use IPub\FlashMessages\Exceptions;
 use IPub\FlashMessages\Storage;
@@ -50,7 +49,7 @@ class Control extends Application\UI\Control
 	private $storage;
 
 	/**
-	 * @var Localization\ITranslator
+	 * @var Localization\ITranslator|NULL
 	 */
 	private $translator;
 
@@ -65,11 +64,11 @@ class Control extends Application\UI\Control
 	private $useOverlay = FALSE;
 
 	/**
-	 * @param Localization\ITranslator $translator
+	 * @param Localization\ITranslator|NULL $translator
 	 *
 	 * @return void
 	 */
-	public function injectTranslator(Localization\ITranslator $translator = NULL) : void
+	public function injectTranslator(?Localization\ITranslator $translator = NULL) : void
 	{
 		$this->translator = $translator;
 	}
@@ -94,7 +93,7 @@ class Control extends Application\UI\Control
 	}
 
 	/**
-	 * @param \Nette\ComponentModel\IComponent
+	 * @param ComponentModel\IComponent
 	 *
 	 * @return void
 	 */
@@ -145,7 +144,7 @@ class Control extends Application\UI\Control
 	public function beforeRender() : void
 	{
 		// Check if control has template
-		if ($this->template instanceof Nette\Bridges\ApplicationLatte\Template) {
+		if ($this->template instanceof Bridges\ApplicationLatte\Template) {
 			// Load messages from session
 			/** @var Entities\IMessage[] $messages */
 			$messages = $this->storage->get(Storage\IStorage::KEY_MESSAGES, []);
@@ -177,7 +176,7 @@ class Control extends Application\UI\Control
 	public function render() : void
 	{
 		// Check if control has template
-		if ($this->template instanceof Nette\Bridges\ApplicationLatte\Template) {
+		if ($this->template instanceof Bridges\ApplicationLatte\Template) {
 			$this->beforeRender();
 
 			// Render component template

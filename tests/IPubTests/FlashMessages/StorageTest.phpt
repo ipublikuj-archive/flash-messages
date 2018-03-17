@@ -24,7 +24,6 @@ use Nette\Application\UI;
 use Tester;
 use Tester\Assert;
 
-use IPub;
 use IPub\FlashMessages;
 
 require __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'bootstrap.php';
@@ -44,7 +43,7 @@ class StorageTest extends Tester\TestCase
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setUp()
+	public function setUp() : void
 	{
 		parent::setUp();
 
@@ -54,21 +53,21 @@ class StorageTest extends Tester\TestCase
 		$this->presenterFactory = $this->container->getByType('Nette\Application\IPresenterFactory');
 	}
 
-	public function testStoreMessage()
+	public function testStoreMessage() : void
 	{
 		// Create container
 		$container = $this->createContainer();
 
 		// Get notifier from container
 		/** @var FlashMessages\FlashNotifier $notifier */
-		$notifier = $container->getByType('IPub\FlashMessages\FlashNotifier');
+		$notifier = $container->getByType(FlashMessages\FlashNotifier::class);
 
 		// Set first message
 		$notifier->message('Stored message', 'success');
 
 		// Get session storage from container
 		/** @var FlashMessages\Storage\Session $storage */
-		$storage = $container->getByType('IPub\FlashMessages\Storage\Session');
+		$storage = $container->getByType(FlashMessages\Storage\Session::class);
 
 		Assert::equal(1, count($storage->get(FlashMessages\Storage\Session::KEY_MESSAGES, [])));
 
@@ -77,14 +76,14 @@ class StorageTest extends Tester\TestCase
 
 		// Get notifier from container
 		/** @var FlashMessages\FlashNotifier $notifier */
-		$notifier = $container->getByType('IPub\FlashMessages\FlashNotifier');
+		$notifier = $container->getByType(FlashMessages\FlashNotifier::class);
 
 		// Set second message
 		$notifier->message('Second stored message', 'success');
 
 		// Get session storage from container
 		/** @var FlashMessages\Storage\Session $storage */
-		$storage = $container->getByType('IPub\FlashMessages\Storage\Session');
+		$storage = $container->getByType(FlashMessages\Storage\Session::class);
 
 		Assert::equal(2, count($storage->get(FlashMessages\Storage\Session::KEY_MESSAGES, [])));
 
@@ -93,7 +92,7 @@ class StorageTest extends Tester\TestCase
 
 		// Get session storage from container
 		/** @var FlashMessages\Storage\Session $storage */
-		$storage = $container->getByType('IPub\FlashMessages\Storage\Session');
+		$storage = $container->getByType(FlashMessages\Storage\Session::class);
 
 		/** @var FlashMessages\Entities\IMessage[] $messages */
 		$messages = $storage->get(FlashMessages\Storage\Session::KEY_MESSAGES, []);
@@ -103,7 +102,7 @@ class StorageTest extends Tester\TestCase
 
 		// Get event from container
 		/** @var FlashMessages\Events\OnResponseHandler $event */
-		$event = $container->getByType('IPub\FlashMessages\Events\OnResponseHandler');
+		$event = $container->getByType(FlashMessages\Events\OnResponseHandler::class);
 
 		$event->__invoke();
 
@@ -144,7 +143,7 @@ class StorageTestPresenter extends UI\Presenter
 	 */
 	use FlashMessages\TFlashMessages;
 
-	public function renderShowMessage()
+	public function renderShowMessage() : void
 	{
 		// Set template for component testing
 		$this->template->setFile(__DIR__ . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . 'show.latte');

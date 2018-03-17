@@ -31,5 +31,5 @@ interface IControl
 	 *
 	 * @return Control
 	 */
-	public function create(string $templateFile = NULL) : Control;
+	public function create(?string $templateFile = NULL) : Control;
 }

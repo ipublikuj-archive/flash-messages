@@ -19,10 +19,8 @@ namespace IPub\FlashMessages;
 use Nette;
 use Nette\Localization;
 
-use Kdyby;
 use Kdyby\Translation;
 
-use IPub;
 use IPub\FlashMessages\Adapters;
 use IPub\FlashMessages\Entities;
 use IPub\FlashMessages\Storage;
@@ -53,7 +51,7 @@ class FlashNotifier
 	protected $useTranslator;
 
 	/**
-	 * @var Localization\ITranslator
+	 * @var Localization\ITranslator|NULL
 	 */
 	protected $translator;
 
@@ -83,7 +81,7 @@ class FlashNotifier
 	public function success($message, $title = NULL) : Entities\IMessage
 	{
 		$args = func_get_args();
-		array_splice($args, 1, 0, ['success']);
+		array_splice($args, 1, 0, [Entities\IMessage::LEVEL_SUCCESS]);
 
 		return call_user_func_array([$this, 'setMessage'], $args);
 	}
@@ -99,7 +97,7 @@ class FlashNotifier
 	public function info($message, $title = NULL) : Entities\IMessage
 	{
 		$args = func_get_args();
-		array_splice($args, 1, 0, ['info']);
+		array_splice($args, 1, 0, [Entities\IMessage::LEVEL_INFO]);
 
 		return call_user_func_array([$this, 'setMessage'], $args);
 	}
@@ -115,7 +113,7 @@ class FlashNotifier
 	public function warning($message, $title = NULL) : Entities\IMessage
 	{
 		$args = func_get_args();
-		array_splice($args, 1, 0, ['warning']);
+		array_splice($args, 1, 0, [Entities\IMessage::LEVEL_WARNING]);
 
 		return call_user_func_array([$this, 'setMessage'], $args);
 	}
@@ -131,7 +129,7 @@ class FlashNotifier
 	public function error($message, $title = NULL) : Entities\IMessage
 	{
 		$args = func_get_args();
-		array_splice($args, 1, 0, ['danger']);
+		array_splice($args, 1, 0, [Entities\IMessage::LEVEL_ERROR]);
 
 		return call_user_func_array([$this, 'setMessage'], $args);
 	}
@@ -163,7 +161,7 @@ class FlashNotifier
 		if (is_string($level) === FALSE || $level === NULL
 			|| !in_array($level, [Entities\IMessage::LEVEL_ERROR, Entities\IMessage::LEVEL_INFO, Entities\IMessage::LEVEL_SUCCESS, Entities\IMessage::LEVEL_WARNING])
 		) {
-			array_splice($args, 1, 0, ['info']);
+			array_splice($args, 1, 0, [Entities\IMessage::LEVEL_INFO]);
 		}
 
 		array_splice($args, 3, 0, [TRUE]);
@@ -181,7 +179,7 @@ class FlashNotifier
 	 *
 	 * @return Entities\IMessage
 	 */
-	public function message($message, $level = 'info', $title = NULL, $overlay = FALSE, $count = NULL, array $parameters = []) : Entities\IMessage
+	public function message($message, $level = Entities\IMessage::LEVEL_INFO, $title = NULL, $overlay = FALSE, $count = NULL, array $parameters = []) : Entities\IMessage
 	{
 		return $this->setMessage($message, $level, $title, $overlay, $count, $parameters);
 	}
@@ -198,7 +196,7 @@ class FlashNotifier
 	 *
 	 * @return Entities\IMessage
 	 */
-	public function setMessage($message, $level = 'info', $title = NULL, $overlay = FALSE, $count = NULL, array $parameters = []) : Entities\IMessage
+	public function setMessage($message, $level = Entities\IMessage::LEVEL_INFO, $title = NULL, $overlay = FALSE, $count = NULL, array $parameters = []) : Entities\IMessage
 	{
 		$args = func_get_args();
 

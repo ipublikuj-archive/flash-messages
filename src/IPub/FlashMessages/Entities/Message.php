@@ -19,7 +19,6 @@ namespace IPub\FlashMessages\Entities;
 use Nette;
 use Nette\Localization;
 
-use IPub;
 use IPub\FlashMessages\Adapters;
 use IPub\FlashMessages\Exceptions;
 

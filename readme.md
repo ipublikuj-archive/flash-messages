@@ -6,7 +6,6 @@
 [![Latest Stable Version](https://img.shields.io/packagist/v/ipub/flash-messages.svg?style=flat-square)](https://packagist.org/packages/ipub/flash-messages)
 [![Composer Downloads](https://img.shields.io/packagist/dt/ipub/flash-messages.svg?style=flat-square)](https://packagist.org/packages/ipub/flash-messages)
 [![License](https://img.shields.io/packagist/l/ipub/flash-messages.svg?style=flat-square)](https://packagist.org/packages/ipub/flash-messages)
-[![Dependency Status](https://img.shields.io/versioneye/d/user/projects/5685a4bbeb4f4700300004a8.svg?style=flat-square)](https://www.versioneye.com/user/projects/5685a4bbeb4f4700300004a8)
 
 Flash messages handler for [Nette Framework](http://nette.org/)
 
