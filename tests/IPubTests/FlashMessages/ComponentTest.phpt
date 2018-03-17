@@ -84,7 +84,7 @@ class ComponentTest extends Tester\TestCase
 	}
 
 	/**
-	 * @throws FlashMessages\Exceptions\FileNotFoundException
+	 * @throws \IPub\FlashMessages\Exceptions\FileNotFoundException
 	 */
 	public function testSetInvalidTemplate() : void
 	{

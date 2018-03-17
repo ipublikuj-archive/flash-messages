@@ -39,8 +39,8 @@ class ExtensionTest extends Tester\TestCase
 		// Get component factory
 		$factory = $dic->getService('flashMessages.messages');
 
-		Assert::true($factory instanceof IPub\FlashMessages\Components\IControl);
-		Assert::true($factory->create() instanceof IPub\FlashMessages\Components\Control);
+		Assert::true($factory instanceof FlashMessages\Components\IControl);
+		Assert::true($factory->create() instanceof FlashMessages\Components\Control);
 	}
 
 	/**
