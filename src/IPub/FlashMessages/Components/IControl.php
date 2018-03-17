@@ -3,8 +3,8 @@
  * IControl.php
  *
  * @copyright      More in license.md
- * @license        http://www.ipublikuj.eu
- * @author         Adam Kadlec http://www.ipublikuj.eu
+ * @license        https://www.ipublikuj.eu
+ * @author         Adam Kadlec https://www.ipublikuj.eu
  * @package        iPublikuj:FlashMessages!
  * @subpackage     Components
  * @since          1.0.0
@@ -22,7 +22,7 @@ namespace IPub\FlashMessages\Components;
  * @package        iPublikuj:FlashMessages!
  * @subpackage     Components
  *
- * @author         Adam Kadlec http://www.ipublikuj.eu
+ * @author         Adam Kadlec https://www.ipublikuj.eu
  */
 interface IControl
 {
