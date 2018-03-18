@@ -4,7 +4,7 @@
  *
  * @copyright      More in license.md
  * @license        https://www.ipublikuj.eu
- * @author         Adam Kadlec https://www.ipublikuj.eu
+ * @author         Adam Kadlec <adam.kadlec@ipublikuj.eu>
  * @package        iPublikuj:FlashMessages!
  * @subpackage     Components
  * @since          1.0.0
@@ -20,7 +20,6 @@ use Nette\Application;
 use Nette\Bridges;
 use Nette\ComponentModel;
 use Nette\Localization;
-use Nette\Utils;
 
 use IPub\FlashMessages\Entities;
 use IPub\FlashMessages\Exceptions;
@@ -32,7 +31,7 @@ use IPub\FlashMessages\Storage;
  * @package        iPublikuj:FlashMessages!
  * @subpackage     Components
  *
- * @author         Adam Kadlec https://www.ipublikuj.eu
+ * @author         Adam Kadlec <adam.kadlec@ipublikuj.eu>
  *
  * @property Application\UI\ITemplate $template
  */

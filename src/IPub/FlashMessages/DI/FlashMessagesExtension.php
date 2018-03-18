@@ -4,7 +4,7 @@
  *
  * @copyright      More in license.md
  * @license        https://www.ipublikuj.eu
- * @author         Adam Kadlec https://www.ipublikuj.eu
+ * @author         Adam Kadlec <adam.kadlec@ipublikuj.eu>
  * @package        iPublikuj:FlashMessages!
  * @subpackage     DI
  * @since          1.0.0
@@ -19,7 +19,6 @@ namespace IPub\FlashMessages\DI;
 use Nette;
 use Nette\DI;
 use Nette\Utils;
-use Nette\PhpGenerator as Code;
 
 use IPub\FlashMessages;
 use IPub\FlashMessages\Components;
@@ -48,6 +47,8 @@ final class FlashMessagesExtension extends DI\CompilerExtension
 
 	/**
 	 * @return void
+	 *
+	 * @throws Utils\AssertionException
 	 */
 	public function loadConfiguration() : void
 	{
