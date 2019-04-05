@@ -50,20 +50,18 @@ trait TFlashMessages
 	}
 
 	/**
-	 * Store flash message
-	 *
 	 * @param string $message
-	 * @param string $level
-	 * @param string|NULL $title
-	 * @param bool $overlay
-	 * @param int|NULL $count
-	 * @param array|NULL $parameters
+	 * @param string $type
+	 * @param null   $title
+	 * @param bool   $overlay
+	 * @param null   $count
+	 * @param array|NULL  $parameters
 	 *
-	 * @return Entities\IMessage
+	 * @return \stdClass|Entities\IMessage
 	 */
-	public function flashMessage($message, $level = Entities\IMessage::LEVEL_INFO, $title = NULL, $overlay = FALSE, $count = NULL, $parameters = []) : Entities\IMessage
+	public function flashMessage($message, string $type = 'info', ?string $title = null, bool $overlay = false, ?int $count = null, ?array $parameters = []): \stdClass
 	{
-		return $this->flashNotifier->message($message, $level, $title, $overlay, $count, $parameters);
+		$this->flashNotifier->message($message, $level, $title, $overlay, $count, $parameters);
 	}
 
 	/**
