@@ -52,9 +52,9 @@ trait TFlashMessages
 	/**
 	 * @param string $message
 	 * @param string $type
-	 * @param null   $title
-	 * @param bool   $overlay
-	 * @param null   $count
+	 * @param string|null $title
+	 * @param bool  $overlay
+	 * @param int|null  $count
 	 * @param array|NULL  $parameters
 	 *
 	 * @return \stdClass|Entities\IMessage
