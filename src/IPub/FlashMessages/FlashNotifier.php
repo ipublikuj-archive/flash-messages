@@ -280,7 +280,7 @@ class FlashNotifier
 			switch($type)
 			{
 				case 'title':
-					if (is_string($attribute) === TRUE || $attribute instanceof Translation\Phrase || $attribute instanceof Adapters\IPhraseAdapter) {
+					if (is_string($attribute) === TRUE || $attribute instanceof Adapters\IPhraseAdapter) {
 						return $attribute;
 					}
 					break;
