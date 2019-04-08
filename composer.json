@@ -37,6 +37,9 @@
 		"nette/http"		: "^3.0",
 		"latte/latte"	: "^2.5"
 	},
+	"suggest": {
+		"contributte/translation": "Option for message translation"
+	},
 
 	"require-dev": {
 		"nette/bootstrap"		: "^3.0",

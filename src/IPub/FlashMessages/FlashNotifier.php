@@ -19,8 +19,6 @@ namespace IPub\FlashMessages;
 use Nette;
 use Nette\Localization;
 
-use Kdyby\Translation;
-
 use IPub\FlashMessages\Adapters;
 use IPub\FlashMessages\Entities;
 use IPub\FlashMessages\Storage;
@@ -210,24 +208,14 @@ class FlashNotifier
 		$count = $this->checkForAttribute($args, 'count', NULL);
 		$parameters = $this->checkForAttribute($args, 'parameters', []);
 
-		// Support for Kdyby/Translation
-		if ($message instanceof Translation\Phrase) {
-			$phrase = new Adapters\KdybyPhraseAdapter($message);
-
-		// Default phrase adapter
-		} else if (!$message instanceof Adapters\IPhraseAdapter) {
+		if (!$message instanceof Adapters\IPhraseAdapter) {
 			$phrase = new Adapters\DefaultPhraseAdapter($message, $count, $parameters);
 
 		} else {
 			$phrase = $message;
 		}
 
-		// Support for Kdyby/Translation
-		if ($title instanceof Translation\Phrase) {
-			$titlePhrase = new Adapters\KdybyPhraseAdapter($title);
-
-		// Default phrase adapter
-		} else if (!$title instanceof Adapters\IPhraseAdapter && $title !== NULL) {
+		if (!$title instanceof Adapters\IPhraseAdapter && $title !== NULL) {
 			$titlePhrase = new Adapters\DefaultPhraseAdapter($title, $count, $parameters);
 
 		} else {

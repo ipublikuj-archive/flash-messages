@@ -17,6 +17,7 @@ declare(strict_types = 1);
 
 namespace IPubTests\FlashMessages;
 
+use Contributte;
 use Nette;
 use Nette\Application;
 use Nette\Application\UI;
@@ -41,6 +42,12 @@ class NotifierTest extends Tester\TestCase
 	 */
 	private $container;
 
+
+	/**
+	 * @var Nette\Localization\ITranslator|Contributte\Translation\Translator
+	 */
+	private $translator;
+
 	/**
 	 * {@inheritdoc}
 	 */
@@ -52,6 +59,9 @@ class NotifierTest extends Tester\TestCase
 
 		// Get flash notifier from container
 		$this->notifier = $this->container->getByType(FlashMessages\FlashNotifier::class);
+
+		// Get default translator
+		$this->translator = $this->container->getByType(Nette\Localization\ITranslator::class);
 	}
 
 	public function testSkipTitle() : void
@@ -214,6 +224,23 @@ class NotifierTest extends Tester\TestCase
 		Assert::same(Entities\IMessage::LEVEL_INFO, $flash->getLevel());
 		Assert::same('Message title and value', $flash->getTitle());
 		Assert::true($flash->hasOverlay());
+	}
+
+	public function testContributeTranslation() : void
+	{
+		Assert::true($this->translator instanceof Contributte\Translation\Translator);
+
+		$flash = $this->notifier->setMessage('messages.test.hello', Entities\IMessage::LEVEL_SUCCESS, 'messages.test.title');
+		Assert::true($flash instanceof Entities\IMessage);
+		Assert::same('Hello', $flash->getMessage());
+		Assert::same('Title', $flash->getTitle());
+
+		$this->translator->setLocale('cs');
+
+		$flash = $this->notifier->setMessage('messages.test.hello', Entities\IMessage::LEVEL_SUCCESS, 'messages.test.title');
+		Assert::true($flash instanceof Entities\IMessage);
+		Assert::same('Ahoj', $flash->getMessage());
+		Assert::same('Titulek', $flash->getTitle());
 	}
 
 	/**
