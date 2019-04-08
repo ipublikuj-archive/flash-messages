@@ -44,7 +44,7 @@ final class FlashMessagesExtension extends DI\CompilerExtension
 			'useOverlay' => Expect::bool(false),
 			'templateFile' => Expect::string(),
 			'useTranslator' => Expect::bool(false),
-			'useTitle' => Expect::bool(false)
+			'useTitle' => Expect::bool(true)
 		]);
 	}
 
