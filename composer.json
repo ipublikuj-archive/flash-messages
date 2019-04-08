@@ -45,9 +45,9 @@
 		"nette/robot-loader"	: "^3.0",
 		"nette/safe-stream"		: "~2.4",
 		"nette/tester"			: "~2.0",
-		"tracy/tracy"	: "^3.0",
-		"kdyby/translation"	: "~2.0",
-		"pds/skeleton"	: "~1.0"
+		"tracy/tracy"	: "^2.0",
+		"pds/skeleton"	: "~1.0",
+		"contributte/translation": "^0.1.0"
 	},
 
 	"autoload": {

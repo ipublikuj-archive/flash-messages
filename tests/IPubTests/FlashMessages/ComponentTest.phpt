@@ -351,6 +351,7 @@ class TestPresenter extends UI\Presenter
 		$this->template->setFile(__DIR__ . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . 'show.latte');
 
 		// Globaly enable titles
+		$this['flashMessages']->enableTitle();
 		$this['flashMessages']->enableOverlay();
 	}
 

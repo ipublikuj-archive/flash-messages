@@ -61,7 +61,7 @@ trait TFlashMessages
 	 */
 	public function flashMessage($message, string $type = 'info', ?string $title = null, bool $overlay = false, ?int $count = null, ?array $parameters = []): \stdClass
 	{
-		$this->flashNotifier->message($message, $level, $title, $overlay, $count, $parameters);
+		return $this->flashNotifier->message($message, $type, $title, $overlay, $count, $parameters);
 	}
 
 	/**

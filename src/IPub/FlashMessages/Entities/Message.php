@@ -30,7 +30,7 @@ use IPub\FlashMessages\Exceptions;
  *
  * @author         Adam Kadlec <adam.kadlec@ipublikuj.eu>
  */
-class Message implements IMessage
+class Message extends \stdClass implements IMessage
 {
 	/**
 	 * Implement nette smart magic
