@@ -82,25 +82,15 @@ class Control extends Application\UI\Control
 		string $templateFile = NULL,
 		Storage\IStorage $storage
 	) {
-		parent::__construct();
-
 		if ($templateFile !== NULL) {
 			$this->setTemplateFile($templateFile);
 		}
 
 		$this->storage = $storage;
-	}
 
-	/**
-	 * @param ComponentModel\IComponent
-	 *
-	 * @return void
-	 */
-	public function attached($presenter) : void
-	{
-		parent::attached($presenter);
-
-		$this->redrawControl();
+		$this->monitor(Application\UI\Presenter::class, function () {
+			$this->redrawControl();
+		});
 	}
 
 	/**

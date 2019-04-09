@@ -4,6 +4,7 @@
 		{if $flash->hasOverlay() && $useOverlay}
 			{include 'modal.latte',
 				'modalClass' => 'flash-modal',
+				'level' => $flash->getLevel(),
 				'title' => $flash->getTitle(),
 				'body' => $flash->getMessage(),
 				'useTitle' => $useTitle

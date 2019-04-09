@@ -18,6 +18,8 @@ namespace IPub\FlashMessages\DI;
 
 use Nette;
 use Nette\DI;
+use Nette\Schema\Expect;
+use Nette\Schema\Schema;
 use Nette\Utils;
 
 use IPub\FlashMessages;
@@ -35,15 +37,16 @@ use IPub\FlashMessages\Storage;
  */
 final class FlashMessagesExtension extends DI\CompilerExtension
 {
-	/**
-	 * @var array
-	 */
-	protected $defaults = [
-		'useTitle'      => TRUE,
-		'useOverlay'    => FALSE,
-		'templateFile'  => NULL,
-		'useTranslator' => TRUE,
-	];
+	public function getConfigSchema(): Schema
+	{
+		return Expect::structure([
+			'vat' => Expect::bool(true),
+			'useOverlay' => Expect::bool(false),
+			'templateFile' => Expect::string(),
+			'useTranslator' => Expect::bool(false),
+			'useTitle' => Expect::bool(true)
+		]);
+	}
 
 	/**
 	 * @return void
@@ -52,40 +55,39 @@ final class FlashMessagesExtension extends DI\CompilerExtension
 	 */
 	public function loadConfiguration() : void
 	{
-		$config = $this->getConfig($this->defaults);
+		$config = $this->config;
 		$builder = $this->getContainerBuilder();
 
-		Utils\Validators::assertField($config, 'useTitle', 'bool');
-		Utils\Validators::assertField($config, 'useOverlay', 'bool');
 
 		// Notifier
 		$builder->addDefinition($this->prefix('notifier'))
 			->setType(FlashMessages\FlashNotifier::class)
-			->setArguments(['useTranslator' => $config['useTranslator']]);
+			->setArguments(['useTranslator' => $config->useTranslator]);
 
 		// Session storage
 		$builder->addDefinition($this->prefix('storage'))
 			->setType(Storage\Session::class);
 
 		// Display components
-		$control = $builder->addDefinition($this->prefix('messages'))
-			->setType(Components\Control::class)
+
+
+		$control = $builder->addFactoryDefinition($this->prefix('messages'))
 			->setImplement(Components\IControl::class)
+			->getResultDefinition()->setFactory(Components\Control::class)
 			->setArguments([
 				new Nette\PhpGenerator\PhpLiteral('$templateFile'),
-			])
-			->setInject(TRUE);
+			])->addTag(Nette\DI\Extensions\InjectExtension::TAG_INJECT);
 
 		foreach (['useTitle' => ['enableTitle', 'disableTitle'], 'useOverlay' => ['enableOverlay', 'disableOverlay']] as $parameter => $commands) {
-			if ($config[$parameter] === TRUE) {
-				$control->addSetup('$service->' . $commands[0] . '(?)', [$config[$parameter]]);
+			if ($config->$parameter === TRUE) {
+				$control->addSetup('$service->' . $commands[0] . '(?)', [$config->$parameter]);
 			} else {
-				$control->addSetup('$service->' . $commands[1] . '(?)', [$config[$parameter]]);
+				$control->addSetup('$service->' . $commands[1] . '(?)', [$config->$parameter]);
 			}
 		}
 
-		if ($config['templateFile']) {
-			$control->addSetup('$service->setTemplateFile(?)', [$config['templateFile']]);
+		if ($config->templateFile) {
+			$control->addSetup('$service->setTemplateFile(?)', [$config->templateFile]);
 		}
 
 		// Extension events
