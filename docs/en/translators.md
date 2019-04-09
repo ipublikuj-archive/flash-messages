@@ -2,7 +2,7 @@
 
 If you are using translator, then you can pass untranslated strings into this extensions, and it will automatically translate them into right phrase.
 
-> NOTE: This extension have native support of [Kdyby/Translation](https://github.com/Kdyby/Translation)
+> NOTE: We suggest use [Contributte/Translation](https://github.com/contributte/translation)
 
 For translations, there are additional parameters, because you may need to change phrase according to count or replace some parameters.
 
@@ -18,7 +18,11 @@ $this->flashNotifier->message('Message text to display info about %replaceItWith
 
 Translator will translate you message with depending on the *$count* variable and replace placeholders with defined parameters.
 
-If you are using Kdyby/Translation you can pass [Kdyby\Translation\Phrase](https://github.com/Kdyby/Translation/blob/master/src/Kdyby/Translation/Phrase.php) object as message.
+If you are using Contributte/Translation you can pass [domain.message.string](https://github.com/contributte/translation/tree/master/.docs) as message or u must put:
+```php
+'Message text to display info about %replaceItWithSomething%'
+```
+in [default domain file](https://github.com/contributte/translation/tree/master/.docs#neon)
 
 ## More
 

@@ -1,3 +1,5 @@
+"Message text to display info about %replaceItWithSomething%": "Message text to display info about %replaceItWithSomething%"
 test:
     hello: "Hello"
     title: "Title"
+    messageWithParam: "Message with param %name%"

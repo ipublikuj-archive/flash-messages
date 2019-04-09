@@ -235,12 +235,33 @@ class NotifierTest extends Tester\TestCase
 		Assert::same('Hello', $flash->getMessage());
 		Assert::same('Title', $flash->getTitle());
 
+		$flash = $this->notifier->setMessage('messages.test.messageWithParam', Entities\IMessage::LEVEL_SUCCESS, null, null, ['name' => 'Name']);
+		Assert::true($flash instanceof Entities\IMessage);
+		Assert::same('Message with param Name', $flash->getMessage());
+		Assert::null($flash->getTitle());
+
+		$flash = $this->notifier->setMessage('Message text to display info about %replaceItWithSomething%', Entities\IMessage::LEVEL_SUCCESS, null, null, ['replaceItWithSomething' => 'Name']);
+		Assert::true($flash instanceof Entities\IMessage);
+		Assert::same('Message text to display info about Name', $flash->getMessage());
+		Assert::null($flash->getTitle());
+
 		$this->translator->setLocale('cs');
 
 		$flash = $this->notifier->setMessage('messages.test.hello', Entities\IMessage::LEVEL_SUCCESS, 'messages.test.title');
 		Assert::true($flash instanceof Entities\IMessage);
 		Assert::same('Ahoj', $flash->getMessage());
 		Assert::same('Titulek', $flash->getTitle());
+
+		$flash = $this->notifier->setMessage('messages.test.messageWithParam', Entities\IMessage::LEVEL_SUCCESS, null, null, ['name' => 'Name']);
+		Assert::true($flash instanceof Entities\IMessage);
+		Assert::same('Zpráva s parametrem Name', $flash->getMessage());
+		Assert::null($flash->getTitle());
+
+		$flash = $this->notifier->setMessage('Message text to display info about %replaceItWithSomething%', Entities\IMessage::LEVEL_SUCCESS, null, null, ['replaceItWithSomething' => 'Name']);
+		Assert::true($flash instanceof Entities\IMessage);
+		Assert::same('Zobrazení zprávy od Name', $flash->getMessage());
+		Assert::null($flash->getTitle());
+
 	}
 
 	/**
