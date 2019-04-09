@@ -40,7 +40,6 @@ final class FlashMessagesExtension extends DI\CompilerExtension
 	public function getConfigSchema(): Schema
 	{
 		return Expect::structure([
-			'vat' => Expect::bool(true),
 			'useOverlay' => Expect::bool(false),
 			'templateFile' => Expect::string(),
 			'useTranslator' => Expect::bool(false),
