@@ -1,3 +1,5 @@
+"Message text to display info about %replaceItWithSomething%": "Zobrazení zprávy od %replaceItWithSomething%"
 test:
     hello: "Ahoj"
     title: "Titulek"
+    messageWithParam: "Zpráva s parametrem %name%"
