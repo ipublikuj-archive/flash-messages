@@ -1,8 +1,8 @@
 # Flash Messages
 
-[![Build Status](https://img.shields.io/travis/ipublikuj-ui/flash-messages.svg?style=flat-square)](https://travis-ci.org/iPublikuj/flash-messages)
-[![Scrutinizer Code Coverage](https://img.shields.io/scrutinizer/coverage/g/ipublikuj-ui/flash-messages.svg?style=flat-square)](https://scrutinizer-ci.com/g/iPublikuj/flash-messages/?branch=master)
-[![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/ipublikuj-ui/flash-messages.svg?style=flat-square)](https://scrutinizer-ci.com/g/iPublikuj/flash-messages/?branch=master)
+[![Build Status](https://img.shields.io/travis/ipublikuj-ui/flash-messages.svg?style=flat-square)](https://travis-ci.org/ipublikuj-ui/flash-messages)
+[![Scrutinizer Code Coverage](https://img.shields.io/scrutinizer/coverage/g/ipublikuj-ui/flash-messages.svg?style=flat-square)](https://scrutinizer-ci.com/g/ipublikuj-ui/flash-messages/?branch=master)
+[![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/ipublikuj-ui/flash-messages.svg?style=flat-square)](https://scrutinizer-ci.com/g/ipublikuj-ui/flash-messages/?branch=master)
 [![Latest Stable Version](https://img.shields.io/packagist/v/ipub/flash-messages.svg?style=flat-square)](https://packagist.org/packages/ipub/flash-messages)
 [![Composer Downloads](https://img.shields.io/packagist/dt/ipub/flash-messages.svg?style=flat-square)](https://packagist.org/packages/ipub/flash-messages)
 [![License](https://img.shields.io/packagist/l/ipub/flash-messages.svg?style=flat-square)](https://packagist.org/packages/ipub/flash-messages)
